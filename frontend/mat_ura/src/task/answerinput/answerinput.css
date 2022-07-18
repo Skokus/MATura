@@ -1,0 +1,24 @@
+input[type=text] {
+    width: 90%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+button {
+    width: 10%;
+    padding: 14px 10px;
+    background-color: green;
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+
+div#bottom {
+    position: fixed;
+    bottom: 0;
+  
+    /* And if you want the div to be full-width: */
+    left: 0;
+    right: 0;
+}

@@ -1,0 +1,22 @@
+{
+    "id": 1,
+    "question": "W ciągu arytmetycznym trzeci wyraz jest równy 14, a jedenasty jest równy 34. Różnica tego ciągu jest równa:",
+    "steps": [
+        {
+            "content": "Ile wynosi różnica między wyrazem jedenastym a trzecim?",
+            "answer": 2.5
+        },
+        {
+            "content": "Ile wyrazów znajduje się między wyrazem trzecim a jedenastym?",
+            "answer": 8
+        },
+        {
+            "content": "Ile różnic jest między wyrazem trzecim a jedenastym?",
+            "answer": 8
+        },
+        {
+            "content": "Ile wynosi różnica podanego ciągu arytmetycznego?",
+            "answer": 2.5
+        }
+    ]
+}
