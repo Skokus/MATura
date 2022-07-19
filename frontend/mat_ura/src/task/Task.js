@@ -1,42 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import Step from './step/Step'
 import AnswerInput from "./answerinput/AnswerInput";
-import * as task from '../zadanie.json';
-import { withRouter } from 'react-router-dom'
-class StepList extends React.Component{
-    
-    constructor(props) {
-        super(props);
-        var thistask = task;
-        this.state = {
-            task: thistask,
-            stepcounter: 0,
-            stepCompletion: new Array(Object.keys(thistask.steps).length).fill("basic")
-        };
-        this.state.stepCompletion[0] = "beingDone"
-    }
+import * as jsontask from './zadanie.json';
 
-    handleClick = (answerValue) => {
-        if(answerValue == this.state.task.steps[this.state.stepcounter].answer){
-            var sc = this.state.stepcounter;
-            var completioncopy = this.state.stepCompletion;
-            completioncopy[sc] = "done"
-            completioncopy[sc+1] = "beingDone"
-            this.setState({stepcounter: sc+1, stepCompletion: completioncopy})
+function Task(props){
+
+    const [task, setTask] = useState(jsontask);
+    var sc = new Array(Object.keys(task.steps).length).fill("basic");
+    sc[0] = "beingDone"
+    const [stepcounter, setStepCounter] = useState(0);
+    const [stepCompletion, setStepCompletion] = useState(sc);
+
+    function handleClick(answerValue){
+        if(answerValue == task.steps[stepcounter].answer){
+            var sc = stepcounter;
+            var completioncopy = stepCompletion;
+            completioncopy[sc] = "done";
+            completioncopy[sc+1] = "beingDone";
+            setStepCounter(sc+1);
+            setStepCompletion(completioncopy);
         }
-        console.log("lmao")
     }
 
-    render(){
-        return(
-            <div>
-                {this.state.task.steps.map((step,index) => (
-                    <Step answer={step.answer} completion={this.state.stepCompletion[index]} stepContent={step.content}/>
-                ))}
-                <AnswerInput handleClick={this.handleClick}/>
-            </div>
-        );
-    }
+    return(
+        <div>
+            {task.steps.map((step ,index) => (
+                <Step answer={step.answer} completion={stepCompletion[index]} stepContent={step.content}/>
+            ))}
+            <AnswerInput handleClick={handleClick}/>
+        </div>
+    );
 }
 
-export default StepList;
+export default Task;
