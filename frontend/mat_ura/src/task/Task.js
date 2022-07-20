@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Step from './step/Step'
 import AnswerInput from "./answerinput/AnswerInput";
 import * as jsontask from './zadanie.json';
 
 function Task(props){
 
-    const [task, setTask] = useState(jsontask);
-    var sc = new Array(Object.keys(task.steps).length).fill("basic");
-    sc[0] = "beingDone"
+    const [task] = useState(jsontask);
     const [stepcounter, setStepCounter] = useState(0);
-    const [stepCompletion, setStepCompletion] = useState(sc);
+    const [stepCompletion, setStepCompletion] = useState(new Array(Object.keys(task.steps).length).fill("beingDone", 0, 1).fill("basic", 1));
 
     function handleClick(answerValue){
-        if(answerValue == task.steps[stepcounter].answer){
+        if(Number(answerValue) === task.steps[stepcounter].answer){
             var sc = stepcounter;
             var completioncopy = stepCompletion;
             completioncopy[sc] = "done";
