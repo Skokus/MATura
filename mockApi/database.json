@@ -22,5 +22,11 @@
 				}
 			]
 		}
+	],
+	"kategorie": [
+		"Ciągi",
+		"Funkcje kwadratowe",
+		"Logika",
+		"Prawdopodobieństwo"
 	]
 }
