@@ -18,18 +18,24 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @PostMapping("/categories")
-    public ResponseEntity<Category> saveCategory(@RequestBody Category category){
-        return new ResponseEntity<>(categoryRepository.save(category), HttpStatus.CREATED);
+    @RequestMapping (value = "/categories", method = RequestMethod.POST)
+    public ResponseEntity<Category> saveCategory(@RequestBody CategoryDto categoryDto){
+        return new ResponseEntity<>(categoryRepository.save(new Category(categoryDto.getName())), HttpStatus.CREATED);
     }
 
-    @GetMapping("/categories")
+    @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public List<Category> getAllCategories(){
         return categoryRepository.findAll();
     }
 
-    @GetMapping("/categories/{id}")
+    @RequestMapping(value = "/categories/{id}", method = RequestMethod.GET)
     public Optional<Category> getCategoryById(@PathVariable String id){
         return categoryRepository.findById(id);
+    }
+
+    @RequestMapping(value = "/categories/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteCategory(@PathVariable String id){
+        categoryRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

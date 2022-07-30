@@ -7,6 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CategoryDto {
     private String name;
 
+    public CategoryDto(){
+
+    }
+
     public CategoryDto(String name) {
         this.name = name;
     }
