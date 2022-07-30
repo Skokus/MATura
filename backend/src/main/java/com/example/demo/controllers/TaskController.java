@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "tasks")
 public class TaskController {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
     private TaskRepository taskRepository;
-
-    @RequestMapping(value = "/categories/{categoryName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/tasks/{categoryName}", method = RequestMethod.POST)
     public ResponseEntity<Category> saveTask(@RequestBody Task task, @PathVariable String categoryName){
         Category c = categoryRepository.findByName(categoryName);
         Task t = taskRepository.save(task);
