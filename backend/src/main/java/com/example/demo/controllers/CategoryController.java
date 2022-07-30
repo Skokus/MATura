@@ -33,6 +33,11 @@ public class CategoryController {
         return categoryRepository.findById(id);
     }
 
+    @RequestMapping(value = "/categories/name/{name}", method = RequestMethod.GET)
+    public Category getCategoryByName(@PathVariable String name){
+        return categoryRepository.findByName(name);
+    }
+
     @RequestMapping(value = "/categories/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteCategory(@PathVariable String id){
         categoryRepository.deleteById(id);

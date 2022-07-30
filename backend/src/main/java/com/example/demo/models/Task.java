@@ -20,6 +20,10 @@ public class Task {
         this.steps = new ArrayList<Step>();
     }
 
+    public Task(){
+
+    }
+
     public String getId() {
         return id;
     }
