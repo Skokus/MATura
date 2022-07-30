@@ -4,6 +4,9 @@ import com.example.demo.dto.CategoryDto;
 import com.example.demo.models.Category;
 import com.example.demo.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,11 +19,8 @@ public class CategoryController {
     private CategoryRepository categoryRepository;
 
     @PostMapping("/categories")
-    public String saveCategory(@RequestBody CategoryDto categoryDto){
-        Category category = new Category(categoryDto.getName());
-        System.out.println(category.getName());
-        categoryRepository.save(category);
-        return "Added new category: " + category;
+    public ResponseEntity<Category> saveCategory(@RequestBody Category category){
+        return new ResponseEntity<>(categoryRepository.save(category), HttpStatus.CREATED);
     }
 
     @GetMapping("/categories")

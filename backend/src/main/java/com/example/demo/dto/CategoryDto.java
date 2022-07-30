@@ -1,7 +1,11 @@
 package com.example.demo.dto;
 
+import lombok.ToString;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@ToString
 public class CategoryDto {
-    String name;
+    private String name;
 
     public CategoryDto(String name) {
         this.name = name;
