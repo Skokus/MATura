@@ -48,6 +48,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/names", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:3000")
     @Operation(summary = "Get categories' names")
     public List<String> getCategoryNames(){
         List<Category> categories = categoryRepository.findAll();
