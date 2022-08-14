@@ -7,19 +7,12 @@ function Categories(props){
 
     useEffect(() => {
         const getCategories = async () => {
-            const categories = await fetchCategories();
+            const res = await fetch('http://localhost:8080/categories/names', getRequestOptions())
+            const categories = await res.json()
             setCategory(categories);
         }
-
         getCategories();
     },[]);
-    
-    const fetchCategories = async () => {
-        const res = await fetch('http://localhost:8080/categories/names', getRequestOptions())
-        const data = await res.json()
-    
-        return data
-    }
     
     function getRequestOptions() {
         return {
@@ -32,8 +25,8 @@ function Categories(props){
 
     return(
         <div>
-            {categories.map(() => (
-                <Category/>
+            {categories.map((category) => (
+                <Category name={category}/>
             ))}
         </div>
     );

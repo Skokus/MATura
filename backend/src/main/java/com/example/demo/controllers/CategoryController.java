@@ -2,11 +2,11 @@ package com.example.demo.controllers;
 
 import com.example.demo.dto.CategoryDto;
 import com.example.demo.models.Category;
+import com.example.demo.models.Task;
 import com.example.demo.repositories.CategoryRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,11 +52,22 @@ public class CategoryController {
     @Operation(summary = "Get categories' names")
     public List<String> getCategoryNames(){
         List<Category> categories = categoryRepository.findAll();
-        List<String> names = new ArrayList<String>();
+        List<String> names = new ArrayList<>();
         for(Category c : categories){
             names.add(c.getName());
         }
         return names;
+    }
+
+    @RequestMapping(value = "/{name}/numberOfTasks", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:3000")
+    @Operation(summary = "Get number of tasks in category")
+    public int getNumberOfTasks(@PathVariable String name){
+        Category c = categoryRepository.findByName(name);
+        if(c != null){
+            return c.getTasks().size();
+        }
+        return 0;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
