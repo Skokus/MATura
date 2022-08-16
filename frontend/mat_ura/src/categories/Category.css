@@ -1,0 +1,25 @@
+img {
+    width: 100px;
+}
+
+.inline{
+    display:inline-block;
+}
+
+img{
+    margin:10px;
+    display: inline-block;
+}
+
+h2{
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+.category{
+    border: 4px solid rgb(3, 175, 75);
+    border-radius: 5px;
+    margin: 10px;
+    display: inline-block;
+}
