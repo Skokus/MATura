@@ -14,7 +14,7 @@ function Category(props){
                 <h2>{props.name}</h2><br></br>
                 <ProgressBar now={60}/>
             </div>
-            <Link to={"/categories/" + props.name}> Go to about</Link>
+            <Link to={"/categories/" + props.name}>Go to about</Link>
         </div>
     );
 }

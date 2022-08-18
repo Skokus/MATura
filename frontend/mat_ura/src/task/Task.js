@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Step from './step/Step'
 import AnswerInput from "./answerinput/AnswerInput";
 import * as jsontask from './zadanie.json';
+import {useParams} from "react-router-dom";
 
-function Task(props){
+function Task(){
 
-    const [task] = useState(jsontask);
+    const [task, setTask] = useState(jsontask);
     const [stepcounter, setStepCounter] = useState(0);
     const [stepCompletion, setStepCompletion] = useState(new Array(Object.keys(task.steps).length).fill("beingDone", 0, 1).fill("basic", 1));
+    const {categoryName, numberInCategory} = useParams();
+
+    useEffect(() => {
+        const getTask = async () => {
+            const res = await fetch("http://localhost:8080/tasks/" + categoryName + "/" + numberInCategory, getRequestOptions())
+            const restask = await res.json()
+            setTask(restask);
+        }
+        getTask();
+    },[]);
 
     function handleClick(answerValue){
         if(Number(answerValue) === task.steps[stepcounter].answer){
@@ -20,9 +31,18 @@ function Task(props){
         }
     }
 
+    function getRequestOptions() {
+        return {
+            method: 'GET',
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            }
+        }
+    }
+
     return(
         <div>
-            {task.steps.map((step ,index) => (
+            {task.steps.map((step,index) => (
                 <Step answer={step.answer} completion={stepCompletion[index]} stepContent={step.content}/>
             ))}
             <AnswerInput handleClick={handleClick}/>

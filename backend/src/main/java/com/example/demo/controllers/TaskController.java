@@ -39,6 +39,7 @@ public class TaskController {
         return taskRepository.findById(id);
     }
     @RequestMapping(value = "/{categoryName}/{id}", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:3000")
     @Operation(summary = "Get task by placement in category")
     public Task getTaskByNumberInCategory(@PathVariable String categoryName, @PathVariable int id){
         Category c = categoryRepository.findByName(categoryName);
