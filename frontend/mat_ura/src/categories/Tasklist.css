@@ -1,7 +1,12 @@
 .text-link{
     padding: 20px;
+    margin: 20px;
+    background-color: rgb(83, 196, 111);
+    color: white;
 }
 
 .text-link:hover {
     background-color: rgb(0, 133, 33);
+    text-decoration: none;
+    color: white;
 }

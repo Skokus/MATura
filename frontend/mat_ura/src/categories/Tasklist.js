@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import {Link} from "react-router-dom";
 import "./Tasklist.css"
 
-function Tasklist(props){
+function Tasklist(){
 
     const [tasks, setTasks] = useState([]);
     const {categoryName} = useParams();
@@ -28,7 +28,8 @@ function Tasklist(props){
 
     return(
         <div>
-            {Array.from(Array(tasks)).map((el, index) => (<Link className="text-link" to={"/categories/" + categoryName + "/" + index}>{index}</Link>))}
+            <h2>{categoryName}</h2>
+            {Array.from(Array(tasks)).map((el, index) => (<Link id={"tasklink-" + categoryName + "-" + index} className="text-link" to={"/categories/" + categoryName + "/" + index}>{index}</Link>))}
         </div>
     );
 }
