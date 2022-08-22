@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Category from './Category';
+import CategoryNavbar from './CategoryNavbar';
 
 function Categories(props){
 

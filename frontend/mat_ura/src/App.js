@@ -3,17 +3,19 @@ import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Categories from './categories/Categories';
 import Tasklist from './categories/Tasklist';
+import CategoryNavbar from './categories/CategoryNavbar';
+import AboutPage from './aboutpage/AboutPage';
 
 function App() {
   return (
     <div>
-      <Router>
+        <CategoryNavbar/>
         <Routes>
           <Route index element={<Categories/>}/>
-          <Route path="categories/:categoryName/:numberInCategory" element={<Task task="./zadanie.json"/>}/>
+          <Route path="/about" element={<AboutPage/>}/>
+          <Route path="categories/:categoryName/:numberInCategory" element={<Task/>}/>
           <Route path="categories/:categoryName" element={<Tasklist/>}/>
         </Routes>
-      </Router>
     </div>
   );
 }

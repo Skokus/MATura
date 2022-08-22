@@ -28,7 +28,7 @@ function Tasklist(){
 
     return(
         <div>
-            <h2>{categoryName}</h2>
+            <h3>{categoryName}</h3><br></br>
             {Array.from(Array(tasks)).map((el, index) => (<Link id={"tasklink-" + categoryName + "-" + index} className="text-link" to={"/categories/" + categoryName + "/" + index}>{index}</Link>))}
         </div>
     );
