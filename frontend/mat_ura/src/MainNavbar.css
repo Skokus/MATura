@@ -1,0 +1,30 @@
+.mainNavbar{
+    background-color: rgb(54, 54, 54);
+    padding:0;
+    margin:0;
+}
+
+.mainNavbarLink{
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    font-size: 30px;
+    padding: 0px 10px;
+}
+
+.mainNavbarLink:hover{
+    text-decoration: none;
+    color: white;
+    background-color: rgb(71, 71, 71);
+}
+
+.mainNavbarLink:visited{
+    text-decoration: none;
+    color: white;
+    background-color: rgb(71, 71, 71);
+}
+
+.mainNavbar:active{
+    color: white;
+    text-decoration: none;
+}
