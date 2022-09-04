@@ -52,20 +52,15 @@ public class CategoryController {
     @CrossOrigin(origins = "http://localhost:3000")
     @Operation(summary = "Get categories' names")
     public ResponseEntity<List<String>> getCategoryNames() {
-        List<Category> categories = categoryService.getAllCategories();
-        List<String> names = new ArrayList<>();
-        for (Category c : categories) {
-            names.add(c.getName());
-        }
-        return new ResponseEntity<>(names, HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.getCategoryNames(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{name}/numberOfTasks", method = RequestMethod.GET)
     @CrossOrigin(origins = "http://localhost:3000")
     @Operation(summary = "Get number of tasks in category")
     public ResponseEntity<Integer> getNumberOfTasks(@PathVariable String name) {
-        Category c = categoryService.getCategoryByName(name);
-        return new ResponseEntity<>(c.getTasks().size(), HttpStatus.OK);
+        int n = categoryService.getNumberOfTasks(name);
+        return new ResponseEntity<>(n, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -79,16 +74,16 @@ public class CategoryController {
     @Operation(summary = "Save task in category", responses = {
             @ApiResponse(description = "Task saved in category", responseCode = "201")
     })
-    public ResponseEntity<Category> saveTask(@RequestBody Task task, @PathVariable String categoryName) {
-        Category c = categoryService.saveCategory(categoryName);
-        return new ResponseEntity<>(c, HttpStatus.CREATED);
+    public ResponseEntity<Task> saveTask(@RequestBody Task task, @PathVariable String categoryName) {
+        Task t = categoryService.addTaskToCategory(task, categoryName);
+        return new ResponseEntity<>(t, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{categoryName}/{id}", method = RequestMethod.GET)
     @CrossOrigin(origins = "http://localhost:3000")
     @Operation(summary = "Get task by placement in category")
     public ResponseEntity<Task> getTaskByNumberInCategory(@PathVariable String categoryName, @PathVariable int id) {
-        Category c = categoryService.getCategoryByName(categoryName);
-        return new ResponseEntity<>(c.getTasks().get(id), HttpStatus.OK);
+        Task t = categoryService.getTaskByPlaceInCategory(categoryName, id);
+        return new ResponseEntity<>(t, HttpStatus.OK);
     }
 }
