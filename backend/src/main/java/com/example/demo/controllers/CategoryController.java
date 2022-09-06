@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.dto.RestAddCategoryRequest;
 import com.example.demo.models.Category;
 import com.example.demo.models.Task;
 import com.example.demo.repositories.CategoryRepository;
@@ -26,8 +27,8 @@ public class CategoryController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Operation(summary = "Save category")
-    public ResponseEntity<Category> saveCategory(@RequestBody String categoryName) {
-        return new ResponseEntity<>(categoryService.saveCategory(categoryName), HttpStatus.CREATED);
+    public ResponseEntity<Category> saveCategory(@RequestBody RestAddCategoryRequest addCategoryRequest) {
+        return new ResponseEntity<>(categoryService.saveCategory(addCategoryRequest.getName()), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
