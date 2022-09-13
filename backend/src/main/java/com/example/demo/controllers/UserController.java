@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.dto.RestRegisterUserRequest;
 import com.example.demo.models.User;
 import com.example.demo.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +24,13 @@ public class UserController {
     @Operation(summary = "Create user")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @Operation(summary = "Register user")
+    public ResponseEntity createUser(@RequestBody RestRegisterUserRequest request) {
+        userService.registerUser(request);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)

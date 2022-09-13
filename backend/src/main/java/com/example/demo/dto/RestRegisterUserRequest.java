@@ -6,7 +6,8 @@ import lombok.Setter;
 
 @RequiredArgsConstructor
 @Getter @Setter
-public class RestLoginRequest {
-    private String username;
-    private String password;
+public class RestRegisterUserRequest {
+    String username;
+    String password;
+    String email;
 }

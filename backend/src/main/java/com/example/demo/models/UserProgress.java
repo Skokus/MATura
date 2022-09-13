@@ -1,7 +1,10 @@
 package com.example.demo.models;
 
+import lombok.Data;
+
 import java.util.*;
 
+@Data
 public class UserProgress {
     List<CategoryProgress> userProgress;
 

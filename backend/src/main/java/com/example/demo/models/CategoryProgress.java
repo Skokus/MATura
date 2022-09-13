@@ -1,9 +1,12 @@
 package com.example.demo.models;
 
+import lombok.Data;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+@Data
 public class CategoryProgress {
     private HashMap<String, Boolean> categoryAnswers;
     private String name;

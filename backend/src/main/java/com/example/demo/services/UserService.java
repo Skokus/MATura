@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
+import com.example.demo.dto.RestRegisterUserRequest;
 import com.example.demo.models.User;
+import com.example.demo.repositories.CategoryRepository;
 import com.example.demo.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,11 +24,12 @@ import java.util.List;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUsername(username);
-        if(user == null){
+        Optional<User> user = userRepository.findUserByUsername(username);
+        if(user.isEmpty()){
             log.error("User not found");
             throw new UsernameNotFoundException("User not found");
         } else {
@@ -33,7 +37,12 @@ public class UserService implements UserDetailsService {
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), authorities);
+    }
+
+    public void registerUser(RestRegisterUserRequest r){
+        User user = new User(r.getEmail(), r.getUsername(), r.getPassword(), "ROLE_USER", categoryRepository.findAll());
+        userRepository.save(user);
     }
 
     public User saveUser(User u){
@@ -43,7 +52,12 @@ public class UserService implements UserDetailsService {
     }
 
     public User getUserByUsername(String username){
-        return userRepository.findUserByUsername(username);
+        Optional<User> user = userRepository.findUserByUsername(username);
+        if(user.isEmpty()){
+            log.error("User not found");
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user.get();
     }
 
     public List<User> getUsers(){

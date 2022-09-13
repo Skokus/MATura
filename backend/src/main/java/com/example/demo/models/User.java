@@ -3,6 +3,8 @@ package com.example.demo.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "users")
 public class User {
 
@@ -22,12 +24,12 @@ public class User {
 
     }
 
-    public User(String email, String username, String password, String role){
+    public User(String email, String username, String password, String role, List<Category> categoryList){
         this.email = email;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.userProgress = new UserProgress();
+        this.userProgress = new UserProgress(categoryList);
     }
 
     public String getEmail() {
