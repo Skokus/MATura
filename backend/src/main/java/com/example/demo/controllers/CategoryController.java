@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.RestAddCategoryRequest;
+import com.example.demo.dto.RestAddTaskRequest;
+import com.example.demo.mappers.TaskMapper;
 import com.example.demo.models.Category;
 import com.example.demo.models.Task;
 import com.example.demo.repositories.CategoryRepository;
@@ -9,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +27,6 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
-
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Operation(summary = "Save category")
     public ResponseEntity<Category> saveCategory(@RequestBody RestAddCategoryRequest addCategoryRequest) {
@@ -75,8 +77,10 @@ public class CategoryController {
     @Operation(summary = "Save task in category", responses = {
             @ApiResponse(description = "Task saved in category", responseCode = "201")
     })
-    public ResponseEntity<Task> saveTask(@RequestBody Task task, @PathVariable String categoryName) {
-        Task t = categoryService.addTaskToCategory(task, categoryName);
+    public ResponseEntity<Task> saveTask(@RequestBody RestAddTaskRequest task, @PathVariable String categoryName) {
+        Task t = addTaskRequestToTask(task);
+        t.setId(new ObjectId().toString());
+        categoryService.addTaskToCategory(t, categoryName);
         return new ResponseEntity<>(t, HttpStatus.CREATED);
     }
 
@@ -86,5 +90,12 @@ public class CategoryController {
     public ResponseEntity<Task> getTaskByNumberInCategory(@PathVariable String categoryName, @PathVariable int id) {
         Task t = categoryService.getTaskByPlaceInCategory(categoryName, id);
         return new ResponseEntity<>(t, HttpStatus.OK);
+    }
+
+    private Task addTaskRequestToTask(RestAddTaskRequest request){
+        return Task.builder()
+                .question(request.getQuestion())
+                .steps(request.getSteps())
+                .build();
     }
 }

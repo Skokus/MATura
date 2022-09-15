@@ -17,7 +17,7 @@ public class CategoryProgress {
     public CategoryProgress(Category category){
         HashMap<String, Boolean> answers = new HashMap<>();
         for(Task t : category.getTasks()){
-            answers.put(t.getId(), false);
+            answers.put(t.getId().toString(), false);
         }
         this.categoryAnswers = answers;
         this.name = category.getName();
