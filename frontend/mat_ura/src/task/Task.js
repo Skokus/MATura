@@ -13,7 +13,7 @@ function Task(){
 
     useEffect(() => {
         const getTask = async () => {
-            const res = await fetch("http://localhost:8080/categories/" + categoryName + "/" + numberInCategory, getRequestOptions())
+            const res = await fetch("http://localhost:8080/api/categories/" + categoryName + "/" + numberInCategory, getRequestOptions())
             const restask = await res.json()
             setTask(restask);
             setStepCompletion(new Array(Object.keys(await restask.steps).length).fill("beingDone", 0, 1).fill("basic", 1));

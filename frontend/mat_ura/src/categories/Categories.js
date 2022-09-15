@@ -7,7 +7,7 @@ function Categories(props){
 
     useEffect(() => {
         const getCategories = async () => {
-            const res = await fetch('http://localhost:8080/categories/names', getRequestOptions())
+            const res = await fetch('http://localhost:8080/api/categories/names', getRequestOptions())
             const categories = await res.json()
             setCategory(categories);
         }

@@ -42,6 +42,8 @@ public class UserService implements UserDetailsService {
 
     public void registerUser(RestRegisterUserRequest r){
         User user = new User(r.getEmail(), r.getUsername(), r.getPassword(), "ROLE_USER", categoryRepository.findAll());
+        user.setPassword(passwordEncoder.encode(r.getPassword()));
+        log.info("New user registered: {}", r.getUsername());
         userRepository.save(user);
     }
 

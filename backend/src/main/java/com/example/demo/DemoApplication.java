@@ -13,14 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class DemoApplication {
 
-	@Autowired
-	CategoryService categoryService;
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Bean
-	BCryptPasswordEncoder passwordEncoder(){
-		return new BCryptPasswordEncoder();
-	}
 }

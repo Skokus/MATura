@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @Tag(name = "CategoriesController")
-@RequestMapping(value = "/categories")
+@RequestMapping(value = "/api/categories")
 @RequiredArgsConstructor
 public class CategoryController {
 

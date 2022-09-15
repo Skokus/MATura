@@ -22,7 +22,16 @@ public class UserProgressService {
         if(user.isEmpty()){
             throw new UserNotFoundException("User: " + userName + "not found.");
         }
-        System.out.print(user.get().getUserProgress() == null);
         return user.get().getUserProgress();
+    }
+
+    public void markTaskAsDone(String userName, String id, String category){
+        Optional<User> user = userRepository.findUserByUsername(userName);
+        if(user.isEmpty()){
+            throw new UserNotFoundException("User: " + userName + "not found.");
+        }
+        user.get().getUserProgress().markTaskAsDone(id, category);
+        log.info("User {} did task {} in category {}", userName, id, category);
+        userRepository.save(user.get());
     }
 }

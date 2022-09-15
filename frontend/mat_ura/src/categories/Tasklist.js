@@ -10,7 +10,7 @@ function Tasklist(){
 
     useEffect(() => {
         const getNumberOfTasks = async () => {
-            const res = await fetch("http://localhost:8080/categories/" + categoryName + "/numberOfTasks", getRequestOptions())
+            const res = await fetch("http://localhost:8080/api/categories/" + categoryName + "/numberOfTasks", getRequestOptions())
             const numberOfTasks = await res.json()
             setTasks(numberOfTasks);
         }

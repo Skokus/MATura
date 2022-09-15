@@ -19,8 +19,7 @@ import java.util.Optional;
 @Slf4j
 public class CategoryService {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public Category saveCategory(String name){
         if(categoryRepository.findByName(name) != null) {
@@ -96,6 +95,7 @@ public class CategoryService {
             throw new CategoryNotFoundException("Category does not exist");
         }
         c.getTasks().add(t);
+        categoryRepository.save(c);
         log.info("Adding task to category {}.", categoryName);
         return t;
     }
