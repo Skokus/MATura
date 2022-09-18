@@ -6,14 +6,11 @@ import com.example.demo.exceptions.CategoryNotFoundException;
 import com.example.demo.exceptions.TaskDoesNotExistException;
 import com.example.demo.models.Category;
 import com.example.demo.models.Task;
-import com.example.demo.repositories.CategoryRepository;
 import com.example.demo.services.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +25,7 @@ import java.util.List;
 public class CategoryController {
 
     private final CategoryService categoryService;
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Operation(summary = "Save category")
     public ResponseEntity<Category> saveCategory(@RequestBody RestAddCategoryRequest addCategoryRequest) {
@@ -46,10 +44,10 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getCategoryById(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/names/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/names/{categoryName}", method = RequestMethod.GET)
     @Operation(summary = "Get category by name")
-    public ResponseEntity<Category> getCategoryByName(@PathVariable String name) {
-        return new ResponseEntity<>(categoryService.getCategoryByName(name), HttpStatus.OK);
+    public ResponseEntity<Category> getCategoryByName(@PathVariable String categoryName) {
+        return new ResponseEntity<>(categoryService.getCategoryByName(categoryName), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/names", method = RequestMethod.GET)
@@ -94,19 +92,20 @@ public class CategoryController {
 
     @RequestMapping(value = "/{categoryName}/{id}", method = RequestMethod.DELETE)
     @Operation(summary = "Delete task by id")
-    public ResponseEntity<Void> deleteTaskById(@PathVariable String categoryName, @PathVariable String id){
-        try{
+    public ResponseEntity<Void> deleteTaskById(@PathVariable String categoryName, @PathVariable String id) {
+        try {
             categoryService.removeTaskFromCategory(id, categoryName);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (CategoryNotFoundException | TaskDoesNotExistException e){
+        } catch (CategoryNotFoundException | TaskDoesNotExistException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    private Task addTaskRequestToTask(RestAddTaskRequest request){
+    private Task addTaskRequestToTask(RestAddTaskRequest request) {
         return Task.builder()
                 .question(request.getQuestion())
                 .steps(request.getSteps())
+                .tips(request.getTips())
                 .build();
     }
 }

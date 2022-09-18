@@ -10,4 +10,5 @@ import java.util.List;
 public class RestAddTaskRequest {
     private String question;
     private List<Step> steps;
+    private List<String> tips;
 }
