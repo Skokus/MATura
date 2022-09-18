@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {useParams} from "react-router-dom";
 import {Link} from "react-router-dom";
+import { getNumberOfTasks } from '../api/CategoryService';
 import "./Tasklist.css"
 
 function Tasklist(){
@@ -9,12 +10,11 @@ function Tasklist(){
     const {categoryName} = useParams();
 
     useEffect(() => {
-        const getNumberOfTasks = async () => {
-            const res = await fetch("http://localhost:8080/api/categories/" + categoryName + "/numberOfTasks", getRequestOptions())
-            const numberOfTasks = await res.json()
+        const fetchData = async () => {
+            var numberOfTasks = await getNumberOfTasks(categoryName);
             setTasks(numberOfTasks);
         }
-        getNumberOfTasks();
+        fetchData();
     },[]);
 
     function getRequestOptions() {

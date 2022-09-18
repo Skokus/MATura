@@ -2,11 +2,13 @@ package com.example.demo.services;
 
 import com.example.demo.exceptions.CategoryAlreadyExistsException;
 import com.example.demo.exceptions.CategoryNotFoundException;
+import com.example.demo.exceptions.TaskDoesNotExistException;
 import com.example.demo.models.Category;
 import com.example.demo.models.Task;
 import com.example.demo.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import java.util.Optional;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final UserService userService;
 
     public Category saveCategory(String name){
         if(categoryRepository.findByName(name) != null) {
@@ -94,10 +97,32 @@ public class CategoryService {
             log.error("Category {} not found.", categoryName);
             throw new CategoryNotFoundException("Category does not exist");
         }
+        if(t.getId() == null){
+            t.setId(new ObjectId().toString());
+        }
         c.getTasks().add(t);
         categoryRepository.save(c);
         log.info("Adding task to category {}.", categoryName);
         return t;
+    }
+
+    public void removeTaskFromCategory(String id, String categoryName){
+        Category c = categoryRepository.findByName(categoryName);
+        if(c == null){
+            log.error("Category {} not found.", categoryName);
+            throw new CategoryNotFoundException("Category does not exist");
+        }
+        Optional<Task> t = c.getTasks()
+                .stream()
+                .filter(e -> e.getId() != null)
+                .filter(e -> e.getId().equals(id))
+                .findFirst();
+        if(t.isEmpty()){
+            log.error("Task with id: {} not found.", id);
+            throw new TaskDoesNotExistException("Task does not exist");
+        }
+        c.getTasks().remove(t.get());
+        categoryRepository.save(c);
     }
 
     public Task getTaskByPlaceInCategory(String categoryName, int id){

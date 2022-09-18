@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Step from './step/Step'
 import AnswerInput from "./answerinput/AnswerInput";
-import * as jsontask from './zadanie.json';
 import {useParams} from "react-router-dom";
+import { getTask } from '../api/CategoryService';
 
 function Task(){
 
@@ -12,13 +12,12 @@ function Task(){
     const {categoryName, numberInCategory} = useParams();
 
     useEffect(() => {
-        const getTask = async () => {
-            const res = await fetch("http://localhost:8080/api/categories/" + categoryName + "/" + numberInCategory, getRequestOptions())
-            const restask = await res.json()
+        const fetchData = async () => {
+            var restask = await getTask(categoryName, numberInCategory);
             setTask(restask);
             setStepCompletion(new Array(Object.keys(await restask.steps).length).fill("beingDone", 0, 1).fill("basic", 1));
         }
-        getTask();
+        fetchData();
     },[]);
 
     function handleClick(answerValue){
@@ -29,15 +28,6 @@ function Task(){
             completioncopy[sc+1] = "beingDone";
             setStepCounter(sc+1);
             setStepCompletion(completioncopy);
-        }
-    }
-
-    function getRequestOptions() {
-        return {
-            method: 'GET',
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
         }
     }
 

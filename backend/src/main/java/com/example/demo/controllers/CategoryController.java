@@ -2,7 +2,8 @@ package com.example.demo.controllers;
 
 import com.example.demo.dto.RestAddCategoryRequest;
 import com.example.demo.dto.RestAddTaskRequest;
-import com.example.demo.mappers.TaskMapper;
+import com.example.demo.exceptions.CategoryNotFoundException;
+import com.example.demo.exceptions.TaskDoesNotExistException;
 import com.example.demo.models.Category;
 import com.example.demo.models.Task;
 import com.example.demo.repositories.CategoryRepository;
@@ -79,17 +80,27 @@ public class CategoryController {
     })
     public ResponseEntity<Task> saveTask(@RequestBody RestAddTaskRequest task, @PathVariable String categoryName) {
         Task t = addTaskRequestToTask(task);
-        t.setId(new ObjectId().toString());
         categoryService.addTaskToCategory(t, categoryName);
         return new ResponseEntity<>(t, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{categoryName}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{categoryName}/{index}", method = RequestMethod.GET)
     @CrossOrigin(origins = "http://localhost:3000")
     @Operation(summary = "Get task by placement in category")
-    public ResponseEntity<Task> getTaskByNumberInCategory(@PathVariable String categoryName, @PathVariable int id) {
-        Task t = categoryService.getTaskByPlaceInCategory(categoryName, id);
+    public ResponseEntity<Task> getTaskByNumberInCategory(@PathVariable String categoryName, @PathVariable int index) {
+        Task t = categoryService.getTaskByPlaceInCategory(categoryName, index);
         return new ResponseEntity<>(t, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{categoryName}/{id}", method = RequestMethod.DELETE)
+    @Operation(summary = "Delete task by id")
+    public ResponseEntity<Void> deleteTaskById(@PathVariable String categoryName, @PathVariable String id){
+        try{
+            categoryService.removeTaskFromCategory(id, categoryName);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (CategoryNotFoundException | TaskDoesNotExistException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     private Task addTaskRequestToTask(RestAddTaskRequest request){

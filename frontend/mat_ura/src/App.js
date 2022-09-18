@@ -5,6 +5,7 @@ import Categories from './categories/Categories';
 import Tasklist from './categories/Tasklist';
 import MainNavbar from './MainNavbar';
 import AboutPage from './aboutpage/AboutPage';
+import LoginPage from './loginpage/LoginPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route index element={<Categories/>}/>
           <Route path="/about" element={<AboutPage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
           <Route path="categories/:categoryName/:numberInCategory" element={<Task/>}/>
           <Route path="categories/:categoryName" element={<Tasklist/>}/>
         </Routes>
