@@ -3,6 +3,7 @@ import Step from './step/Step'
 import AnswerInput from "./answerinput/AnswerInput";
 import {useParams} from "react-router-dom";
 import { getTask } from '../api/CategoryService';
+import "./Task.css"
 
 function Task(){
 
@@ -33,6 +34,10 @@ function Task(){
 
     return(
         <div>
+            <div className="task-question">
+                <h1 className="task-question-header">Pytanie. {task ? numberInCategory : 0}</h1>
+                <h2 className="task-question-content">{task ? task.question : "loading"}</h2>
+            </div>
             {task !== undefined ? (task.steps.map((step,index) => (
                 <Step id={"step-" + index} answer={step.answer} completion={stepCompletion[index]} stepContent={step.content}/>
             ))) : console.log("haha")}
