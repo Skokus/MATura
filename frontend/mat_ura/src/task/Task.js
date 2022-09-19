@@ -10,6 +10,7 @@ function Task(){
     const [task, setTask] = useState();
     const [stepcounter, setStepCounter] = useState(0);
     const [stepCompletion, setStepCompletion] = useState([]);
+    const [tipNumber, setTipNumber] = useState(0);
     const {categoryName, numberInCategory} = useParams();
 
     useEffect(() => {
@@ -32,15 +33,34 @@ function Task(){
         }
     }
 
+    function changeTip(){
+        if(task){
+            var n = tipNumber + 1;
+            setTipNumber(n % task.tips.length);
+        }
+    }
+
     return(
         <div>
             <div className="task-question">
                 <h1 className="task-question-header">Pytanie. {task ? numberInCategory : 0}</h1>
                 <h2 className="task-question-content">{task ? task.question : "loading"}</h2>
             </div>
-            {task !== undefined ? (task.steps.map((step,index) => (
-                <Step id={"step-" + index} answer={step.answer} completion={stepCompletion[index]} stepContent={step.content}/>
-            ))) : console.log("haha")}
+            <div className="task-container">
+                <div className="task-steps">
+                    {task !== undefined ? (task.steps.map((step,index) => (
+                        <Step id={"step-" + index} answer={step.answer} completion={stepCompletion[index]} stepContent={step.content}/>
+                    ))) : console.log("haha")}
+                </div>
+                <div className="task-extras">
+                    <div className="task-extras-tips">
+                        <div className="task-extras-tips-header">Wskazówki</div>
+                        <div className="task-extras-tips-tip">{task ? task.tips[tipNumber] : "Ładuje"}</div>
+                        <button className="task-extras-tips-button" onClick={changeTip}>Następna wskazówka</button>
+                    </div>
+                </div>
+            </div>
+            
             <AnswerInput id="answerInput" handleClick={handleClick}/>
         </div>
     );

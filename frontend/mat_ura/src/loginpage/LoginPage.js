@@ -1,34 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { sendLogin } from '../api/UserService';
 
 function LoginPage(){
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    function getRequestOptions() {
-        return {
-            method: 'GET',
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        }
-    }
-
-    function logIn(e){
+    async function logIn(e){
         e.preventDefault();
-        console.log(username);
-        console.log(password);
+        var lmao = await sendLogin(username, password);
     }
 
     return(
-        <div className="Login">
+        <div className="login">
             <form onSubmit={logIn}>
-                <div className="input-container">
-                    <label>Username </label>
+                <div className="login-input-container">
+                    <label classname="login-label">Username </label>
                     <input name="username" onChange={(e) => setUsername(e.target.value)} required />
                 </div>
                 <div className="input-container">
-                    <label>Password </label>
+                    <label classname="login-label">Password </label>
                     <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} required />
                 </div>
                 <div className="button-container">

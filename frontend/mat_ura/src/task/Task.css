@@ -3,3 +3,45 @@
     padding: 0px 20px 30px 20px;
 }
 
+.task-container{
+    display: flex;
+}
+
+.task-steps{
+    width: 60%;
+    float: left;
+}
+
+.task-extras{
+    flex-flow: column;
+    display: flex;
+    flex-grow: 1;
+    height: 400px;
+}
+
+.task-extras-filler{
+    height: 200px;
+}
+
+.task-extras-tips{
+    flex-grow: 1;
+    background-color: rgb(92, 92, 92);
+    text-align: center;
+    font-weight: bold;
+}
+
+.task-extras-tips-header{
+    font-size: 30px;
+    padding: 20px 0;
+}
+
+.task-extras-tips-tip{
+    font-size: 20px;
+    padding: 20px 0;
+}
+
+.task-extras-tips-button{
+    padding: 10px;
+    width: 80%;
+    background-color: black;
+}
