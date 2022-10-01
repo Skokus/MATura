@@ -1,10 +1,10 @@
-import urls from "./apiInfo.json"
+import urls from "./apiInfo.json";
 
 function postRequestOptions(data){
     return {
         method: 'POST',
         headers: {
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
         },
         body: JSON.stringify(data)
     }

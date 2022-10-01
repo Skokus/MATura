@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Data
@@ -15,9 +16,9 @@ public class CategoryProgress {
     }
 
     public CategoryProgress(Category category){
-        HashMap<String, Boolean> answers = new HashMap<>();
+        HashMap<String, Boolean> answers = new LinkedHashMap<>();
         for(Task t : category.getTasks()){
-            answers.put(t.getId().toString(), false);
+            answers.put(t.getId(), false);
         }
         this.categoryAnswers = answers;
         this.name = category.getName();

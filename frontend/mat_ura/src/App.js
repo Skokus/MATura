@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import Task from './task/Task'
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
@@ -7,9 +8,15 @@ import MainNavbar from './MainNavbar';
 import AboutPage from './aboutpage/AboutPage';
 import LoginPage from './loginpage/LoginPage';
 
+export const UserContext = React.createContext();
+
 function App() {
+
+  const [token, setToken] = useState("");
+
   return (
     <div>
+      <UserContext.Provider value={{token, setToken}}>
         <MainNavbar/>
         <Routes>
           <Route index element={<Categories/>}/>
@@ -18,6 +25,7 @@ function App() {
           <Route path="categories/:categoryName/:numberInCategory" element={<Task/>}/>
           <Route path="categories/:categoryName" element={<Tasklist/>}/>
         </Routes>
+      </UserContext.Provider>
     </div>
   );
 }
