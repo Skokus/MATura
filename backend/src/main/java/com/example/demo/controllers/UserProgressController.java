@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.CategoryProgress;
 import com.example.demo.models.UserProgress;
 import com.example.demo.services.UserProgressService;
 import com.example.demo.utility.AuthGetter;
@@ -45,21 +46,45 @@ public class UserProgressController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/{categoryName}/{id}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/{categoryName}/{idx}", method = RequestMethod.PATCH)
     @Operation(summary = "Mark task as category")
-    public ResponseEntity markTaskAsDone(@PathVariable String categoryName, @PathVariable String id) {
+    public ResponseEntity<Void> markTaskAsDone(@PathVariable String categoryName, @PathVariable Integer idx) {
         String accept = request.getHeader("Accept");
         String auth = request.getHeader("Authorization");
         AuthGetter<UserProgress> authGetter = new AuthGetter<>(auth);
         if (authGetter.getResponse() != null) {
-            return authGetter.getResponse();
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } else {
             auth = authGetter.getAuth();
         }
         try {
             if (accept != null && (accept.contains("application/json") || accept.contains("*/*") || accept.contains("application/*"))) {
-                userProgressService.markTaskAsDone(auth, id, categoryName);
-                return new ResponseEntity(HttpStatus.OK);
+                userProgressService.markTaskAsDone(auth, idx, categoryName);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value = "/{categoryName}", method = RequestMethod.GET)
+    @Operation(summary = "Mark task as category")
+    public ResponseEntity<CategoryProgress> markTaskAsDone(@PathVariable String categoryName) {
+        String accept = request.getHeader("Accept");
+        String auth = request.getHeader("Authorization");
+        AuthGetter<UserProgress> authGetter = new AuthGetter<>(auth);
+        if (authGetter.getResponse() != null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } else {
+            auth = authGetter.getAuth();
+        }
+        try {
+            if (accept != null && (accept.contains("application/json") || accept.contains("*/*") || accept.contains("application/*"))) {
+                CategoryProgress p = userProgressService.getCategoryProgress(auth, categoryName);
+                return new ResponseEntity<>(p, HttpStatus.OK);
             }
         } catch (NullPointerException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

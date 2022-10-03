@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Step from './step/Step'
 import AnswerInput from "./answerinput/AnswerInput";
 import {useParams} from "react-router-dom";
 import { getTask } from '../api/CategoryService';
+import { patchTaskAsDone } from '../api/CategoryProgressService';
+import {UserContext} from "../App.js"
 import "./Task.css"
 
 function Task(){
@@ -12,6 +14,7 @@ function Task(){
     const [stepCompletion, setStepCompletion] = useState([]);
     const [tipNumber, setTipNumber] = useState(0);
     const {categoryName, numberInCategory} = useParams();
+    const {token, setToken} = useContext(UserContext);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,6 +33,9 @@ function Task(){
             completioncopy[sc+1] = "beingDone";
             setStepCounter(sc+1);
             setStepCompletion(completioncopy);
+            if(sc+1 == task.steps.length){
+                patchTaskAsDone(token, categoryName, numberInCategory);
+            }
         }
     }
 

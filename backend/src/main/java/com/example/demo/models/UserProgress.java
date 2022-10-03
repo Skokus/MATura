@@ -20,8 +20,13 @@ public class UserProgress {
         }
     }
 
-    public void markTaskAsDone(String id, String categoryName){
-        userProgress.stream().filter(c -> c.getName().equals(categoryName)).findFirst().get().markTaskAsDone(id);
+    public void markTaskAsDone(Integer idx, String categoryName){
+        userProgress.stream().filter(c -> c.getName().equals(categoryName)).findFirst().get().markTaskAsDone(idx);
+    }
+
+    public CategoryProgress getCategoryProgress(String name){
+        CategoryProgress p = userProgress.stream().filter(e -> e.getName().equals(name)).findFirst().get();
+        return p;
     }
 
     public List<Integer> getNumberOfDoneTasks(){

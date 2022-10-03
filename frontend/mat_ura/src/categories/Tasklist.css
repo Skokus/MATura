@@ -1,7 +1,14 @@
-.text-link{
+.text-link-done{
     padding: 26px 30px;
     margin-left: 20px;
     background-color: rgb(83, 196, 111);
+    color: white;
+}
+
+.text-link-notDone{
+    padding: 26px 30px;
+    margin-left: 20px;
+    background-color: rgb(255, 153, 0);
     color: white;
 }
 

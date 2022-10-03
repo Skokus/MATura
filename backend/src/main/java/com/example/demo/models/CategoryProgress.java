@@ -2,35 +2,32 @@ package com.example.demo.models;
 
 import lombok.Data;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 @Data
 public class CategoryProgress {
-    private HashMap<String, Boolean> categoryAnswers;
+    private List<Boolean> categoryAnswers;
     private String name;
     public CategoryProgress(){
 
     }
 
     public CategoryProgress(Category category){
-        HashMap<String, Boolean> answers = new LinkedHashMap<>();
-        for(Task t : category.getTasks()){
-            answers.put(t.getId(), false);
+        List<Boolean> answers = new ArrayList<>();
+        for(int i = 0; i < category.getTasks().size(); i++){
+            answers.add(false);
         }
         this.categoryAnswers = answers;
         this.name = category.getName();
     }
 
-    public void markTaskAsDone(String id){
-        categoryAnswers.replace(id, true);
+    public void markTaskAsDone(Integer idx){
+        categoryAnswers.set(idx, true);
     }
 
     public int getNumberOfDoneTasks(){
         int sum = 0;
-        for(Boolean b : categoryAnswers.values()){
+        for(Boolean b : categoryAnswers){
             if(b){
                 sum++;
             }
@@ -38,11 +35,11 @@ public class CategoryProgress {
         return sum;
     }
 
-    public void setCategoryAnswers(HashMap<String, Boolean> categoryAnswers){
+    public void setCategoryAnswers(List<Boolean> categoryAnswers){
         this.categoryAnswers = categoryAnswers;
     }
 
-    public HashMap<String, Boolean> getCategoryAnswers(){
+    public List<Boolean> getCategoryAnswers(){
         return this.categoryAnswers;
     }
 

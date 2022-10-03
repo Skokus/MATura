@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.demo.exceptions.UserNotFoundException;
+import com.example.demo.models.CategoryProgress;
 import com.example.demo.models.User;
 import com.example.demo.models.UserProgress;
 import com.example.demo.repositories.UserRepository;
@@ -25,13 +26,21 @@ public class UserProgressService {
         return user.get().getUserProgress();
     }
 
-    public void markTaskAsDone(String userName, String id, String category){
+    public CategoryProgress getCategoryProgress(String userName, String categoryName){
         Optional<User> user = userRepository.findUserByUsername(userName);
         if(user.isEmpty()){
             throw new UserNotFoundException("User: " + userName + "not found.");
         }
-        user.get().getUserProgress().markTaskAsDone(id, category);
-        log.info("User {} did task {} in category {}", userName, id, category);
+        return user.get().getUserProgress().getCategoryProgress(categoryName);
+    }
+
+    public void markTaskAsDone(String userName, Integer idx, String category){
+        Optional<User> user = userRepository.findUserByUsername(userName);
+        if(user.isEmpty()){
+            throw new UserNotFoundException("User: " + userName + "not found.");
+        }
+        user.get().getUserProgress().markTaskAsDone(idx, category);
+        log.info("User {} did task {} in category {}", userName, idx, category);
         userRepository.save(user.get());
     }
 }
