@@ -6,6 +6,7 @@ import { getTask } from '../api/CategoryService';
 import { patchTaskAsDone } from '../api/CategoryProgressService';
 import {UserContext} from "../App.js"
 import "./Task.css"
+import Modal from './modal/Modal';
 
 function Task(){
 
@@ -13,8 +14,10 @@ function Task(){
     const [stepcounter, setStepCounter] = useState(0);
     const [stepCompletion, setStepCompletion] = useState([]);
     const [tipNumber, setTipNumber] = useState(0);
+    const [popupActive, setPopupActive] = useState(false);
     const {categoryName, numberInCategory} = useParams();
     const {token, setToken} = useContext(UserContext);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,6 +37,7 @@ function Task(){
             setStepCounter(sc+1);
             setStepCompletion(completioncopy);
             if(sc+1 == task.steps.length){
+                setPopupActive(true);
                 patchTaskAsDone(token, categoryName, numberInCategory);
             }
         }
@@ -66,7 +70,7 @@ function Task(){
                     </div>
                 </div>
             </div>
-            
+            <Modal isActive={popupActive}/>
             <AnswerInput id="answerInput" handleClick={handleClick}/>
         </div>
     );
