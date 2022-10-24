@@ -28,9 +28,9 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @Operation(summary = "Register user")
-    public ResponseEntity createUser(@RequestBody RestRegisterUserRequest request) {
+    public ResponseEntity<Void> createUser(@RequestBody RestRegisterUserRequest request) {
         userService.registerUser(request);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)

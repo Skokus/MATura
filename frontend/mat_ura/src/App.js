@@ -7,6 +7,7 @@ import Tasklist from './categories/Tasklist';
 import MainNavbar from './MainNavbar';
 import AboutPage from './aboutpage/AboutPage';
 import LoginPage from './loginpage/LoginPage';
+import RegisterForm from './registerpage/RegisterForm';
 
 export const UserContext = React.createContext();
 
@@ -22,6 +23,7 @@ function App() {
           <Route index element={<Categories/>}/>
           <Route path="/about" element={<AboutPage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/register" element={<RegisterForm/>}/>
           <Route path="categories/:categoryName/:numberInCategory" element={<Task/>}/>
           <Route path="categories/:categoryName" element={<Tasklist/>}/>
         </Routes>

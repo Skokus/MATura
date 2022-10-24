@@ -2,5 +2,8 @@
     "urls": {
         "backendURL": "http://localhost:8080/api",
         "loginURL": "http://localhost:8080/login"
+    },
+    "endpoints":{
+        "registerEndPoint": "/user/register"
     }
 }

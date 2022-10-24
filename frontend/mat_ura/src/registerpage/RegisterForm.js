@@ -1,19 +1,17 @@
-import React, { useState, useEffect, useContext} from 'react';
-import { sendLogin } from '../api/UserService';
-import {UserContext} from "../App.js"
+import React, { useState} from 'react';
+import { sendRegister } from '../api/UserService';
 import { useNavigate } from "react-router-dom";
 
-function LoginPage(){
+function RegisterForm(){
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const {token, setToken} = useContext(UserContext);
+    const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
     async function logIn(e){
         e.preventDefault();
-        var lmao = await sendLogin(username, password);
-        setToken(lmao.access_token);
+        await sendRegister(username, email, password);
         navigate("/");
     }
 
@@ -24,11 +22,18 @@ function LoginPage(){
                     <label className="login-label">Username </label>
                     <input name="username" onChange={(e) => setUsername(e.target.value)} required />
                 </div>
+                <div className="login-input-container">
+                    <label className="email-label">Email </label>
+                    <input name="email" onChange={(e) => setEmail(e.target.value)} required />
+                </div>
                 <div className="input-container">
                     <label className="login-label">Password </label>
                     <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} required />
                 </div>
-                <a href="/register">Nie masz konta? Zarejestruj się!</a>
+                <div className="input-container">
+                    <label className="login-label">Password </label>
+                    <input type="repassword" name="repassword" onChange={(e) => setPassword(e.target.value)} required />
+                </div>
                 <div className="button-container">
                     <button type="submit">Zaloguj się</button>
                 </div>
@@ -38,4 +43,4 @@ function LoginPage(){
 
 }
 
-export default LoginPage;
+export default RegisterForm;
