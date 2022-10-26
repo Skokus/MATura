@@ -1,22 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Category from './Category';
-import { getCategoryNames } from '../api/CategoryService';
+import { getUserProgress } from '../api/CategoryProgressService';
+import {UserContext} from "../App.js"
+
 function Categories(props){
 
     const [categories, setCategory] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const {token, setToken} = useContext(UserContext);
 
     useEffect(() => {
         async function fetchData(){
-            var test = await getCategoryNames();
+            var test = await getUserProgress(token);
             setCategory(test);
+            setIsLoading(true);
         }
         fetchData();
     },[]);
     
     return(
         <div>
-            {categories.map((category) => (
-                <Category name={category}/>
+            {isLoading && categories.userProgress.map((category) => (
+                <Category name={category.name} completion={(category.numberOfDoneTasks/category.numberOfTasks)*100}/>
             ))}
         </div>
     );

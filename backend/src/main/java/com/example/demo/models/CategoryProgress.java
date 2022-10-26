@@ -35,6 +35,10 @@ public class CategoryProgress {
         return sum;
     }
 
+    public int getNumberOfTasks(){
+        return categoryAnswers.size();
+    }
+
     public void setCategoryAnswers(List<Boolean> categoryAnswers){
         this.categoryAnswers = categoryAnswers;
     }

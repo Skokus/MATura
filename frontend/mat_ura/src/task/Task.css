@@ -8,8 +8,8 @@
 }
 
 .task-steps{
+    margin: auto;
     width: 60%;
-    float: left;
 }
 
 .task-extras{

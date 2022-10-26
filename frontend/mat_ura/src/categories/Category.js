@@ -11,11 +11,10 @@ import {UserContext} from "../App.js"
 function Category(props){    
 
     return(
-        <div className = "category">
+        <div className = "category" style={{background: `linear-gradient(90deg, #09ba00 ${props.completion}% , white ${props.completion}%) right`}}>
             <img src={icon} alt={props.name}/>
             <div className="inline">
                 <h2>{props.name}</h2><br></br>
-                <ProgressBar now={60}/>
             </div>
             <Link to={"/categories/" + props.name}>Go to about</Link>
         </div>

@@ -59,16 +59,16 @@ function Task(){
             <div className="task-container">
                 <div className="task-steps">
                     {task !== undefined ? (task.steps.map((step,index) => (
-                        <Step id={"step-" + index} answer={step.answer} completion={stepCompletion[index]} stepContent={step.content}/>
+                        <Step id={"step-" + index} completion={stepCompletion[index]} step={step}/>
                     ))) : console.log("haha")}
                 </div>
-                <div className="task-extras">
+                {/*<div className="task-extras">
                     <div className="task-extras-tips">
                         <div className="task-extras-tips-header">Wskazówki</div>
                         <div className="task-extras-tips-tip">{task ? task.tips[tipNumber] : "Ładuje"}</div>
                         <button className="task-extras-tips-button" onClick={changeTip}>Następna wskazówka</button>
                     </div>
-                </div>
+                    </div>*/}
             </div>
             <Modal isActive={popupActive}/>
             <AnswerInput id="answerInput" handleClick={handleClick}/>

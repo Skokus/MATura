@@ -26,6 +26,12 @@ export async function getCategoryProgress(token, categoryName){
     return progress;
 }
 
+export async function getUserProgress(token){
+    const res = await fetch(urls.urls.backendURL + "/userprogress/", getRequestOptions(token));
+    const progress = await res.json();
+    return progress;
+}
+
 export async function patchTaskAsDone(token, categoryName, idx){
     const res = await fetch(urls.urls.backendURL + "/userprogress/" + categoryName + "/" + idx, patchRequestOptions(token));
 }

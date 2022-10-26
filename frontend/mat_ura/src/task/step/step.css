@@ -1,26 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
 .basic{
-    background-color: rgb(90, 90, 90);
+    background-color: rgb(148, 147, 147);
+    height: 70px;
 }
 
 .beingDone{
-    background-color: rgba(192, 131, 0, 0.849);
+    background-color: rgba(255, 255, 255, 0.849);
+    border-color: rgba(192, 131, 0, 0.849);
+    border-style: solid;
+    border-width: 2px;
+    color: rgb(46, 46, 46);
 }
 
 .done{
-    background-color: rgb(2, 126, 2);
+    background-color: rgb(1, 196, 1);
+    border-color: rgb(0, 99, 0);
+    height: 70px;
 }
 
 .stepclass{
-    color: white;
     font-size: 30px;
     padding: 10px 20px;
     font-weight: bold;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 2px;
+    text-align: center;
+    margin-top: 20px;
+    -webkit-transition: background-color 1s linear;
+    -moz-transition: background-color 1s linear;
+    -o-transition: background-color 1s linear;
+    transition: background-color 1s linear;
 }
 
 .Step{
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+.checkmark{
+    font-size: 50px;
+    color: white;
+}
+
+.lock{
+    font-size: 40px;
+    color: white;
 }
   
