@@ -1,13 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import "./Category.css"
 import {Link} from "react-router-dom";
 import icon from "./iconplaceholder.png";
-import { getCategoryProgress } from '../api/CategoryProgressService';
-import ProgressBar from "react-bootstrap/ProgressBar";
-import "../bootstrap/bootstrap.css";
-import {UserContext} from "../App.js"
 
-//
 function Category(props){    
 
     return(

@@ -28,7 +28,7 @@ function Task(){
         fetchData();
     },[]);
 
-    function handleClick(answerValue){
+    function onCheckAnswer(answerValue){
         if(Number(answerValue) === task.steps[stepcounter].answer){
             var sc = stepcounter;
             var completioncopy = stepCompletion;
@@ -59,7 +59,7 @@ function Task(){
             <div className="task-container">
                 <div className="task-steps">
                     {task !== undefined ? (task.steps.map((step,index) => (
-                        <Step id={"step-" + index} completion={stepCompletion[index]} step={step}/>
+                        <Step id={"step-" + index} completion={stepCompletion[index]} step={step} handleAnswer={onCheckAnswer}/>
                     ))) : console.log("haha")}
                 </div>
                 {/*<div className="task-extras">
@@ -71,7 +71,6 @@ function Task(){
                     </div>*/}
             </div>
             <Modal isActive={popupActive}/>
-            <AnswerInput id="answerInput" handleClick={handleClick}/>
         </div>
     );
 }

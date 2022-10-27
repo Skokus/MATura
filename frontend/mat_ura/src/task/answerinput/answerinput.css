@@ -1,24 +1,21 @@
-input[type=text] {
-    width: 90%;
-    padding: 12px 20px;
+.answer-input-text {
+    width: 60%;
+    height: 50px;
     box-sizing: border-box;
     font-size: 18px;
+    border: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: rgb(59, 59, 59);
 }
 
-button {
-    width: 10%;
-    padding: 14px 10px;
-    background-color: green;
+.answer-input-button {
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    background-color: rgb(1, 192, 1);
     cursor: pointer;
     border: none;
     color: white;
-}
-
-div#bottom {
-    position: fixed;
-    bottom: 0;
-  
-    /* And if you want the div to be full-width: */
-    left: 0;
-    right: 0;
+    font-size: 20px;
 }

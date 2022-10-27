@@ -2,13 +2,9 @@ import "./step.css"
 import React from 'react';
 import { IoCheckmark } from 'react-icons/io5';
 import { IoLockClosed} from 'react-icons/io5'
+import AnswerInput from "../answerinput/AnswerInput";
 
 function Step(props) {
-  function checkAnswer(a){
-    if(this.state.step.answer == a){
-        this.changeCompletion();
-    }
-  }
 
   function determineStepContent(){
     switch(props.completion){
@@ -24,6 +20,7 @@ function Step(props) {
   return (
     <div className={"stepclass " + props.completion}>
       {determineStepContent()}
+      {props.completion === "beingDone" && <AnswerInput id="answerInput" handleClick={props.handleAnswer}/>}
     </div>
   );
 }

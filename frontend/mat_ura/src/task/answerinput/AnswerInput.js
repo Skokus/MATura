@@ -9,9 +9,9 @@ function AnswerInput(props){
     }
 
     return(
-        <div id="bottom">
-            <input type="text" onChange={handleChange}></input>
-            <button onClick={() => props.handleClick(answer)}>Check Answer</button>
+        <div>
+            <input className="answer-input-text" type="text" onChange={handleChange}></input>
+            <button className="answer-input-button" onClick={() => props.handleClick(answer)}>Sprawdź</button>
         </div>
     );
 }
