@@ -2,6 +2,7 @@ import "./step.css"
 import React from 'react';
 import { IoCheckmark } from 'react-icons/io5';
 import { IoLockClosed} from 'react-icons/io5'
+import { MathJax } from 'better-react-mathjax';
 import AnswerInput from "../answerinput/AnswerInput";
 
 function Step(props) {
@@ -11,7 +12,7 @@ function Step(props) {
       case "done":
         return <IoCheckmark className="checkmark"/>;
       case "beingDone":
-        return props.step.content;
+        return <MathJax>{props.step.content}</MathJax>;
       case "basic":
         return <IoLockClosed className="lock"/>;
     }

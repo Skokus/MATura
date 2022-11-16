@@ -24,4 +24,10 @@ h2{
     width: 40%;
     margin: auto;
     margin-top: 20px;
+    padding: 30px;
+    text-align: center;
+}
+
+.category:hover{
+    cursor: pointer;
 }

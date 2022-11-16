@@ -1,30 +1,26 @@
 .mainNavbar{
-    background-color: rgb(54, 54, 54);
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
+    height: 60px;
+    border-bottom: 2px solid;
+    border-bottom-color: rgb(216, 216, 216);
 }
 
 .mainNavbarLink{
     text-decoration: none;
-    color: white;
-    display: inline-block;
     font-size: 30px;
     padding: 0px 10px;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+    display: flex;
+
 }
 
-.mainNavbarLink:hover{
-    text-decoration: none;
-    color: white;
-    background-color: rgb(71, 71, 71);
+.navleft{
+    float:left;
 }
 
-.mainNavbarLink:visited{
-    text-decoration: none;
-    color: white;
-    background-color: rgb(71, 71, 71);
-}
-
-.mainNavbar:active{
-    color: white;
-    text-decoration: none;
+.navright{
+    float:right;
 }

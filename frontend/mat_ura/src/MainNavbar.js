@@ -16,11 +16,10 @@ function MainNavbar(){
 
     return(
         <div id="navbar" className="mainNavbar">
-            <Link className="mainNavbarLink" to={"/"}>Strona Główna</Link>
-            <Link className="mainNavbarLink" to={"/about"}>O nas</Link>
+            <Link className="mainNavbarLink navleft" to={"/"}>Strona Główna</Link>
             {!token 
-                ? <Link className="mainNavbarLink" to={"/login"}>Zaloguj się</Link> 
-                : <button className="mainNavbarLink" onClick={logOutUser}>Wyloguj</button>
+                ? <Link className="mainNavbarLink navright" to={"/login"}>Zaloguj się</Link> 
+                : <button className="mainNavbarLink navright" onClick={logOutUser}>Wyloguj</button>
             }
         </div>
     );

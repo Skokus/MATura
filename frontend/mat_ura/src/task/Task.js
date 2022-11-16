@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom";
 import { getTask } from '../api/CategoryService';
 import { patchTaskAsDone } from '../api/CategoryProgressService';
 import {UserContext} from "../App.js"
+import { MathJax } from 'better-react-mathjax';
 import "./Task.css"
 import Modal from './modal/Modal';
 
@@ -54,7 +55,7 @@ function Task(){
         <div>
             <div className="task-question">
                 <h1 className="task-question-header">Pytanie. {task ? numberInCategory : 0}</h1>
-                <h2 className="task-question-content">{task ? task.question : "loading"}</h2>
+                <h2 className="task-question-content">{task ? <MathJax>{task.question + "`sum_(i=1)^n i^3=((n(n+1))/2)^2`"}</MathJax> : "loading"}</h2>
             </div>
             <div className="task-container">
                 <div className="task-steps">

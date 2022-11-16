@@ -8,27 +8,31 @@ import MainNavbar from './MainNavbar';
 import AboutPage from './aboutpage/AboutPage';
 import LoginPage from './loginpage/LoginPage';
 import RegisterForm from './registerpage/RegisterForm';
-
+import { MathJaxContext } from 'better-react-mathjax';
 export const UserContext = React.createContext();
 
 function App() {
 
   const [token, setToken] = useState("");
-
+  const config = {
+    loader: { load: ["input/asciimath"] }
+  };
   return (
-    <div>
-      <UserContext.Provider value={{token, setToken}}>
-        <MainNavbar/>
-        <Routes>
-          <Route index element={<Categories/>}/>
-          <Route path="/about" element={<AboutPage/>}/>
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/register" element={<RegisterForm/>}/>
-          <Route path="categories/:categoryName/:numberInCategory" element={<Task/>}/>
-          <Route path="categories/:categoryName" element={<Tasklist/>}/>
-        </Routes>
-      </UserContext.Provider>
-    </div>
+    <MathJaxContext config={config}>
+      <div>
+        <UserContext.Provider value={{token, setToken}}>
+          <MainNavbar/>
+          <Routes>
+            <Route index element={<Categories/>}/>
+            <Route path="/about" element={<AboutPage/>}/>
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/register" element={<RegisterForm/>}/>
+            <Route path="categories/:categoryName/:numberInCategory" element={<Task/>}/>
+            <Route path="categories/:categoryName" element={<Tasklist/>}/>
+          </Routes>
+        </UserContext.Provider>
+      </div>
+    </MathJaxContext>
   );
 }
 
