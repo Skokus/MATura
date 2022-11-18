@@ -1,4 +1,4 @@
-package com.example.demo.exceptions;
+package com.example.demo.taskcategory.exceptions;
 
 public class TaskDoesNotExistException extends RuntimeException {
     public TaskDoesNotExistException(String message) {

@@ -1,5 +1,7 @@
-package com.example.demo.models;
+package com.example.demo.users.models;
 
+import com.example.demo.taskcategory.models.Category;
+import com.example.demo.users.userprogress.UserProgress;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

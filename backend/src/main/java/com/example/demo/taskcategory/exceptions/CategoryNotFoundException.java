@@ -1,4 +1,4 @@
-package com.example.demo.exceptions;
+package com.example.demo.taskcategory.exceptions;
 
 import org.webjars.NotFoundException;
 

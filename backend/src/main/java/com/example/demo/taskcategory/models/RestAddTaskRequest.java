@@ -1,6 +1,5 @@
-package com.example.demo.dto;
+package com.example.demo.taskcategory.models;
 
-import com.example.demo.models.Step;
 import lombok.*;
 
 import java.util.List;

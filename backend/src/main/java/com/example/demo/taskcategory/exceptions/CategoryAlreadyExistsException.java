@@ -1,4 +1,4 @@
-package com.example.demo.exceptions;
+package com.example.demo.taskcategory.exceptions;
 
 public class CategoryAlreadyExistsException extends RuntimeException {
     public CategoryAlreadyExistsException(String message) {

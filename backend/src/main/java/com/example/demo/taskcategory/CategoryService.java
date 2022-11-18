@@ -1,15 +1,14 @@
-package com.example.demo.services;
+package com.example.demo.taskcategory;
 
-import com.example.demo.exceptions.CategoryAlreadyExistsException;
-import com.example.demo.exceptions.CategoryNotFoundException;
-import com.example.demo.exceptions.TaskDoesNotExistException;
-import com.example.demo.models.Category;
-import com.example.demo.models.Task;
-import com.example.demo.repositories.CategoryRepository;
+import com.example.demo.taskcategory.exceptions.CategoryAlreadyExistsException;
+import com.example.demo.taskcategory.exceptions.CategoryNotFoundException;
+import com.example.demo.taskcategory.exceptions.TaskDoesNotExistException;
+import com.example.demo.users.UserService;
+import com.example.demo.taskcategory.models.Category;
+import com.example.demo.taskcategory.models.Task;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -1,8 +1,7 @@
-package com.example.demo.controllers;
+package com.example.demo.users;
 
-import com.example.demo.dto.RestRegisterUserRequest;
-import com.example.demo.models.User;
-import com.example.demo.services.UserService;
+import com.example.demo.users.models.RestRegisterUserRequest;
+import com.example.demo.users.models.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

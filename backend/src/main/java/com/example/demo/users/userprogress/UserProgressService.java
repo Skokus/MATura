@@ -1,11 +1,8 @@
-package com.example.demo.services;
+package com.example.demo.users.userprogress;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import com.example.demo.exceptions.UserNotFoundException;
-import com.example.demo.models.CategoryProgress;
-import com.example.demo.models.User;
-import com.example.demo.models.UserProgress;
-import com.example.demo.repositories.UserRepository;
+import com.example.demo.users.models.User;
+import com.example.demo.users.exceptions.UserNotFoundException;
+import com.example.demo.users.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

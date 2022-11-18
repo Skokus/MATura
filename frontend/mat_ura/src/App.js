@@ -15,7 +15,8 @@ function App() {
 
   const [token, setToken] = useState("");
   const config = {
-    loader: { load: ["input/asciimath"] }
+    loader: { load: ["tex/[tikz]"] },
+    tex: {packages: {'[+]': ['tikz']}}
   };
   return (
     <MathJaxContext config={config}>

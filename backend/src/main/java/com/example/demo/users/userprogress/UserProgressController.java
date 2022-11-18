@@ -1,8 +1,5 @@
-package com.example.demo.controllers;
+package com.example.demo.users.userprogress;
 
-import com.example.demo.models.CategoryProgress;
-import com.example.demo.models.UserProgress;
-import com.example.demo.services.UserProgressService;
 import com.example.demo.utility.AuthGetter;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;

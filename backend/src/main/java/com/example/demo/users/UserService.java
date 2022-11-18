@@ -1,9 +1,8 @@
-package com.example.demo.services;
+package com.example.demo.users;
 
-import com.example.demo.dto.RestRegisterUserRequest;
-import com.example.demo.models.User;
-import com.example.demo.repositories.CategoryRepository;
-import com.example.demo.repositories.UserRepository;
+import com.example.demo.taskcategory.CategoryRepository;
+import com.example.demo.users.models.RestRegisterUserRequest;
+import com.example.demo.users.models.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

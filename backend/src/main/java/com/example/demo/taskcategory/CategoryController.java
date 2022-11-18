@@ -1,12 +1,11 @@
-package com.example.demo.controllers;
+package com.example.demo.taskcategory;
 
-import com.example.demo.dto.RestAddCategoryRequest;
-import com.example.demo.dto.RestAddTaskRequest;
-import com.example.demo.exceptions.CategoryNotFoundException;
-import com.example.demo.exceptions.TaskDoesNotExistException;
-import com.example.demo.models.Category;
-import com.example.demo.models.Task;
-import com.example.demo.services.CategoryService;
+import com.example.demo.taskcategory.models.Category;
+import com.example.demo.taskcategory.models.RestAddCategoryRequest;
+import com.example.demo.taskcategory.models.RestAddTaskRequest;
+import com.example.demo.taskcategory.exceptions.CategoryNotFoundException;
+import com.example.demo.taskcategory.exceptions.TaskDoesNotExistException;
+import com.example.demo.taskcategory.models.Task;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

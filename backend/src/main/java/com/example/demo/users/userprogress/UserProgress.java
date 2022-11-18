@@ -1,8 +1,11 @@
-package com.example.demo.models;
+package com.example.demo.users.userprogress;
 
+import com.example.demo.taskcategory.models.Category;
 import lombok.Data;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Data
 public class UserProgress {
