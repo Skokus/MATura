@@ -8,7 +8,6 @@
 }
 
 .task-steps{
-    margin: auto;
     width: 60%;
 }
 
@@ -21,27 +20,4 @@
 
 .task-extras-filler{
     height: 200px;
-}
-
-.task-extras-tips{
-    flex-grow: 1;
-    background-color: rgb(92, 92, 92);
-    text-align: center;
-    font-weight: bold;
-}
-
-.task-extras-tips-header{
-    font-size: 30px;
-    padding: 20px 0;
-}
-
-.task-extras-tips-tip{
-    font-size: 20px;
-    padding: 20px 0;
-}
-
-.task-extras-tips-button{
-    padding: 10px;
-    width: 80%;
-    background-color: black;
 }

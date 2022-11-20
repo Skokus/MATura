@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Step {
     private String content;
+    private String currentSolution;
     private double answer;
 
     public Step(){
@@ -25,5 +26,13 @@ public class Step {
 
     public void setAnswer(double answer) {
         this.answer = answer;
+    }
+
+    public String getCurrentSolution() {
+        return currentSolution;
+    }
+
+    public void setCurrentSolution(String currentSolution) {
+        this.currentSolution = currentSolution;
     }
 }

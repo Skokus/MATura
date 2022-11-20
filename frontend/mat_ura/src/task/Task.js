@@ -8,6 +8,8 @@ import {UserContext} from "../App.js"
 import { MathJax } from 'better-react-mathjax';
 import "./Task.css"
 import Modal from './modal/Modal';
+import Solution from './solution/Solution';
+import TipBox from './tipbox/TipBox';
 
 function Task(){
 
@@ -18,13 +20,14 @@ function Task(){
     const [popupActive, setPopupActive] = useState(false);
     const {categoryName, numberInCategory} = useParams();
     const {token, setToken} = useContext(UserContext);
-
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             var restask = await getTask(categoryName, numberInCategory);
             setTask(restask);
             setStepCompletion(new Array(Object.keys(await restask.steps).length).fill("beingDone", 0, 1).fill("basic", 1));
+            setIsLoading(false);
         }
         fetchData();
     },[]);
@@ -35,27 +38,22 @@ function Task(){
             var completioncopy = stepCompletion;
             completioncopy[sc] = "done";
             completioncopy[sc+1] = "beingDone";
-            setStepCounter(sc+1);
             setStepCompletion(completioncopy);
             if(sc+1 == task.steps.length){
                 setPopupActive(true);
                 patchTaskAsDone(token, categoryName, numberInCategory);
+            } else {
+                setStepCounter(sc+1);
             }
-        }
-    }
-
-    function changeTip(){
-        if(task){
-            var n = tipNumber + 1;
-            setTipNumber(n % task.tips.length);
         }
     }
 
     return(
         <div>
+        {isLoading === false && <div>
             <div className="task-question">
                 <h1 className="task-question-header">Pytanie. {task ? numberInCategory : 0}</h1>
-                <h2 className="task-question-content">{task ? <MathJax>{task.question + "\\(\\frac{10}{4x} \\approx 2^{12}\\)"}</MathJax> : "loading"}</h2>
+                <h2 className="task-question-content">{task ? <MathJax>{task.question}</MathJax> : "loading"}</h2>
             </div>
             <div className="task-container">
                 <div className="task-steps">
@@ -63,15 +61,13 @@ function Task(){
                         <Step id={"step-" + index} completion={stepCompletion[index]} step={step} handleAnswer={onCheckAnswer}/>
                     ))) : console.log("haha")}
                 </div>
-                {/*<div className="task-extras">
-                    <div className="task-extras-tips">
-                        <div className="task-extras-tips-header">Wskazówki</div>
-                        <div className="task-extras-tips-tip">{task ? task.tips[tipNumber] : "Ładuje"}</div>
-                        <button className="task-extras-tips-button" onClick={changeTip}>Następna wskazówka</button>
-                    </div>
-                    </div>*/}
+                <div className="task-extras">
+                    <Solution currentsolution={task.steps[stepcounter].currentSolution}/>
+                    <TipBox tips={task.tips}/>
+                </div>
             </div>
             <Modal isActive={popupActive}/>
+        </div>}
         </div>
     );
 }

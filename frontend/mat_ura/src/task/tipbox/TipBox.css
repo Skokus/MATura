@@ -1,0 +1,15 @@
+.tips{
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 20px;
+    text-align: center;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: rgb(255, 208, 0);
+    padding-bottom: 20px;
+}
+
+.tips-header{
+    padding: 15px;
+}
