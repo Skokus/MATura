@@ -1,6 +1,8 @@
 package com.example.demo.taskcategory.models;
 
+import lombok.Builder;
 import lombok.Data;
+import org.bson.types.Binary;
 
 @Data
 public class Step {
@@ -35,4 +37,5 @@ public class Step {
     public void setCurrentSolution(String currentSolution) {
         this.currentSolution = currentSolution;
     }
+
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Category from './Category';
 import { getUserProgress } from '../api/CategoryProgressService';
 import {UserContext} from "../App.js"
+import Photo from '../photo/Photo';
 
 function Categories(props){
 
@@ -20,6 +21,7 @@ function Categories(props){
     
     return(
         <div>
+            <Photo/>
             {isLoading && categories.userProgress.map((category) => (
                 <Category name={category.name} completion={(category.numberOfDoneTasks/category.numberOfTasks)*100}/>
             ))}

@@ -15,7 +15,6 @@ public class Category {
     @Id
     private String id;
     private String name;
-
     private List<Task> tasks;
 
     public Category(){
