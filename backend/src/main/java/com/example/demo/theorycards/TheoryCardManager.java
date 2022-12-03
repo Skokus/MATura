@@ -24,10 +24,6 @@ public class TheoryCardManager implements TheoryCardService{
         return theoryCardRepository.findAll();
     }
 
-    public List<TheoryCard> getTheoryCardsByTag(String tag) {
-        return theoryCardRepository.findByTag(tag);
-    }
-
     public TheoryCard getTheoryCardById(String id) {
         return theoryCardRepository.findById(id).get();
     }

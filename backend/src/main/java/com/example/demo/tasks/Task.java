@@ -1,4 +1,4 @@
-package com.example.demo.taskcategory.models;
+package com.example.demo.tasks;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Data
-@Document
+@Document(collection = "tasks")
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter @Setter

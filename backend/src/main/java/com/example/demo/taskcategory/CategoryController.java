@@ -2,12 +2,7 @@ package com.example.demo.taskcategory;
 
 import com.example.demo.taskcategory.models.Category;
 import com.example.demo.taskcategory.models.RestAddCategoryRequest;
-import com.example.demo.taskcategory.models.RestAddTaskRequest;
-import com.example.demo.taskcategory.exceptions.CategoryNotFoundException;
-import com.example.demo.taskcategory.exceptions.TaskDoesNotExistException;
-import com.example.demo.taskcategory.models.Task;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -55,55 +50,17 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getCategoryNames(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{name}/numberOfTasks", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:3000")
-    @Operation(summary = "Get number of tasks in category")
-    public ResponseEntity<Integer> getNumberOfTasks(@PathVariable String name) {
-        int n = categoryService.getNumberOfTasks(name);
-        return new ResponseEntity<>(n, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @Operation(summary = "Delete category")
-    public ResponseEntity<Category> deleteCategory(@PathVariable String id) {
-        Category c = categoryService.deleteCategory(id);
-        return new ResponseEntity<>(c, HttpStatus.NO_CONTENT);
+    public ResponseEntity deleteCategory(@PathVariable String id) {
+        categoryService.deleteCategory(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/{categoryName}", method = RequestMethod.POST)
-    @Operation(summary = "Save task in category", responses = {
-            @ApiResponse(description = "Task saved in category", responseCode = "201")
-    })
-    public ResponseEntity<Task> saveTask(@RequestBody RestAddTaskRequest task, @PathVariable String categoryName) {
-        Task t = addTaskRequestToTask(task);
-        categoryService.addTaskToCategory(t, categoryName);
-        return new ResponseEntity<>(t, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value = "/{categoryName}/{index}", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:3000")
-    @Operation(summary = "Get task by placement in category")
-    public ResponseEntity<Task> getTaskByNumberInCategory(@PathVariable String categoryName, @PathVariable int index) {
-        Task t = categoryService.getTaskByPlaceInCategory(categoryName, index);
-        return new ResponseEntity<>(t, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/{categoryName}/{id}", method = RequestMethod.DELETE)
-    @Operation(summary = "Delete task by id")
-    public ResponseEntity<Void> deleteTaskById(@PathVariable String categoryName, @PathVariable String id) {
-        try {
-            categoryService.removeTaskFromCategory(id, categoryName);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (CategoryNotFoundException | TaskDoesNotExistException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    private Task addTaskRequestToTask(RestAddTaskRequest request) {
-        return Task.builder()
-                .question(request.getQuestion())
-                .steps(request.getSteps())
-                .tips(request.getTips())
-                .build();
+    @RequestMapping(value = "/{categoryName}/{id}", method = RequestMethod.POST)
+    @Operation(summary = "Add task's id to category")
+    public ResponseEntity<String> addTaskToCategory(@PathVariable String categoryName, @PathVariable String id){
+        categoryService.addTaskToCategory(categoryName, id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

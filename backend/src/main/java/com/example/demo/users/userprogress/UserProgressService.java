@@ -1,5 +1,6 @@
 package com.example.demo.users.userprogress;
 
+import com.example.demo.taskcategory.models.Category;
 import com.example.demo.users.models.User;
 import com.example.demo.users.exceptions.UserNotFoundException;
 import com.example.demo.users.UserRepository;
@@ -31,13 +32,27 @@ public class UserProgressService {
         return user.get().getUserProgress().getCategoryProgress(categoryName);
     }
 
-    public void markTaskAsDone(String userName, Integer idx, String category){
+    public void markTaskAsDone(String userName, String id, String category){
         Optional<User> user = userRepository.findUserByUsername(userName);
         if(user.isEmpty()){
             throw new UserNotFoundException("User: " + userName + "not found.");
         }
-        user.get().getUserProgress().markTaskAsDone(idx, category);
-        log.info("User {} did task {} in category {}", userName, idx, category);
+        user.get().getUserProgress().markTaskAsDone(id, category);
+        log.info("User {} did task {} in category {}", userName, id, category);
         userRepository.save(user.get());
+    }
+
+    public void addCategory(Category c){
+        for(User u : userRepository.findAll()){
+            u.getUserProgress().addCategory(c);
+            userRepository.save(u);
+        }
+    }
+
+    public void addTaskToCategory(String categoryName, String id){
+        for(User u : userRepository.findAll()){
+            u.getUserProgress().addTaskToCategory(categoryName, id);
+            userRepository.save(u);
+        }
     }
 }

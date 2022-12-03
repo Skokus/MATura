@@ -27,7 +27,7 @@ public class PhotoController {
     }
 
     @GetMapping("/{id}")
-    public Photo getPhoto(@PathVariable String id, Model model) {
+    public Photo getPhoto(@PathVariable String id) {
         return photoService.getPhoto(id);
     }
 }

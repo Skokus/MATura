@@ -1,11 +1,13 @@
 package com.example.demo.taskcategory;
 
+import com.example.demo.photos.PhotoService;
 import com.example.demo.taskcategory.exceptions.CategoryAlreadyExistsException;
 import com.example.demo.taskcategory.exceptions.CategoryNotFoundException;
 import com.example.demo.taskcategory.exceptions.TaskDoesNotExistException;
 import com.example.demo.users.UserService;
 import com.example.demo.taskcategory.models.Category;
-import com.example.demo.taskcategory.models.Task;
+import com.example.demo.tasks.Task;
+import com.example.demo.users.userprogress.UserProgressService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
@@ -21,7 +23,7 @@ import java.util.Optional;
 public class CategoryManager implements CategoryService{
 
     private final CategoryRepository categoryRepository;
-    private final UserService userService;
+    private final UserProgressService userProgressService;
 
     public Category saveCategory(String name){
         if(categoryRepository.findByName(name) != null) {
@@ -31,6 +33,7 @@ public class CategoryManager implements CategoryService{
         Category c = new Category(name);
         categoryRepository.save(c);
         log.info("Created category {}.", name);
+        userProgressService.addCategory(c);
         return c;
     }
 
@@ -69,17 +72,7 @@ public class CategoryManager implements CategoryService{
         return names;
     }
 
-    public int getNumberOfTasks(String name){
-        Category c = categoryRepository.findByName(name);
-        if(c == null){
-            log.error("Category {} not found.", name);
-            throw new CategoryNotFoundException("Category does not exist");
-        }
-        log.info("Number of tasks in category {}: {}.", name, c.getTasks().size());
-        return c.getTasks().size();
-    }
-
-    public Category deleteCategory(String id){
+    public void deleteCategory(String id){
         Optional<Category> c = categoryRepository.findById(id);
         if(c.isEmpty()){
             log.error("Category with id: {} not found.", id);
@@ -87,51 +80,17 @@ public class CategoryManager implements CategoryService{
         }
         categoryRepository.delete(c.get());
         log.info("Deleting category {}.", c.get().getName());
-        return c.get();
     }
 
-    public Task addTaskToCategory(Task t, String categoryName){
+    public String addTaskToCategory(String categoryName, String id){
         Category c = categoryRepository.findByName(categoryName);
         if(c == null){
-            log.error("Category {} not found.", categoryName);
             throw new CategoryNotFoundException("Category does not exist");
         }
-        if(t.getId() == null){
-            t.setId(new ObjectId().toString());
-        }
-        c.getTasks().add(t);
+        c.addTask(id);
         categoryRepository.save(c);
-        log.info("Adding task to category {}.", categoryName);
-        return t;
+        userProgressService.addTaskToCategory(categoryName, id);
+        return id;
     }
 
-    public void removeTaskFromCategory(String id, String categoryName){
-        Category c = categoryRepository.findByName(categoryName);
-        if(c == null){
-            log.error("Category {} not found.", categoryName);
-            throw new CategoryNotFoundException("Category does not exist");
-        }
-        Optional<Task> t = c.getTasks()
-                .stream()
-                .filter(e -> e.getId() != null)
-                .filter(e -> e.getId().equals(id))
-                .findFirst();
-        if(t.isEmpty()){
-            log.error("Task with id: {} not found.", id);
-            throw new TaskDoesNotExistException("Task does not exist");
-        }
-        c.getTasks().remove(t.get());
-        categoryRepository.save(c);
-    }
-
-    public Task getTaskByPlaceInCategory(String categoryName, int id){
-        Category c = categoryRepository.findByName(categoryName);
-        if(c == null){
-            log.error("Category {} not found.", categoryName);
-            throw new CategoryNotFoundException("Category does not exist");
-        }
-        Task t = c.getTasks().get(id);
-        log.info("Getting task number {} of category {}.", id, categoryName);
-        return t;
-    }
 }

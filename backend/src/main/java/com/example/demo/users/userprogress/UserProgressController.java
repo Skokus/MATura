@@ -43,9 +43,9 @@ public class UserProgressController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/{categoryName}/{idx}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/{categoryName}/{id}", method = RequestMethod.PATCH)
     @Operation(summary = "Mark task as category")
-    public ResponseEntity<Void> markTaskAsDone(@PathVariable String categoryName, @PathVariable Integer idx) {
+    public ResponseEntity<Void> markTaskAsDone(@PathVariable String categoryName, @PathVariable String id) {
         String accept = request.getHeader("Accept");
         String auth = request.getHeader("Authorization");
         AuthGetter<UserProgress> authGetter = new AuthGetter<>(auth);
@@ -56,7 +56,7 @@ public class UserProgressController {
         }
         try {
             if (accept != null && (accept.contains("application/json") || accept.contains("*/*") || accept.contains("application/*"))) {
-                userProgressService.markTaskAsDone(auth, idx, categoryName);
+                userProgressService.markTaskAsDone(auth, id, categoryName);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         } catch (NullPointerException e) {

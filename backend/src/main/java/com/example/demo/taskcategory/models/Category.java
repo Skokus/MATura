@@ -1,5 +1,6 @@
 package com.example.demo.taskcategory.models;
 
+import com.example.demo.tasks.Task;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -15,7 +16,7 @@ public class Category {
     @Id
     private String id;
     private String name;
-    private List<Task> tasks;
+    private List<String> tasks;
 
     public Category(){
 
@@ -23,7 +24,11 @@ public class Category {
     
     public Category(String name){
         this.name = name;
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
+    }
+
+    public void addTask(String id){
+        tasks.add(id);
     }
 
     public String getId() {
@@ -42,11 +47,11 @@ public class Category {
         this.name = name;
     }
 
-    public List<Task> getTasks() {
+    public List<String> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(List<String> tasks) {
         this.tasks = tasks;
     }
 }

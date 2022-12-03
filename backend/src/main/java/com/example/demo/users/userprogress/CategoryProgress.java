@@ -1,50 +1,46 @@
 package com.example.demo.users.userprogress;
 
 import com.example.demo.taskcategory.models.Category;
+import com.example.demo.tasks.Task;
 import lombok.Data;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 
 @Data
 public class CategoryProgress {
-    private List<Boolean> categoryAnswers;
+    private Map<String, Boolean> categoryAnswers;
     private String name;
     public CategoryProgress(){
 
     }
 
     public CategoryProgress(Category category){
-        List<Boolean> answers = new ArrayList<>();
-        for(int i = 0; i < category.getTasks().size(); i++){
-            answers.add(false);
+        Map<String, Boolean> answers = new HashMap<>();
+        for(String t : category.getTasks()){
+            answers.put(t, false);
         }
         this.categoryAnswers = answers;
         this.name = category.getName();
     }
 
-    public void markTaskAsDone(Integer idx){
-        categoryAnswers.set(idx, true);
+    public void addTask(String id){
+        categoryAnswers.put(id, false);
     }
 
-    public int getNumberOfDoneTasks(){
-        int sum = 0;
-        for(Boolean b : categoryAnswers){
-            if(b){
-                sum++;
-            }
-        }
-        return sum;
+    public void markTaskAsDone(String id){
+        categoryAnswers.replace(id, true);
     }
 
     public int getNumberOfTasks(){
         return categoryAnswers.size();
     }
 
-    public void setCategoryAnswers(List<Boolean> categoryAnswers){
+    public void setCategoryAnswers(Map<String, Boolean> categoryAnswers){
         this.categoryAnswers = categoryAnswers;
     }
 
-    public List<Boolean> getCategoryAnswers(){
+    public Map<String, Boolean> getCategoryAnswers(){
         return this.categoryAnswers;
     }
 

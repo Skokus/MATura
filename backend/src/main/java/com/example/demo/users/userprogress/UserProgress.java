@@ -23,8 +23,12 @@ public class UserProgress {
         }
     }
 
-    public void markTaskAsDone(Integer idx, String categoryName){
-        userProgress.stream().filter(c -> c.getName().equals(categoryName)).findFirst().get().markTaskAsDone(idx);
+    public void markTaskAsDone(String taskId, String categoryName){
+        for(CategoryProgress c : userProgress){
+            if(c.getName().equals(categoryName)){
+                c.markTaskAsDone(taskId);
+            }
+        }
     }
 
     public CategoryProgress getCategoryProgress(String name){
@@ -32,12 +36,13 @@ public class UserProgress {
         return p;
     }
 
-    public List<Integer> getNumberOfDoneTasks(){
-        ArrayList<Integer> result = new ArrayList<>();
-        for(CategoryProgress u : userProgress){
-            result.add(u.getNumberOfDoneTasks());
-        }
-        return result;
+    public void addTaskToCategory(String name, String id){
+        CategoryProgress p = userProgress.stream().filter(e -> e.getName().equals(name)).findFirst().get();
+        p.addTask(id);
     }
 
+    public void addCategory(Category c){
+        CategoryProgress p = new CategoryProgress(c);
+        userProgress.add(p);
+    }
 }

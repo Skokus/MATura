@@ -1,4 +1,4 @@
-package com.example.demo.taskcategory.models;
+package com.example.demo.tasks;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +8,8 @@ import org.bson.types.Binary;
 public class Step {
     private String content;
     private String currentSolution;
-    private double answer;
+    private String imageId;
+    private String answer;
 
     public Step(){
 
@@ -22,11 +23,11 @@ public class Step {
         this.content = content;
     }
 
-    public double getAnswer() {
+    public String getAnswer() {
         return answer;
     }
 
-    public void setAnswer(double answer) {
+    public void setAnswer(String answer) {
         this.answer = answer;
     }
 
@@ -38,4 +39,11 @@ public class Step {
         this.currentSolution = currentSolution;
     }
 
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
 }
