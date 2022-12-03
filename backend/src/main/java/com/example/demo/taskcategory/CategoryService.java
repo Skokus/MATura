@@ -14,5 +14,5 @@ public interface CategoryService {
     Category getCategoryByName(String name);
     List<String> getCategoryNames();
     String addTaskToCategory(String categoryName, String id);
-    //void removeTaskFromCategory(String id, String categoryName);
+    void removeTaskFromCategory(String categoryName, String id);
 }

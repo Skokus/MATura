@@ -31,6 +31,10 @@ public class Category {
         tasks.add(id);
     }
 
+    public void removeTask(String id){
+        tasks.remove(id);
+    }
+
     public String getId() {
         return id;
     }

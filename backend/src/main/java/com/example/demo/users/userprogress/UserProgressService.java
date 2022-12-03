@@ -49,9 +49,23 @@ public class UserProgressService {
         }
     }
 
+    public void removeCategory(Category c){
+        for(User u : userRepository.findAll()){
+            u.getUserProgress().removeCategory(c);
+            userRepository.save(u);
+        }
+    }
+
     public void addTaskToCategory(String categoryName, String id){
         for(User u : userRepository.findAll()){
             u.getUserProgress().addTaskToCategory(categoryName, id);
+            userRepository.save(u);
+        }
+    }
+
+    public void removeTaskFromCategory(String categoryName, String id){
+        for(User u : userRepository.findAll()){
+            u.getUserProgress().removeTaskFromCategory(categoryName, id);
             userRepository.save(u);
         }
     }

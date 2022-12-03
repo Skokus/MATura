@@ -72,14 +72,14 @@ public class CategoryManager implements CategoryService{
         return names;
     }
 
-    public void deleteCategory(String id){
-        Optional<Category> c = categoryRepository.findById(id);
-        if(c.isEmpty()){
-            log.error("Category with id: {} not found.", id);
+    public void deleteCategory(String categoryName){
+        Category c = categoryRepository.findByName(categoryName);
+        if(c == null){
             throw new CategoryNotFoundException("Category does not exist");
         }
-        categoryRepository.delete(c.get());
-        log.info("Deleting category {}.", c.get().getName());
+        categoryRepository.delete(c);
+        userProgressService.removeCategory(c);
+        log.info("Deleting category {}.", c.getName());
     }
 
     public String addTaskToCategory(String categoryName, String id){
@@ -93,4 +93,13 @@ public class CategoryManager implements CategoryService{
         return id;
     }
 
+    public void removeTaskFromCategory(String categoryName, String id){
+        Category c = categoryRepository.findByName(categoryName);
+        if(c == null){
+            throw new CategoryNotFoundException("Category does not exist");
+        }
+        c.removeTask(id);
+        categoryRepository.save(c);
+        userProgressService.removeTaskFromCategory(categoryName, id);
+    }
 }

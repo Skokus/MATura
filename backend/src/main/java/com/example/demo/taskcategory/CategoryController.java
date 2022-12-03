@@ -63,4 +63,11 @@ public class CategoryController {
         categoryService.addTaskToCategory(categoryName, id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "{categoryName}/{id}", method = RequestMethod.DELETE)
+    @Operation(summary = "Remove task from category")
+    public ResponseEntity removeTaskFromCategory(@PathVariable String categoryName, @PathVariable String id){
+        categoryService.removeTaskFromCategory(categoryName, id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

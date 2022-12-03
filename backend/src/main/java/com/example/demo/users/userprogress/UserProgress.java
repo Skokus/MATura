@@ -41,8 +41,19 @@ public class UserProgress {
         p.addTask(id);
     }
 
+    public void removeTaskFromCategory(String name, String id){
+        CategoryProgress p = userProgress.stream().filter(e -> e.getName().equals(name)).findFirst().get();
+        p.removeTask(id);
+    }
+
     public void addCategory(Category c){
         CategoryProgress p = new CategoryProgress(c);
         userProgress.add(p);
     }
+
+    public void removeCategory(Category c){
+        CategoryProgress p = userProgress.stream().filter(e -> e.getName().equals(c.getName())).findFirst().get();
+        userProgress.remove(p);
+    }
+
 }
