@@ -20,9 +20,3 @@ export async function getNumberOfTasks(categoryName){
     const numberOfTasks = await res.json();
     return numberOfTasks;
 }
-
-export async function getTask(categoryName, numberInCategory){
-    const res = await fetch(urls.urls.backendURL + "/categories/" + categoryName + "/" + numberInCategory, getRequestOptions());
-    const task = await res.json();
-    return task;
-}

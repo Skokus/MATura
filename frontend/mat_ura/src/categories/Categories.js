@@ -21,9 +21,8 @@ function Categories(props){
     
     return(
         <div>
-            <Photo/>
             {isLoading && categories.userProgress.map((category) => (
-                <Category name={category.name} completion={(category.numberOfDoneTasks/category.numberOfTasks)*100}/>
+                <Category name={category.name} completion={(category.numberOfDoneTasks/category.numberOfTasks)*100} numberOfTasks={category.numberOfTasks}/>
             ))}
         </div>
     );

@@ -8,17 +8,18 @@ import { getCategoryProgress } from '../api/CategoryProgressService';
 
 function Tasklist(){
 
-    const [tasks, setTasks] = useState([]);
-    const [progress, setProgress] = useState([]);
     const {categoryName} = useParams();
     const {token, setToken} = useContext(UserContext);
+    const [progress, setProgress] = useState();
+    const [taskKeys, setTaskKeys] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
-            var numberOfTasks = await getNumberOfTasks(categoryName);
             var userprogress = await getCategoryProgress(token, categoryName);
-            setTasks(numberOfTasks);
-            setProgress(userprogress.categoryAnswers);
+            setProgress(Object.entries(userprogress.categoryAnswers));
+            console.log(Object.entries(userprogress.categoryAnswers));
+            setIsLoading(true);
         }
         fetchData();
     },[]);
@@ -26,7 +27,7 @@ function Tasklist(){
     return(
         <div>
             <h3>{categoryName}</h3><br></br>
-            {progress.map((el, index) => (console.log(el), <Link id={"tasklink-" + categoryName + "-" + index} className={el == true ? "text-link-done" : "text-link-notDone"} to={"/categories/" + categoryName + "/" + index}>{index}</Link>))}
+            {isLoading && progress.map(([key, value], index) => (<Link id={"tasklink-" + categoryName + "-" + key} className={value == true ? "text-link-done" : "text-link-notDone"} to={"/categories/" + categoryName + "/" + key}>{index}</Link>))}
         </div>
     );
 }

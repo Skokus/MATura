@@ -8,6 +8,7 @@ import org.bson.types.Binary;
 public class Step {
     private String content;
     private String currentSolution;
+    private String possibleSolutions;
     private String imageId;
     private String answer;
 
@@ -45,5 +46,13 @@ public class Step {
 
     public void setImageId(String imageId) {
         this.imageId = imageId;
+    }
+
+    public String getPossibleSolutions() {
+        return possibleSolutions;
+    }
+
+    public void setPossibleSolutions(String possibleSolutions) {
+        this.possibleSolutions = possibleSolutions;
     }
 }

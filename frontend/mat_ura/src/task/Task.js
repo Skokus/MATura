@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Step from './step/Step'
 import AnswerInput from "./answerinput/AnswerInput";
 import {useParams} from "react-router-dom";
-import { getTask } from '../api/CategoryService';
+import { getTask } from '../api/TaskService';
 import { patchTaskAsDone } from '../api/CategoryProgressService';
 import {UserContext} from "../App.js"
 import { MathJax } from 'better-react-mathjax';
@@ -11,20 +11,20 @@ import Modal from './modal/Modal';
 import Solution from './solution/Solution';
 import TipBox from './tipbox/TipBox';
 
-function Task(){
+function Task(props){
 
     const [task, setTask] = useState();
     const [stepcounter, setStepCounter] = useState(0);
     const [stepCompletion, setStepCompletion] = useState([]);
     const [tipNumber, setTipNumber] = useState(0);
     const [popupActive, setPopupActive] = useState(false);
-    const {categoryName, numberInCategory} = useParams();
+    const {categoryName, id} = useParams();
     const {token, setToken} = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
-            var restask = await getTask(categoryName, numberInCategory);
+            var restask = await getTask(id);
             setTask(restask);
             setStepCompletion(new Array(Object.keys(await restask.steps).length).fill("beingDone", 0, 1).fill("basic", 1));
             setIsLoading(false);
@@ -33,7 +33,7 @@ function Task(){
     },[]);
 
     function onCheckAnswer(answerValue){
-        if(Number(answerValue) === task.steps[stepcounter].answer){
+        if(answerValue === task.steps[stepcounter].answer){
             var sc = stepcounter;
             var completioncopy = stepCompletion;
             completioncopy[sc] = "done";
@@ -41,7 +41,7 @@ function Task(){
             setStepCompletion(completioncopy);
             if(sc+1 == task.steps.length){
                 setPopupActive(true);
-                patchTaskAsDone(token, categoryName, numberInCategory);
+                patchTaskAsDone(token, categoryName, id);
             } else {
                 setStepCounter(sc+1);
             }
@@ -52,7 +52,7 @@ function Task(){
         <div>
         {isLoading === false && <div>
             <div className="task-question">
-                <h1 className="task-question-header">Pytanie. {task ? numberInCategory : 0}</h1>
+                <h1 className="task-question-header">Pytanie. {task ? "0" : 0}</h1>
                 <h2 className="task-question-content">{task ? <MathJax>{task.question}</MathJax> : "loading"}</h2>
             </div>
             <div className="task-container">

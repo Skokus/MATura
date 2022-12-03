@@ -2,11 +2,12 @@ import React from 'react';
 import "./Category.css"
 import {Link} from "react-router-dom";
 import icon from "./iconplaceholder.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Category(props){    
 
     let navigate = useNavigate(); 
+
     const routeChange = () =>{ 
         let path = "/categories/" + props.name; 
         navigate(path);
@@ -20,5 +21,4 @@ function Category(props){
         </div>
     );
 }
-//<Link to={"/categories/" + props.name}>Go to about</Link>
 export default Category;

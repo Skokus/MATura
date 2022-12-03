@@ -28,7 +28,7 @@ function App() {
             <Route path="/about" element={<AboutPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/register" element={<RegisterForm/>}/>
-            <Route path="categories/:categoryName/:numberInCategory" element={<Task/>}/>
+            <Route path="categories/:categoryName/:id" element={<Task/>}/>
             <Route path="categories/:categoryName" element={<Tasklist/>}/>
           </Routes>
         </UserContext.Provider>

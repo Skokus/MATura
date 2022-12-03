@@ -68,7 +68,7 @@ public class UserProgressController {
     }
 
     @RequestMapping(value = "/{categoryName}", method = RequestMethod.GET)
-    @Operation(summary = "Mark task as category")
+    @Operation(summary = "Get category progress")
     public ResponseEntity<CategoryProgress> markTaskAsDone(@PathVariable String categoryName) {
         String accept = request.getHeader("Accept");
         String auth = request.getHeader("Authorization");

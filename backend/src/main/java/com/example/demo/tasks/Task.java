@@ -18,4 +18,5 @@ public class Task {
     private String question;
     private List<Step> steps;
     private List<String> tips;
+    private List<String> theoryCards;
 }
