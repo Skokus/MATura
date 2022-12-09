@@ -15,7 +15,7 @@ public class TheoryCard {
     private String id;
     private String tag;
     private String description;
-    private List<String> cardsContent;
+    private String cardsContent;
     private String photoId;
 
     public TheoryCard(){
@@ -46,11 +46,11 @@ public class TheoryCard {
         this.tag = tag;
     }
 
-    public List<String> getCardsContent() {
+    public String getCardsContent() {
         return cardsContent;
     }
 
-    public void setCardsContent(List<String> cardsContent) {
+    public void setCardsContent(String cardsContent) {
         this.cardsContent = cardsContent;
     }
 

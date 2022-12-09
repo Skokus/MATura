@@ -42,6 +42,7 @@ public class TaskManager implements TaskService{
         Task newTask = task.get();
         newTask.setQuestion(t.getQuestion());
         newTask.setSteps(t.getSteps());
+        newTask.setTheoryCards(t.getTheoryCards());
         newTask.setTips(t.getTips());
         taskRepository.save(newTask);
         return newTask;

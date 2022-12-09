@@ -7,8 +7,8 @@ function getRequestOptions(){
     }
 }
 
-export async function getPhoto(){
-    const res = await fetch("http://localhost:8080/api/photos/6384fcf26ea4715cbba7728e", getRequestOptions());
+export async function getPhoto(id){
+    const res = await fetch("http://localhost:8080/api/photos/" + id, getRequestOptions());
     const photo = await res.json();
     return photo;
 }

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import "./MainNavbar.css"
 import {UserContext} from "./App.js"
@@ -6,12 +6,15 @@ import { useNavigate } from "react-router-dom";
 
 function MainNavbar(){
 
-    const {token, setToken} = useContext(UserContext);
+    const [token, setToken] = useState(
+        JSON.parse(localStorage.getItem("token"))
+    );
     const navigate = useNavigate();
 
     function logOutUser(){
+        localStorage.removeItem("token");
         setToken("");
-        navigate("/");
+        navigate("/login");
     }
 
     return(

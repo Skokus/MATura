@@ -28,4 +28,22 @@ public class TheoryCardManager implements TheoryCardService{
         return theoryCardRepository.findById(id).get();
     }
 
+    public void removeTheoryCard(String id) {
+        theoryCardRepository.deleteById(id);
+    }
+
+    public TheoryCard editTheoryCard(TheoryCard tc, String id) {
+        Optional<TheoryCard> card = theoryCardRepository.findById(id);
+        if(card.isEmpty()){
+
+        }
+        TheoryCard t = card.get();
+        t.setTag(tc.getTag());
+        t.setCardsContent(tc.getCardsContent());
+        t.setDescription(tc.getDescription());
+        t.setPhotoId(tc.getPhotoId());
+        theoryCardRepository.save(t);
+        return t;
+    }
+
 }

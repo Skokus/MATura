@@ -7,4 +7,6 @@ public interface TheoryCardService {
     TheoryCard saveTheoryCard(TheoryCard tc);
     List<TheoryCard> getAllTheoryCards();
     TheoryCard getTheoryCardById(String id);
+    void removeTheoryCard(String id);
+    TheoryCard editTheoryCard(TheoryCard tc, String id);
 }

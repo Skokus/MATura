@@ -8,7 +8,9 @@ function Categories(props){
 
     const [categories, setCategory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const {token, setToken} = useContext(UserContext);
+    const [token, setToken] = useState(
+        JSON.parse(localStorage.getItem("token"))
+    );
 
     useEffect(() => {
         async function fetchData(){

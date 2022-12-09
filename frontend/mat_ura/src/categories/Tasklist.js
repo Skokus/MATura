@@ -9,11 +9,13 @@ import { getCategoryProgress } from '../api/CategoryProgressService';
 function Tasklist(){
 
     const {categoryName} = useParams();
-    const {token, setToken} = useContext(UserContext);
     const [progress, setProgress] = useState();
     const [taskKeys, setTaskKeys] = useState();
     const [isLoading, setIsLoading] = useState(false);
-
+    const [token, setToken] = useState(
+        JSON.parse(localStorage.getItem("token"))
+    );
+    
     useEffect(() => {
         const fetchData = async () => {
             var userprogress = await getCategoryProgress(token, categoryName);

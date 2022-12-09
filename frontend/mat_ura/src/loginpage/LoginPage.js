@@ -12,9 +12,11 @@ function LoginPage(){
 
     async function logIn(e){
         e.preventDefault();
-        var lmao = await sendLogin(username, password);
-        setToken(lmao.access_token);
+        var tokens = await sendLogin(username, password);
+        setToken(tokens.access_token);
+        localStorage.setItem("token", JSON.stringify(tokens.access_token));
         navigate("/");
+        window.location.reload(false);
     }
 
     return(

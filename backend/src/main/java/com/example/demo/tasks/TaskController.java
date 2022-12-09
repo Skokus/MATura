@@ -43,8 +43,8 @@ public class TaskController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @Operation(summary = "Remove task by id")
-    public ResponseEntity<Task> removeTask(@PathVariable String id){
+    public ResponseEntity removeTask(@PathVariable String id){
         taskService.removeTask(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

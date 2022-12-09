@@ -35,4 +35,17 @@ public class TheoryCardController {
     public ResponseEntity<TheoryCard> getTheoryCardById(@PathVariable String id){
         return new ResponseEntity<>(theoryCardService.getTheoryCardById(id), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @Operation(summary = "Edit theorycard")
+    public ResponseEntity<TheoryCard> editTheoryCard(@PathVariable String id, @RequestBody TheoryCard t){
+        return new ResponseEntity<>(theoryCardService.editTheoryCard(t, id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @Operation(summary = "Delete theorycard")
+    public ResponseEntity removeTheoryCard(@PathVariable String id){
+        theoryCardService.removeTheoryCard(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }
