@@ -72,14 +72,14 @@ public class CategoryManager implements CategoryService{
         return names;
     }
 
-    public void deleteCategory(String categoryName){
-        Category c = categoryRepository.findByName(categoryName);
-        if(c == null){
+    public void deleteCategory(String id){
+        Optional<Category> c = categoryRepository.findById(id);
+        if(c.isEmpty()){
             throw new CategoryNotFoundException("Category does not exist");
         }
-        categoryRepository.delete(c);
-        userProgressService.removeCategory(c);
-        log.info("Deleting category {}.", c.getName());
+        categoryRepository.delete(c.get());
+        userProgressService.removeCategory(c.get());
+        log.info("Deleting category {}.", c.get().getName());
     }
 
     public String addTaskToCategory(String categoryName, String id){

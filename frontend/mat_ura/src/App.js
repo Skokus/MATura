@@ -10,6 +10,9 @@ import LoginPage from './loginpage/LoginPage';
 import RegisterForm from './registerpage/RegisterForm';
 import { MathJaxContext } from 'better-react-mathjax';
 import CreateTaskForm from './admin/CreateTaskForm';
+import CategoryList from './admin/categories/CategoryList';
+import AddCategoryForm from './admin/categories/AddCategoryForm';
+import AddTaskToCategoryForm from './admin/categories/AddTaskToCategoryForm';
 export const UserContext = React.createContext();
 
 function App() {
@@ -32,6 +35,9 @@ function App() {
             <Route path="categories/:categoryName/:id" element={<Task/>}/>
             <Route path="categories/:categoryName" element={<Tasklist/>}/>
             <Route path="admin/tasks/add" element={<CreateTaskForm/>}/>
+            <Route path="admin/categories" element={<CategoryList/>}/>
+            <Route path="admin/categories/add" element={<AddCategoryForm/>}/>
+            <Route path="admin/categories/:categoryName/addTask" element={<AddTaskToCategoryForm/>}/>
           </Routes>
         </UserContext.Provider>
       </div>
