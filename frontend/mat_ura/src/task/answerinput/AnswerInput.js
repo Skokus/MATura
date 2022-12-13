@@ -10,7 +10,8 @@ function AnswerInput(props){
 
     return(
         <div>
-            <input className="answer-input-text" type="text" onChange={handleChange}></input>
+            {!props.abcanswers && <input className="answer-input-text" type="text" onChange={handleChange}></input>}
+            {props.abcanswers && props.abcanswers.map((ans,index) => (<label><input className="answer-input-radio" name={"step" + props.idx} type="radio" value={ans} onChange={handleChange}></input>{ans}</label>))}
             <button className="answer-input-button" onClick={() => props.handleClick(answer)}>Sprawdź</button>
         </div>
     );

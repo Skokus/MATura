@@ -13,6 +13,7 @@ import CreateTaskForm from './admin/CreateTaskForm';
 import CategoryList from './admin/categories/CategoryList';
 import AddCategoryForm from './admin/categories/AddCategoryForm';
 import AddTaskToCategoryForm from './admin/categories/AddTaskToCategoryForm';
+import CategoryDetails from './admin/categories/CategoryDetails';
 export const UserContext = React.createContext();
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             <Route path="admin/tasks/add" element={<CreateTaskForm/>}/>
             <Route path="admin/categories" element={<CategoryList/>}/>
             <Route path="admin/categories/add" element={<AddCategoryForm/>}/>
+            <Route path="admin/categories/:categoryName" element={<CategoryDetails/>}/>
             <Route path="admin/categories/:categoryName/addTask" element={<AddTaskToCategoryForm/>}/>
           </Routes>
         </UserContext.Provider>

@@ -27,9 +27,10 @@ function Tasklist(){
     },[]);
 
     return(
-        <div>
+        <div className="tasklist">
             <h3>{categoryName}</h3><br></br>
-            {isLoading && progress.map(([key, value], index) => (<Link id={"tasklink-" + categoryName + "-" + key} className={value == true ? "text-link-done" : "text-link-notDone"} to={"/categories/" + categoryName + "/" + key}>{index}</Link>))}
+            Wykonane zadania: 
+            {isLoading && progress.map(([key, value], index) => (<Link id={"tasklink-" + categoryName + "-" + key} className={value == true ? "text-link task-done" : "text-link task-notdone"} to={"/categories/" + categoryName + "/" + key}>{index}</Link>))}
         </div>
     );
 }

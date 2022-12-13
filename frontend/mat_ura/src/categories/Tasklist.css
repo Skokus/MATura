@@ -1,19 +1,36 @@
-.text-link-done{
-    padding: 26px 30px;
-    margin-left: 20px;
-    background-color: rgb(83, 196, 111);
-    color: white;
+.tasklist{
+    text-align: center;
 }
 
-.text-link-notDone{
+
+.text-link{
     padding: 26px 30px;
     margin-left: 20px;
-    background-color: rgb(255, 153, 0);
     color: white;
+    text-decoration: none;
+    border-radius: 20%;
+    font-size: 20px;
+}
+
+.task-notdone{
+    background-color: rgb(255, 153, 0);
+}
+
+.task-notdone:hover{
+    background-color: rgb(255, 206, 70);
+}
+
+.task-done{
+    background-color: rgb(0, 167, 42);
+}
+
+.task-done:hover{
+    background-color: rgb(0, 219, 55);
 }
 
 .text-link:hover {
-    background-color: rgb(0, 133, 33);
     text-decoration: none;
     color: white;
 }
+
+

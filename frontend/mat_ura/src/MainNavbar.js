@@ -20,6 +20,7 @@ function MainNavbar(){
     return(
         <div id="navbar" className="mainNavbar">
             <Link className="mainNavbarLink navleft" to={"/"}>Strona Główna</Link>
+            <Link className="mainNavbarLink navleft" to={"/admin/categories"}>Kategorie</Link>
             {!token 
                 ? <Link className="mainNavbarLink navright" to={"/login"}>Zaloguj się</Link> 
                 : <button className="mainNavbarLink navright" onClick={logOutUser}>Wyloguj</button>

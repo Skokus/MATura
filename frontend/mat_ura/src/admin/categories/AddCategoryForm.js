@@ -10,10 +10,10 @@ function AddCategoryForm(){
         "title": "Stwórz kategorię",
         "type": "object",
         "required": [
-          "id"
+          "name"
         ],
         "properties": {
-          "id": {
+          "name": {
             "type": "string",
             "title": "Nazwa"
           }

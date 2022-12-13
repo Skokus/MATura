@@ -31,13 +31,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getAllCategories(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @Operation(summary = "Get category by id")
-    public ResponseEntity<Category> getCategoryById(@PathVariable String id) {
-        return new ResponseEntity<>(categoryService.getCategoryById(id), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/names/{categoryName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{categoryName}", method = RequestMethod.GET)
     @Operation(summary = "Get category by name")
     public ResponseEntity<Category> getCategoryByName(@PathVariable String categoryName) {
         return new ResponseEntity<>(categoryService.getCategoryByName(categoryName), HttpStatus.OK);

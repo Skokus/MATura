@@ -4,11 +4,13 @@ import lombok.Builder;
 import lombok.Data;
 import org.bson.types.Binary;
 
+import java.util.List;
+
 @Data
 public class Step {
     private String content;
     private String currentSolution;
-    private String possibleSolutions;
+    private List<String> abcAnswers;
     private String imageId;
     private String answer;
 
@@ -48,11 +50,11 @@ public class Step {
         this.imageId = imageId;
     }
 
-    public String getPossibleSolutions() {
-        return possibleSolutions;
+    public List<String> getABCAnswers() {
+        return abcAnswers;
     }
 
-    public void setPossibleSolutions(String possibleSolutions) {
-        this.possibleSolutions = possibleSolutions;
+    public void setABCAnswers(List<String> possibleSolutions) {
+        this.abcAnswers = possibleSolutions;
     }
 }

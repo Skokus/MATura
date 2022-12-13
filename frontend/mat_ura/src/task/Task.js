@@ -76,7 +76,7 @@ function Task(){
             <div className="task-container">
                 <div className="task-steps">
                     {task !== undefined ? (task.steps.map((step,index) => (
-                        <Step id={"step-" + index} completion={stepCompletion[index]} step={step} handleAnswer={onCheckAnswer}/>
+                        <Step id={"step-" + index} completion={stepCompletion[index]} step={step} handleAnswer={onCheckAnswer} idx={index}/>
                     ))) : console.log("haha")}
                 </div>
                 <div className="task-extras">
