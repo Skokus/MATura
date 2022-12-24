@@ -14,3 +14,9 @@ export async function getTheoryCard(id){
     const task = await res.json();
     return task;
 }
+
+export async function getTheoryCards(){
+    const res = await fetch(urls.urls.backendURL + "/theory-cards/", getRequestOptions());
+    const tcs = await res.json();
+    return tcs;
+}

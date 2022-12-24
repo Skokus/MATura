@@ -24,7 +24,19 @@ function CategoryDetails(){
 
     return(
         <div>
-            {isLoading && category.name}
+            {isLoading && (<div>
+                {category.name}
+                <tr>
+                    <th>Id zadania</th>
+                    <th></th>
+                </tr>
+                {category.tasks.map((taskid, index) => (
+                    <tr>
+                        <td>{taskid}</td>
+                        <button>Pokaż zadanie</button>
+                    </tr>
+                ))}
+            </div>)}
         </div>
     );
 
