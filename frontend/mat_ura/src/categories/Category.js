@@ -14,9 +14,9 @@ function Category(props){
     }
 
     return(
-        <div className = "category" onClick={routeChange} style={{background: `linear-gradient(90deg, #09ba00 ${props.completion}% , white ${props.completion}%) right`}}>
+        <div className = "category" onClick={routeChange} style={{background: `linear-gradient(90deg, #00c700 ${props.completion}% , white ${props.completion}%) right`}}>
             <div className="inline">
-                <h2>{props.name}</h2><br></br>
+                <h2>{props.name} ({props.completion ? Math.round(props.completion) : 0}%)</h2><br></br>
             </div>
         </div>
     );

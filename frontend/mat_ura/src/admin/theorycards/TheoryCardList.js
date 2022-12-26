@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { getTheoryCards } from '../../api/TheoryCardsService';
 import { useNavigate } from "react-router-dom";
+import "../../styles/forms.css"
 
 function TheoryCardList(){
 
@@ -22,7 +23,7 @@ function TheoryCardList(){
 
     return(
         <div>
-            <button onClick={() => navigate("/admin/categories/add")}>Dodaj kategorię</button>
+            <button className="form-button create-button" onClick={() => navigate("/admin/categories/add")}>Dodaj fiszkę</button>
             <table>
                 <tr>
                     <th>Id fiszki</th>
@@ -33,7 +34,7 @@ function TheoryCardList(){
                 <tr>
                     <td>{tc.id}</td>
                     <td>{tc.description}</td>
-                    <td><button onClick={() => console.log(tc.id)}>Usuń</button></td>
+                    <td><button className="form-button delete-button" onClick={() => console.log(tc.id)}>Usuń</button></td>
                 </tr>
             ))}
             </table>

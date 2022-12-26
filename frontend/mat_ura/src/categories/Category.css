@@ -2,11 +2,6 @@
     display:inline-block;
 }
 
-img{
-    margin:10px;
-    display: inline-block;
-}
-
 h2{
     margin: 0;
     padding: 0;
@@ -20,6 +15,7 @@ h2{
     width: 40%;
     margin: auto;
     margin-top: 20px;
+    margin-bottom: 20px;
     padding: 30px;
     text-align: center;
 }

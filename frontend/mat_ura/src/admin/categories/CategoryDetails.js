@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { getCategory } from '../../api/CategoryService';
+import { deleteTaskFromCategory, getCategory } from '../../api/CategoryService';
 import { useNavigate } from "react-router-dom";
 import {useParams } from "react-router-dom";
+import "../../styles/forms.css"
 
 function CategoryDetails(){
 
@@ -26,6 +27,7 @@ function CategoryDetails(){
         <div>
             {isLoading && (<div>
                 {category.name}
+                <table>
                 <tr>
                     <th>Id zadania</th>
                     <th></th>
@@ -33,9 +35,11 @@ function CategoryDetails(){
                 {category.tasks.map((taskid, index) => (
                     <tr>
                         <td>{taskid}</td>
-                        <button>Pokaż zadanie</button>
+                        <td><button className="form-button details-button">Pokaż zadanie</button></td>
+                        <td><button className="form-button delete-button" onClick={() => deleteTaskFromCategory(category.name, taskid)}>Usuń</button></td>
                     </tr>
                 ))}
+                </table>
             </div>)}
         </div>
     );

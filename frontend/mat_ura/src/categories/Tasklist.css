@@ -1,15 +1,28 @@
-.tasklist{
+.tasklist-header{
+    padding: 10px;
     text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 0px;
 }
 
+.tasklist{
+    display: grid;
+}
 
 .text-link{
-    padding: 26px 30px;
     margin-left: 20px;
+    margin-top: 20px;
     color: white;
     text-decoration: none;
     border-radius: 20%;
     font-size: 20px;
+    display: block;
+    float:left;
+    text-align: center;
+    width: 70px;
+    line-height: 70px;
+    box-sizing: border-box;
 }
 
 .task-notdone{

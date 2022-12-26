@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Category from './Category';
 import { getUserProgress } from '../api/CategoryProgressService';
-import {UserContext} from "../App.js"
-import Photo from '../photo/Photo';
 
-function Categories(props){
+function Categories(){
 
     const [categories, setCategory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +20,7 @@ function Categories(props){
     },[]);
     
     return(
-        <div>
+        <div className="categorylist">
             {isLoading && categories.userProgress.map((category) => (
                 <Category name={category.name} completion={(category.numberOfDoneTasks/category.numberOfTasks)*100} numberOfTasks={category.numberOfTasks}/>
             ))}

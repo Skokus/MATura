@@ -1,0 +1,26 @@
+.form-button{
+    border: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.delete-button{
+    color: white;
+    background-color: red;
+}
+
+.details-button{
+    color: white;
+    background-color: rgb(78, 78, 255);
+}
+
+.edit-button{
+    color: white;
+    background-color: orange;
+}
+
+.create-button{
+    color: white;
+    background-color: #00c700;
+}

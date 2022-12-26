@@ -52,3 +52,7 @@ export async function addTaskToCategory(categoryName, object){
 export async function deleteCategory(id){
     await fetch(urls.urls.backendURL + '/categories/' + id, deleteRequestOptions());
 }
+
+export async function deleteTaskFromCategory(categoryName, id){
+    await fetch(urls.urls.backendURL + '/categories/' + categoryName + '/' + id, deleteRequestOptions());
+}
