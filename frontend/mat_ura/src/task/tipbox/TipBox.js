@@ -14,8 +14,8 @@ function TipBox(props) {
     return (
         <div className="tips">
             <div className="tips-header">Wskazówki</div>
-            <div className="tips-tip"><MathJax>{props.tips[tipNumber]}</MathJax></div>
             <button className="tips-button" onClick={changeTip}>Następna wskazówka</button>
+            <div className="tips-tip"><MathJax>{props.tips[tipNumber].content}</MathJax></div>
         </div>
     );
 }

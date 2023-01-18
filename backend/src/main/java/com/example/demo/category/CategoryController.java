@@ -1,7 +1,7 @@
-package com.example.demo.taskcategory;
+package com.example.demo.category;
 
-import com.example.demo.taskcategory.models.Category;
-import com.example.demo.taskcategory.models.RestAddCategoryRequest;
+import com.example.demo.category.models.Category;
+import com.example.demo.category.models.RestAddCategoryRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

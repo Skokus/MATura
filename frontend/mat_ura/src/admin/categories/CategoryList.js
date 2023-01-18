@@ -31,7 +31,7 @@ function CategoryList(){
             {isError && <ErrorMessage/>}
             {isLoading &&
             <div>
-            <button className="form-button create-button" onClick={() => navigate("/admin/categories/add")}>Dodaj kategorię</button>
+            <button className="form-button create-button" onClick={() => navigate("/admin/categories/new")}>Dodaj kategorię</button>
             <table>
                 <tr>
                     <th>Nazwa kategorii</th>

@@ -1,6 +1,6 @@
 package com.example.demo.users;
 
-import com.example.demo.taskcategory.CategoryRepository;
+import com.example.demo.category.CategoryRepository;
 import com.example.demo.users.models.RestRegisterUserRequest;
 import com.example.demo.users.models.User;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
             log.info("User found");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority(user.get().getRole()));
         return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), authorities);
     }
 

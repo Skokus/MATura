@@ -1,6 +1,6 @@
 package com.example.demo.users.models;
 
-import com.example.demo.taskcategory.models.Category;
+import com.example.demo.category.models.Category;
 import com.example.demo.users.userprogress.UserProgress;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,12 +12,9 @@ public class User {
 
     @Id
     private String id;
-
     private String email;
     private String username;
-
     private String password;
-
     private String role;
 
     private UserProgress userProgress;

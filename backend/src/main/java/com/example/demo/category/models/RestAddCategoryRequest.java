@@ -1,4 +1,4 @@
-package com.example.demo.taskcategory.models;
+package com.example.demo.category.models;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

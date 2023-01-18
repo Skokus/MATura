@@ -10,6 +10,12 @@
     padding-bottom: 20px;
 }
 
+.tips-tip{
+    font-size: 15px;
+    font-weight:bold;
+    padding: 10px;
+}
+
 .tips-header{
     padding: 15px;
 }

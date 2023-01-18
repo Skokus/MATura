@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
+import { addTask } from '../../api/TaskService';
 import Form from 'react-jsonschema-form';
 
-function CreateTaskForm(){
+function AddTaskForm(){
 
+    const navigate = useNavigate();
     const schema = `{
-        "title": "A list of tasks",
+        "title": "Utwórz zadanie",
         "type": "object",
         "required": [
           "title"
         ],
         "properties": {
-          "title": {
+          "question": {
             "type": "string",
             "title": "Task list title"
           },
@@ -47,10 +49,12 @@ function CreateTaskForm(){
 
     const schemaAsObject = JSON.parse(schema);
 
+    const onSubmit = ({formData}, e) => {addTask(formData); navigate("/admin/tasks");};
+
     return(
-        <Form schema={schemaAsObject}/>
+        <Form schema={schemaAsObject} onSubmit={onSubmit}/>
     );
 
 }
 
-export default CreateTaskForm;
+export default AddTaskForm;

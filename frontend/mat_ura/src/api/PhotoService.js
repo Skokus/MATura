@@ -1,3 +1,5 @@
+const ctoken = JSON.parse(localStorage.getItem("token"));
+
 function getRequestOptions(){
     return {
         method: 'GET',

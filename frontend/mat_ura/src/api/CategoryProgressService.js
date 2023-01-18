@@ -1,21 +1,23 @@
 import urls from "./apiInfo.json"
 
-function getRequestOptions(token){
+const ctoken = JSON.parse(localStorage.getItem("token"));
+
+function getRequestOptions(){
     return {
         method: 'GET',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + token
+            'Authorization': "Bearer " + ctoken
         }
     }
 }
 
-function patchRequestOptions(token){
+function patchRequestOptions(){
     return {
         method: 'PATCH',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + token
+            'Authorization': "Bearer " + ctoken
         }
     }
 }

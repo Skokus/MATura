@@ -1,8 +1,6 @@
-package com.example.demo.taskcategory;
+package com.example.demo.category;
 
-import com.example.demo.photos.Photo;
-import com.example.demo.taskcategory.models.Category;
-import com.example.demo.tasks.Task;
+import com.example.demo.category.models.Category;
 
 import java.util.List;
 

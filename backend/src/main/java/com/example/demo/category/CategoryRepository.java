@@ -1,6 +1,6 @@
-package com.example.demo.taskcategory;
+package com.example.demo.category;
 
-import com.example.demo.taskcategory.models.Category;
+import com.example.demo.category.models.Category;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface CategoryRepository extends MongoRepository<Category, String> {

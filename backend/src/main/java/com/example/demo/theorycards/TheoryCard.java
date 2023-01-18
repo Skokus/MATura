@@ -1,6 +1,8 @@
 package com.example.demo.theorycards;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,6 +12,7 @@ import java.util.List;
 @Document(collection = "theorycards")
 @ToString
 @Data
+@Getter @Setter
 public class TheoryCard {
     @Id
     private String id;
@@ -17,48 +20,4 @@ public class TheoryCard {
     private String description;
     private String cardsContent;
     private String photoId;
-
-    public TheoryCard(){
-
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public String getCardsContent() {
-        return cardsContent;
-    }
-
-    public void setCardsContent(String cardsContent) {
-        this.cardsContent = cardsContent;
-    }
-
-    public String getPhotoId() {
-        return photoId;
-    }
-
-    public void setPhotoId(String photoId) {
-        this.photoId = photoId;
-    }
 }

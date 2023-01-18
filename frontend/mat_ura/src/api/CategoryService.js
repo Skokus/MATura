@@ -1,5 +1,7 @@
 import urls from "./apiInfo.json"
 
+const ctoken = JSON.parse(localStorage.getItem("token"));
+
 function getRequestOptions(){
     return {
         method: 'GET',

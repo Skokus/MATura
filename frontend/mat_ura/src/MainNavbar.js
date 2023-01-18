@@ -13,6 +13,7 @@ function MainNavbar(){
 
     function logOutUser(){
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         setToken("");
         navigate("/login");
     }
@@ -23,6 +24,7 @@ function MainNavbar(){
             <Link className="mainNavbarLink navleft" to={"/admin/categories"}>Kategorie</Link>
             <Link className="mainNavbarLink navleft" to={"/admin/tasks"}>Zadania</Link>
             <Link className="mainNavbarLink navleft" to={"/admin/theory-cards"}>Fiszki</Link>
+            <Link className="mainNavbarLink navleft" to={"/admin/tips"}>Wskazówki</Link>
             {!token 
                 ? <Link className="mainNavbarLink navright" to={"/login"}>Zaloguj się</Link> 
                 : <button className="mainNavbarLink navright" onClick={logOutUser}>Wyloguj</button>

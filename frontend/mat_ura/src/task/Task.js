@@ -13,6 +13,7 @@ import Modal from './modal/Modal';
 import Solution from './solution/Solution';
 import TipBox from './tipbox/TipBox';
 import TheoryCard from './theorycard/TheoryCard';
+import { getTipById } from '../api/TipService';
 
 function Task(){
 
@@ -21,6 +22,7 @@ function Task(){
     const [stepCompletion, setStepCompletion] = useState([]);
     const [tipNumber, setTipNumber] = useState(0);
     const [theorycards, setTheoryCards] = useState([]);
+    const [tips, setTips] = useState([]);
     const [theorycardsphotos, setTheoryCardsPhotos] = useState([]);
     const [popupActive, setPopupActive] = useState(false);
     const {categoryName, id} = useParams();
@@ -37,14 +39,20 @@ function Task(){
                 var card = await getTheoryCard(tcid);
                 if(card.photoId){
                     var p = await getPhoto(card.photoId);
-                    card.photo = p;
+                    if(card.photo)
+                        card.photo = p;
                 }
                 cards.push(card);
             }
+            var tips = [];
+            for(const tid of restask.tips){
+                var tip = await getTipById(tid);
+                tips.push(tip);
+            }
             setTask(restask);
             setTheoryCards(cards);
+            setTips(tips);
             setStepCompletion(new Array(Object.keys(await restask.steps).length).fill("beingDone", 0, 1).fill("basic", 1));
-            console.log("już tu jestem");
             setIsLoading(false);
         }
         fetchData();
@@ -82,7 +90,7 @@ function Task(){
                 <div className="task-extras">
                     <Solution currentsolution={task.steps[stepcounter].currentSolution}/>
                     <TheoryCard theorycards={theorycards}/>
-                    <TipBox tips={task.tips}/>
+                    <TipBox tips={tips}/>
                 </div>
             </div>
             <Modal isActive={popupActive}/>

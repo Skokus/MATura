@@ -1,6 +1,6 @@
 package com.example.demo.tasks;
 
-import com.example.demo.taskcategory.exceptions.TaskDoesNotExistException;
+import com.example.demo.category.exceptions.TaskDoesNotExistException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

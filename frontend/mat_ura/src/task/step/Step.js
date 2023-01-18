@@ -21,7 +21,7 @@ function Step(props) {
   return (
     <div className={"stepclass " + props.completion}>
       {determineStepContent()}
-      {props.completion === "beingDone" && <AnswerInput id="answerInput" handleClick={props.handleAnswer} abcanswers={props.step.abcanswers} idx={props.idx}/>}
+      {props.completion === "beingDone" && <AnswerInput id="answerInput" handleClick={props.handleAnswer} abcAnswers={props.step.abcAnswers} idx={props.idx}/>}
     </div>
   );
 }

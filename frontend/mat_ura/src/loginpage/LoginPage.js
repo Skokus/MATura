@@ -1,38 +1,46 @@
 import React, { useState, useEffect, useContext} from 'react';
-import { sendLogin } from '../api/UserService';
+import { sendLogin, getUserWithToken } from '../api/UserService';
 import {UserContext} from "../App.js"
 import { useNavigate } from "react-router-dom";
-
+import "../styles/forms.css"
 function LoginPage(){
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const {token, setToken} = useContext(UserContext);
+    const [isError, setIsError] = useState(false);
     const navigate = useNavigate();
 
     async function logIn(e){
+        setIsError(false);
         e.preventDefault();
-        var tokens = await sendLogin(username, password);
-        setToken(tokens.access_token);
-        localStorage.setItem("token", JSON.stringify(tokens.access_token));
-        navigate("/");
-        window.location.reload(false);
+        var response = await sendLogin(username, password);
+        if(response?.ok){
+            const tokens = await response.json();
+            localStorage.setItem("token", JSON.stringify(tokens.access_token));
+            var user = await getUserWithToken(tokens.access_token);
+            localStorage.setItem("user", JSON.stringify(user));
+            navigate("/");
+            window.location.reload(false);
+        } else {
+            setIsError(true);
+        }
     }
 
     return(
-        <div className="login">
+        <div className="login-form">
             <form onSubmit={logIn}>
                 <div className="login-input-container">
-                    <label className="login-label">Username </label>
-                    <input name="username" onChange={(e) => setUsername(e.target.value)} required />
+                    <label className="login-label">Nazwa użytkownika</label>
+                    <input className="login-input" name="username" onChange={(e) => setUsername(e.target.value)} required />
                 </div>
-                <div className="input-container">
-                    <label className="login-label">Password </label>
-                    <input type="password" name="password" onChange={(e) => setPassword(e.target.value)} required />
+                <div className="login-input-container">
+                    <label className="login-label">Hasło</label>
+                    <input className="login-input" type="password" name="password" onChange={(e) => setPassword(e.target.value)} required />
                 </div>
                 <a href="/register">Nie masz konta? Zarejestruj się!</a>
+                {isError && <div className="login-error">Złe dane logowania</div>}
                 <div className="button-container">
-                    <button type="submit">Zaloguj się</button>
+                    <button className="form-button create-button" type="submit">Zaloguj się</button>
                 </div>
             </form>
         </div>

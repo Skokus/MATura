@@ -1,16 +1,11 @@
-package com.example.demo.taskcategory;
+package com.example.demo.category;
 
-import com.example.demo.photos.PhotoService;
-import com.example.demo.taskcategory.exceptions.CategoryAlreadyExistsException;
-import com.example.demo.taskcategory.exceptions.CategoryNotFoundException;
-import com.example.demo.taskcategory.exceptions.TaskDoesNotExistException;
-import com.example.demo.users.UserService;
-import com.example.demo.taskcategory.models.Category;
-import com.example.demo.tasks.Task;
+import com.example.demo.category.exceptions.CategoryAlreadyExistsException;
+import com.example.demo.category.exceptions.CategoryNotFoundException;
+import com.example.demo.category.models.Category;
 import com.example.demo.users.userprogress.UserProgressService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
