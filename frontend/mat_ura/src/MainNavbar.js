@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import "./MainNavbar.css"
 import {UserContext} from "./App.js"
 import { useNavigate } from "react-router-dom";
@@ -19,14 +19,14 @@ function MainNavbar(){
     }
 
     return(
-        <div id="navbar" className="mainNavbar">
-            <Link className="mainNavbarLink navleft" to={"/"}>Strona Główna</Link>
-            <Link className="mainNavbarLink navleft" to={"/admin/categories"}>Kategorie</Link>
-            <Link className="mainNavbarLink navleft" to={"/admin/tasks"}>Zadania</Link>
-            <Link className="mainNavbarLink navleft" to={"/admin/theory-cards"}>Fiszki</Link>
-            <Link className="mainNavbarLink navleft" to={"/admin/tips"}>Wskazówki</Link>
+        <div id="navbar" className="mainNavbarWhole">
+            <NavLink className="mainNavbarLink navleft" to={"/"}>Strona Główna</NavLink>
+            <NavLink className="mainNavbarLink navleft" to={"/admin/categories"}>Kategorie</NavLink>
+            <NavLink className="mainNavbarLink navleft" to={"/admin/tasks"}>Zadania</NavLink>
+            <NavLink className="mainNavbarLink navleft" to={"/admin/theory-cards"}>Fiszki</NavLink>
+            <NavLink className="mainNavbarLink navleft" to={"/admin/tips"}>Wskazówki</NavLink>
             {!token 
-                ? <Link className="mainNavbarLink navright" to={"/login"}>Zaloguj się</Link> 
+                ? <NavLink className="mainNavbarLink navright" to={"/login"}>Zaloguj się</NavLink> 
                 : <button className="mainNavbarLink navright" onClick={logOutUser}>Wyloguj</button>
             }
         </div>

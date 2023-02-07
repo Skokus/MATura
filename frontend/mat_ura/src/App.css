@@ -1,3 +1,17 @@
 .App {
   text-align: center;
 }
+
+.app-wrapper{
+  display: flex;
+  overflow: hidden;
+}
+
+.app-navbar{
+  width:240px;
+  height: 100vh;
+}
+
+.app-mainpage{
+  flex: 1;
+}

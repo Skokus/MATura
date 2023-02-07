@@ -15,26 +15,38 @@
     margin-top: 20px;
     color: white;
     text-decoration: none;
-    border-radius: 20%;
     font-size: 20px;
+    border-radius: 20px;
     display: block;
     float:left;
     text-align: center;
     width: 70px;
     line-height: 70px;
     box-sizing: border-box;
+    border: none;
 }
 
 .task-notdone{
     background-color: rgb(255, 153, 0);
+    box-shadow: 0px 7px rgb(194, 103, 0);
 }
 
 .task-notdone:hover{
     background-color: rgb(255, 206, 70);
 }
 
+.text-link:active{
+    box-shadow: none;
+    margin-top: 27px;
+}
+
+.text-link:hover{
+    transition: background-color 0.5s ease;
+}
+
 .task-done{
-    background-color: rgb(0, 167, 42);
+    background-color: rgb(1, 189, 48);
+    box-shadow: 0px 7px rgb(0, 146, 37);
 }
 
 .task-done:hover{

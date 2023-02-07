@@ -6,8 +6,7 @@ function AnswerInput(props){
     const [answer, setAnswer] = useState(0);
 
     function handleChange(event){    
-        setAnswer(event.target.value);
-        console.log(props.abcAnswers);  
+        setAnswer(event.target.value); 
     }
 
     return(

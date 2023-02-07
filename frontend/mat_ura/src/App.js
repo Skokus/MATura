@@ -46,43 +46,46 @@ function App() {
 
   return (
     <MathJaxContext config={config}>
-      <div>
-        <MainNavbar/>
-        <Routes>
-          <Route index element={<Categories/>}/>
-          <Route path="/about" element={<AboutPage/>}/>
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/register" element={<RegisterForm/>}/>
-          <Route path="categories/:categoryName/:id" element={<Task/>}/>
-          <Route path="categories/:categoryName" element={<Tasklist/>}/>
-          <Route path="admin/tasks/add" element={<CreateTaskForm/>}/>
-          <Route
-            path="analytics"
-            element={
-              <ProtectedRoute
-                redirectPath="/home"
-                isAllowed={
-                  !!user
-                }
-              >
-                <CategoryList/>
-              </ProtectedRoute>
-            }
-          />
-          <Route path="admin/categories" element={<CategoryList/>}/>
-          <Route path="admin/categories/new" element={<AddCategoryForm/>}/>
-          <Route path="admin/categories/:categoryName" element={<CategoryDetails/>}/>
-          <Route path="admin/categories/:categoryName/addTask" element={<AddTaskToCategoryForm/>}/>
-          <Route path="admin/theory-cards" element={<TheoryCardList/>}/>
-          <Route path="admin/theory-cards/new" element={<AddTheoryCardForm/>}/>
-          <Route path="admin/theory-cards/:theoryCardId" element={<TheoryCardDetails/>}/>
-          <Route path="admin/theory-cards/:theoryCardId/edit" element={<EditTheoryCardForm/>}/>
-          <Route path="admin/tips" element={<TipList/>}/>
-          <Route path="admin/tips/new" element={<AddTipForm/>}/>
-          <Route path="admin/tips/:tipId/edit" element={<EditTipForm/>}/>
-          <Route path="admin/tasks" element={<TaskList/>}/>
-          <Route path="admin/tasks/new" element={<AddTaskForm/>}/>
-        </Routes>
+      <div className="app-wrapper">
+        <MainNavbar className="app-navbar"/>
+        <div className="app-navbar"></div>
+        <div className="app-mainpage">
+          <Routes>
+            <Route index element={<Categories/>}/>
+            <Route path="/about" element={<AboutPage/>}/>
+            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/register" element={<RegisterForm/>}/>
+            <Route path="categories/:categoryName/:id" element={<Task/>}/>
+            <Route path="categories/:categoryName" element={<Tasklist/>}/>
+            <Route path="admin/tasks/add" element={<CreateTaskForm/>}/>
+            <Route
+              path="analytics"
+              element={
+                <ProtectedRoute
+                  redirectPath="/home"
+                  isAllowed={
+                    !!user
+                  }
+                >
+                  <CategoryList/>
+                </ProtectedRoute>
+              }
+            />
+            <Route path="admin/categories" element={<CategoryList/>}/>
+            <Route path="admin/categories/new" element={<AddCategoryForm/>}/>
+            <Route path="admin/categories/:categoryName" element={<CategoryDetails/>}/>
+            <Route path="admin/categories/:categoryName/addTask" element={<AddTaskToCategoryForm/>}/>
+            <Route path="admin/theory-cards" element={<TheoryCardList/>}/>
+            <Route path="admin/theory-cards/new" element={<AddTheoryCardForm/>}/>
+            <Route path="admin/theory-cards/:theoryCardId" element={<TheoryCardDetails/>}/>
+            <Route path="admin/theory-cards/:theoryCardId/edit" element={<EditTheoryCardForm/>}/>
+            <Route path="admin/tips" element={<TipList/>}/>
+            <Route path="admin/tips/new" element={<AddTipForm/>}/>
+            <Route path="admin/tips/:tipId/edit" element={<EditTipForm/>}/>
+            <Route path="admin/tasks" element={<TaskList/>}/>
+            <Route path="admin/tasks/new" element={<AddTaskForm/>}/>
+          </Routes>
+        </div>
       </div>
     </MathJaxContext>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Link} from "react-router-dom";
 import { getNumberOfTasks } from '../api/CategoryService';
 import "./Tasklist.css"
@@ -15,7 +15,8 @@ function Tasklist(){
     const [token, setToken] = useState(
         JSON.parse(localStorage.getItem("token"))
     );
-    
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchData = async () => {
             var userprogress = await getCategoryProgress(token, categoryName);
@@ -29,7 +30,7 @@ function Tasklist(){
     return(
         <div className="tasklist">
             {isLoading && <div><div className="tasklist-header">{categoryName}</div><br></br>
-            {progress.map(([key, value], index) => (<Link id={"tasklink-" + categoryName + "-" + key} className={value == true ? "text-link task-done" : "text-link task-notdone"} to={"/categories/" + categoryName + "/" + key}>{index + 1}</Link>))}</div>}
+            {progress.map(([key, value], index) => (<button id={"tasklink-" + categoryName + "-" + key} className={value == true ? "text-link task-done" : "text-link task-notdone"} onClick={() => navigate("/categories/" + categoryName + "/" + key)}>{index + 1}</button>))}</div>}
         </div>
     );
 }
