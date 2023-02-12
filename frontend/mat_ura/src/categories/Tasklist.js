@@ -30,7 +30,10 @@ function Tasklist(){
     return(
         <div className="tasklist">
             {isLoading && <div><div className="tasklist-header">{categoryName}</div><br></br>
-            {progress.map(([key, value], index) => (<button id={"tasklink-" + categoryName + "-" + key} className={value == true ? "text-link task-done" : "text-link task-notdone"} onClick={() => navigate("/categories/" + categoryName + "/" + key)}>{index + 1}</button>))}</div>}
+            <div className="tasklist-tasks">
+                {progress.map(([key, value], index) => (<button id={"tasklink-" + categoryName + "-" + key} className={value == true ? "text-link task-done" : "text-link task-notdone"} onClick={() => navigate("/categories/" + categoryName + "/" + key)}>{index + 1}</button>))}</div>
+            </div>
+            }
         </div>
     );
 }
