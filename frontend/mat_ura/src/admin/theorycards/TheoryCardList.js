@@ -22,7 +22,7 @@ function TheoryCardList(){
     },[]);
 
     return(
-        <div>
+        <div className="form-list">
             <button className="form-button create-button" onClick={() => navigate("/admin/theory-cards/new")}>Dodaj fiszkę</button>
             <table>
                 <tr>

@@ -1,6 +1,8 @@
 import React, { useState} from 'react';
-import { sendRegister } from '../api/UserService';
+import { checkUsername, sendRegister } from '../api/UserService';
 import { useNavigate } from "react-router-dom";
+import "./RegisterForm.css"
+import UsernameStatus from './UsernameStatus';
 
 function RegisterForm(){
 
@@ -9,6 +11,8 @@ function RegisterForm(){
     const [password, setPassword] = useState("");
     const [repassword, setRepassword] = useState("");
     const [isPasswordMatched, setIsPasswordMatched] = useState(false);
+    const [isUsernameTaken, setIsUsernameTaken] = useState(false);
+
     const navigate = useNavigate();
 
     async function logIn(e){
@@ -25,28 +29,45 @@ function RegisterForm(){
         }
     }
 
+    async function onChangeUsername(u){
+        if(u){
+            setUsername(u);
+            setIsUsernameTaken("loading");
+            const t = await checkUsername(u);
+            if(t){
+                setIsUsernameTaken("usernameTaken");
+            } else {
+                setIsUsernameTaken("usernameFree");
+            }
+        } else {
+            setIsUsernameTaken("empty");
+        }
+    }
+
     return(
-        <div className="login">
+        <div className="register-form">
+            <div className="register-header">Zarejestruj się już dziś!</div>
             <form onSubmit={logIn}>
-                <div className="login-input-container">
-                    <label className="login-label">Username </label>
-                    <input name="username" onChange={(e) => setUsername(e.target.value)} required />
+                <div className="register-input-container">
+                    <label className="register-label">Login</label>
+                    <input className="register-input" name="username" onChange={(e) => onChangeUsername(e.target.value)} required />
                 </div>
-                <div className="login-input-container">
-                    <label className="email-label">Email </label>
-                    <input name="email" onChange={(e) => setEmail(e.target.value)} required />
+                <UsernameStatus status={isUsernameTaken}/>
+                <div className="register-input-container">
+                    <label className="register-label">Adres email</label>
+                    <input className="register-input" name="email" onChange={(e) => setEmail(e.target.value)} required />
                 </div>
-                <div className="input-container">
-                    <label className="login-label">Password </label>
-                    <input type="password" name="password" onChange={(e) => {setPassword(e.target.value); checkMatchPassword(repassword, e.target.value)}} required />
+                <div className="register-input-container">
+                    <label className="register-label">Hasło</label>
+                    <input className="register-input" type="password" name="password" onChange={(e) => {setPassword(e.target.value); checkMatchPassword(repassword, e.target.value)}} required />
                 </div>
-                <div className="input-container">
-                    <label className="login-label">RePassword </label>
-                    <input type="repassword" name="repassword" onChange={(e) => {setRepassword(e.target.value); checkMatchPassword(password, e.target.value)}} required />
+                <div className="register-input-container">
+                    <label className="register-label">Powtórz hasło</label>
+                    <input className="register-input" type="repassword" name="repassword" onChange={(e) => {setRepassword(e.target.value); checkMatchPassword(password, e.target.value)}} required />
                 </div>
                 {!isPasswordMatched && <p className="register-not-match-password">Hasła muszą być identyczne</p>}
-                <div className="button-container">
-                    <button type="submit">Zaloguj się</button>
+                <div className="register-button-container">
+                    <button className="register-button" type="register-button-submit">Zaloguj się</button>
                 </div>
             </form>
         </div>

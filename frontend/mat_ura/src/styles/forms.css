@@ -1,3 +1,7 @@
+.form-list{
+    padding: 16px;
+}
+
 .form-button{
     border: none;
     font-size: 16px;
@@ -34,22 +38,7 @@
     background-color: #00c700;
 }
 
-.login-form{
-    text-align: center;
-    margin: 10px;
-}
-
-.login-error{
-    color: red;
-    margin: 10px;
-}
-
 label{
     display:block;
     margin: 5px;
-}
-
-.login-input{
-    margin: 5px;
-    padding: 5px 10px;
 }

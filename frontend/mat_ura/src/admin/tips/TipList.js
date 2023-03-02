@@ -22,7 +22,7 @@ function TipList(){
     },[]);
 
     return(
-        <div>
+        <div className="form-list">
             <button className="form-button create-button" onClick={() => navigate("/admin/tips/new")}>Dodaj wskazówkę</button>
             <table>
                 <tr>

@@ -27,7 +27,7 @@ function CategoryList(){
     },[]);
 
     return(
-        <div>
+        <div className="form-list">
             {isError && <ErrorMessage/>}
             {isLoading &&
             <div>

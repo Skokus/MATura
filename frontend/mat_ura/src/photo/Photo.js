@@ -4,7 +4,7 @@ function Photo(props){
     
     return(
         <div>
-            <img src={"data:image/jpeg;base64," + props.photo.image.data}></img>
+            <img src={"data:image/jpeg;base64," + props.image.data}></img>
         </div>
     )
 }

@@ -23,6 +23,8 @@ import AddTipForm from './admin/tips/AddTipForm';
 import EditTipForm from './admin/tips/EditTipForm';
 import TaskList from './admin/tasks/TaskList';
 import AddTaskForm from './admin/tasks/AddTaskForm';
+import TagList from './formulas/TagList';
+import FormulaList from './formulas/FormulaList';
 export const UserContext = React.createContext();
 
 function App() {
@@ -52,12 +54,13 @@ function App() {
         <div className="app-mainpage">
           <Routes>
             <Route index element={<Categories/>}/>
+            <Route path="/formulas" element={<FormulaList/>}/>
             <Route path="/about" element={<AboutPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/register" element={<RegisterForm/>}/>
-            <Route path="categories/:categoryName/:id" element={<Task/>}/>
-            <Route path="categories/:categoryName" element={<Tasklist/>}/>
-            <Route path="admin/tasks/add" element={<CreateTaskForm/>}/>
+            <Route path="/categories/:categoryName/:id" element={<Task/>}/>
+            <Route path="/categories/:categoryName" element={<Tasklist/>}/>
+            <Route path="/admin/tasks/add" element={<CreateTaskForm/>}/>
             <Route
               path="analytics"
               element={
@@ -71,19 +74,19 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="admin/categories" element={<CategoryList/>}/>
-            <Route path="admin/categories/new" element={<AddCategoryForm/>}/>
-            <Route path="admin/categories/:categoryName" element={<CategoryDetails/>}/>
-            <Route path="admin/categories/:categoryName/addTask" element={<AddTaskToCategoryForm/>}/>
-            <Route path="admin/theory-cards" element={<TheoryCardList/>}/>
-            <Route path="admin/theory-cards/new" element={<AddTheoryCardForm/>}/>
-            <Route path="admin/theory-cards/:theoryCardId" element={<TheoryCardDetails/>}/>
-            <Route path="admin/theory-cards/:theoryCardId/edit" element={<EditTheoryCardForm/>}/>
-            <Route path="admin/tips" element={<TipList/>}/>
-            <Route path="admin/tips/new" element={<AddTipForm/>}/>
-            <Route path="admin/tips/:tipId/edit" element={<EditTipForm/>}/>
-            <Route path="admin/tasks" element={<TaskList/>}/>
-            <Route path="admin/tasks/new" element={<AddTaskForm/>}/>
+            <Route path="/admin/categories" element={<CategoryList/>}/>
+            <Route path="/admin/categories/new" element={<AddCategoryForm/>}/>
+            <Route path="/admin/categories/:categoryName" element={<CategoryDetails/>}/>
+            <Route path="/admin/categories/:categoryName/addTask" element={<AddTaskToCategoryForm/>}/>
+            <Route path="/admin/theory-cards" element={<TheoryCardList/>}/>
+            <Route path="/admin/theory-cards/new" element={<AddTheoryCardForm/>}/>
+            <Route path="/admin/theory-cards/:theoryCardId" element={<TheoryCardDetails/>}/>
+            <Route path="/admin/theory-cards/:theoryCardId/edit" element={<EditTheoryCardForm/>}/>
+            <Route path="/admin/tips" element={<TipList/>}/>
+            <Route path="/admin/tips/new" element={<AddTipForm/>}/>
+            <Route path="/admin/tips/:tipId/edit" element={<EditTipForm/>}/>
+            <Route path="/admin/tasks" element={<TaskList/>}/>
+            <Route path="/admin/tasks/new" element={<AddTaskForm/>}/>
           </Routes>
         </div>
       </div>

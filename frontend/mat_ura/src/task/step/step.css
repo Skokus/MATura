@@ -2,6 +2,7 @@
 
 .basic{
     background-color: rgb(148, 147, 147);
+    border-color: rgb(148, 147, 147);;
     height: 50px;
 }
 
@@ -14,8 +15,8 @@
 }
 
 .done{
-    background-color: rgb(1, 196, 1);
-    border-color: rgb(0, 99, 0);
+    background-color: rgb(87, 204, 87);
+    border-color: rgb(87, 204, 87);
     height: 50px;
 }
 

@@ -1,36 +1,41 @@
 .tips{
     font-size: 24px;
     font-weight: bold;
-    margin: 10px 20px;
+    margin: 8px 16px;
     text-align: center;
     border-style: solid;
     border-radius: 10px;
     border-width: 2px;
-    border-color: rgb(255, 208, 0);
-    padding-bottom: 20px;
+    border-color: rgb(255, 187, 0);
 }
 
 .tips-tip{
     font-size: 15px;
     font-weight:bold;
-    padding: 10px;
+    padding: 16px;
 }
 
 .tips-header{
-    padding: 15px;
+    padding: 16px;
+    background-color: rgb(255, 187, 0);
+    color: white;
 }
 
 .tips-button{
     cursor: pointer;
-    padding: 10px 15px;
-    margin-bottom: 15px;
+    padding: 8px 16px;
+    margin: 16px;
     color: white;
-    background-color: rgb(255, 208, 0);
-    box-shadow: 0px 5px rgb(197, 161, 0);
+    background-color: rgb(255, 187, 0);
+    box-shadow: 0px 5px rgb(190, 140, 0);
     text-decoration: none;
     font-size: 20px;
     border-radius: 10px;
     text-align: center;
     box-sizing: border-box;
     border: none;
+}
+
+.tips-content{
+    padding: 16px;
 }

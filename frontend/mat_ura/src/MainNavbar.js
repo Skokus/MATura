@@ -21,6 +21,7 @@ function MainNavbar(){
     return(
         <div id="navbar" className="mainNavbarWhole">
             <NavLink className="mainNavbarLink navleft" to={"/"}>Strona Główna</NavLink>
+            <NavLink className="mainNavbarLink navleft" to={"/formulas"}>Wzory</NavLink>
             <NavLink className="mainNavbarLink navleft" to={"/admin/categories"}>Kategorie</NavLink>
             <NavLink className="mainNavbarLink navleft" to={"/admin/tasks"}>Zadania</NavLink>
             <NavLink className="mainNavbarLink navleft" to={"/admin/theory-cards"}>Fiszki</NavLink>

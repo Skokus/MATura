@@ -1,5 +1,7 @@
 package com.example.demo.users;
 
+import com.example.demo.users.exceptions.UserAlreadyExistsException;
+import com.example.demo.users.exceptions.UserNotFoundException;
 import com.example.demo.users.models.RestRegisterUserRequest;
 import com.example.demo.users.models.User;
 import com.example.demo.users.userprogress.UserProgress;
@@ -9,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +26,18 @@ public class UserController {
     private final UserService userService;
 
     private final HttpServletRequest request;
+
+    @RequestMapping(value = "/checkUserStatus/{username}", method = RequestMethod.GET)
+    @Operation(summary = "Check if user exists")
+    public ResponseEntity<Boolean> checkIfExists(@PathVariable String username) {
+        try{
+            userService.getUserByUsername(username);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }catch(UsernameNotFoundException e) {
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
+    }
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Operation(summary = "Create user")
     public ResponseEntity<User> createUser(@RequestBody User user) {

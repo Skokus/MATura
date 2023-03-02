@@ -22,7 +22,7 @@ function TaskList(){
     },[]);
 
     return(
-        <div>
+        <div className="form-list">
             <button className="form-button create-button" onClick={() => navigate("/admin/tasks/new")}>Dodaj zadanie</button>
             <table>
                 <tr>

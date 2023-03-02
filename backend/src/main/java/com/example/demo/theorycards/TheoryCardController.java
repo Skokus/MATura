@@ -4,10 +4,13 @@ import com.nimbusds.oauth2.sdk.http.HTTPRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -20,14 +23,15 @@ public class TheoryCardController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Operation(summary = "Save theory card")
-    public ResponseEntity<TheoryCard> saveTheoryCard(@RequestBody TheoryCard tc){
+    public ResponseEntity<TheoryCard> saveTheoryCard(@ModelAttribute TheoryCardDTO tcd){
+        TheoryCard tc = convertToEntity(tcd);
         return new ResponseEntity<>(theoryCardService.saveTheoryCard(tc), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @Operation(summary = "Get all theory cards")
-    public ResponseEntity<List<TheoryCard>> getAllTheoryCards(){
-        return new ResponseEntity<>(theoryCardService.getAllTheoryCards(), HttpStatus.OK);
+    public ResponseEntity<List<TheoryCard>> getTheoryCards(@RequestParam(required=false) String tag){
+        return new ResponseEntity<>(theoryCardService.getTheoryCards(tag), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -38,8 +42,9 @@ public class TheoryCardController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @Operation(summary = "Edit theorycard")
-    public ResponseEntity<TheoryCard> editTheoryCard(@PathVariable String id, @RequestBody TheoryCard t){
-        return new ResponseEntity<>(theoryCardService.editTheoryCard(t, id), HttpStatus.OK);
+    public ResponseEntity<TheoryCard> editTheoryCard(@PathVariable String id, @ModelAttribute TheoryCardDTO tcd){
+        TheoryCard tc = convertToEntity(tcd);
+        return new ResponseEntity<>(theoryCardService.editTheoryCard(tc, id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -47,5 +52,19 @@ public class TheoryCardController {
     public ResponseEntity removeTheoryCard(@PathVariable String id){
         theoryCardService.removeTheoryCard(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    private TheoryCard convertToEntity(TheoryCardDTO theoryCardDTO){
+        try{
+            TheoryCard tc = new TheoryCard();
+            tc.setDescription(theoryCardDTO.getDescription());
+            tc.setTag(theoryCardDTO.getTag());
+            tc.setCardsContent(theoryCardDTO.getCardsContent());
+            tc.setImage(new Binary(BsonBinarySubType.BINARY, theoryCardDTO.getImage().getBytes()));
+            return tc;
+        }catch(IOException e){
+
+        }
+        return null;
     }
 }

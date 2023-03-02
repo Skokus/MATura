@@ -20,8 +20,11 @@ public class TheoryCardManager implements TheoryCardService{
         return tc;
     }
 
-    public List<TheoryCard> getAllTheoryCards() {
-        return theoryCardRepository.findAll();
+    public List<TheoryCard> getTheoryCards(String tag) {
+        if(tag == null){
+            return theoryCardRepository.findAll();
+        }
+        return theoryCardRepository.findAllByTag(tag);
     }
 
     public TheoryCard getTheoryCardById(String id) {
@@ -41,7 +44,7 @@ public class TheoryCardManager implements TheoryCardService{
         t.setTag(tc.getTag());
         t.setCardsContent(tc.getCardsContent());
         t.setDescription(tc.getDescription());
-        t.setPhotoId(tc.getPhotoId());
+        t.setImage(tc.getImage());
         theoryCardRepository.save(t);
         return t;
     }

@@ -1,0 +1,16 @@
+.usernameStatus-label{
+  padding: 4px;
+  font-weight: bold;
+}
+
+.usernameStatus-taken{
+  color: rgb(212, 1, 1);
+}
+
+.usernameStatus-free{
+  color: rgb(1, 189, 48);
+}
+
+.usernameStatus-loading{
+  color: rgb(0, 119, 255);
+}

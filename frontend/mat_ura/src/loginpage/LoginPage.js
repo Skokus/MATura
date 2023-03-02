@@ -3,6 +3,7 @@ import { sendLogin, getUserWithToken } from '../api/UserService';
 import {UserContext} from "../App.js"
 import { useNavigate } from "react-router-dom";
 import "../styles/forms.css"
+import "./LoginPage.css"
 function LoginPage(){
 
     const [username, setUsername] = useState("");
@@ -28,6 +29,7 @@ function LoginPage(){
 
     return(
         <div className="login-form">
+            <div className="login-header">Zaloguj się!</div>
             <form onSubmit={logIn}>
                 <div className="login-input-container">
                     <label className="login-label">Nazwa użytkownika</label>
@@ -37,10 +39,10 @@ function LoginPage(){
                     <label className="login-label">Hasło</label>
                     <input className="login-input" type="password" name="password" onChange={(e) => setPassword(e.target.value)} required />
                 </div>
-                <a href="/register">Nie masz konta? Zarejestruj się!</a>
-                {isError && <div className="login-error">Złe dane logowania</div>}
+                <a className="login-register-link" href="/register">Nie masz konta? Zarejestruj się!</a>
+                {isError && <div className="login-error">Niepoprawne dane logowania</div>}
                 <div className="button-container">
-                    <button className="form-button create-button" type="submit">Zaloguj się</button>
+                    <button className="login-button" type="submit">Zaloguj się</button>
                 </div>
             </form>
         </div>

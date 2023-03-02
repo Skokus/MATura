@@ -1,6 +1,7 @@
 package com.example.demo.users;
 
 import com.example.demo.category.CategoryRepository;
+import com.example.demo.users.exceptions.UserAlreadyExistsException;
 import com.example.demo.users.models.RestRegisterUserRequest;
 import com.example.demo.users.models.User;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,8 @@ public class UserService implements UserDetailsService {
     }
 
     public void registerUser(RestRegisterUserRequest r){
+        if(userRepository.findUserByUsername(r.getUsername()).isPresent() || userRepository.findUserByEmail(r.getEmail()).isPresent())
+            throw new UserAlreadyExistsException("User exists!");
         User user = new User(r.getEmail(), r.getUsername(), r.getPassword(), "ROLE_USER", categoryRepository.findAll());
         user.setPassword(passwordEncoder.encode(r.getPassword()));
         log.info("New user registered: {}", r.getUsername());
@@ -55,7 +58,6 @@ public class UserService implements UserDetailsService {
     public User getUserByUsername(String username){
         Optional<User> user = userRepository.findUserByUsername(username);
         if(user.isEmpty()){
-            log.error("User not found");
             throw new UsernameNotFoundException("User not found");
         }
         return user.get();

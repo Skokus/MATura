@@ -37,11 +37,6 @@ function Task(){
             var cards = [];
             for(const tcid of restask.theoryCards){
                 var card = await getTheoryCard(tcid);
-                if(card.photoId){
-                    var p = await getPhoto(card.photoId);
-                    if(card.photo)
-                        card.photo = p;
-                }
                 cards.push(card);
             }
             var tips = [];
