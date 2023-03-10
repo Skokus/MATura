@@ -5,28 +5,27 @@ import { addCategory } from '../../api/CategoryService';
 
 function AddCategoryForm(){
 
-    const navigate = useNavigate();
-    const schema = `{
-        "title": "Stwórz kategorię",
-        "type": "object",
-        "required": [
-          "name"
-        ],
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Nazwa"
-          }
-        }
-    }`;
+  const [inputs, setInputs] = useState({});
 
-    const schemaAsObject = JSON.parse(schema);
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInputs(values => ({...values, [name]: value}))
+  }
 
-    const onSubmit = ({formData}, e) => {addCategory(formData); navigate("/admin/categories");};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addCategory(inputs);
+  }
 
-    return(
-        <Form schema={schemaAsObject} onSubmit={onSubmit}/>
-    );
+  return(
+      <div className="form-list">
+          <form onSubmit={handleSubmit}>
+              name:<input type="text" name="name" onChange={handleChange} required/>
+              <input type="submit" value="Upload"/>
+          </form>
+      </div>
+  );
 
 }
 

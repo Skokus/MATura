@@ -24,16 +24,21 @@ function Step(props) {
       setAnswer(event.target.value); 
   }
     
+  async function checkAnswer(e){
+    e.preventDefault();
+    props.handleAnswer(answer);
+  }
+
   return (
     <div className={"stepclass " + props.completion}>
       {determineStepContent()}
       {props.completion === "beingDone" && 
-        <div>
-          {!props.step.abcAnswers && <input className="answer-input-text" type="text" onChange={handleChange}></input>}
-          {props.step.abcAnswers && props.step.abcAnswers.map((ans,index) => (<label className="answer-input-radio-label"><input className="answer-input-radio" name={"step" + props.idx} type="radio" value={ans} onChange={handleChange}></input><MathJax>{ans}</MathJax></label>))}
+        <form onSubmit={checkAnswer}>
+          {!props.step.abcAnswers && <input className="step-form-input-text" type="text" onChange={handleChange}></input>}
+          {props.step.abcAnswers && props.step.abcAnswers.map((ans,index) => (<label className="step-form-radio-label"><input className="step-form-radio" name={"step" + props.idx} type="radio" value={ans} onChange={handleChange}></input><MathJax>{ans}</MathJax></label>))}
           <br></br>
-          <button className="answer-input-button" onClick={() => props.handleAnswer(answer)}>Sprawdź</button>
-        </div>
+          <button className="step-form-button">Sprawdź</button>
+        </form>
       }
     </div>
   );

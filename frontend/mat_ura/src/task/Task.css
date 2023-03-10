@@ -14,9 +14,4 @@
     flex-flow: column;
     display: flex;
     flex-grow: 1;
-    height: 400px;
-}
-
-.task-extras-filler{
-    height: 200px;
 }

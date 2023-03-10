@@ -3,6 +3,7 @@ import { getTheoryCard } from '../../api/TheoryCardsService';
 import {useParams, useNavigate } from "react-router-dom";
 import "../../styles/forms.css"
 import { MathJax } from 'better-react-mathjax';
+import Photo from '../../photo/Photo'
 
 function TheoryCardDetails(){
 
@@ -30,7 +31,7 @@ function TheoryCardDetails(){
                 <div className="details-param">Opis: {theorycard.description}</div>
                 <div className="details-param">Tag: {theorycard.tag}</div>
                 <div className="details-param">Treść: <MathJax>{theorycard.cardsContent}</MathJax></div>
-                <div className="details-param">Id zdjęcia: {theorycard.photoId}</div>
+                {theorycard.image && <Photo image={theorycard.image}/>}
             </div>)}
         </div>
     );

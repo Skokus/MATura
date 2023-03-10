@@ -27,10 +27,9 @@ function postRequestOptions(object){
         method: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
             'Authorization': "Bearer " + ctoken
         },
-        body: JSON.stringify(object)
+        body: object
     }
 }
 
@@ -59,6 +58,7 @@ export async function getTheoryCards(){
 }
 
 export async function addTheoryCard(object){
+    console.log(typeof(object));
     await fetch(urls.urls.backendURL + '/theory-cards/', postRequestOptions(object));
 }
 

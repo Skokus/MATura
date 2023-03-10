@@ -23,7 +23,6 @@ import AddTipForm from './admin/tips/AddTipForm';
 import EditTipForm from './admin/tips/EditTipForm';
 import TaskList from './admin/tasks/TaskList';
 import AddTaskForm from './admin/tasks/AddTaskForm';
-import TagList from './formulas/TagList';
 import FormulaList from './formulas/FormulaList';
 export const UserContext = React.createContext();
 

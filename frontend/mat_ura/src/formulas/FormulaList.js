@@ -25,7 +25,7 @@ function FormulaList(props){
     return(
       <div className="formulalist">
         {isLoading && formulas.map((formula) => (
-            <Formula formula={formula}/>
+          <Formula formula={formula}/>
         ))}
       </div>
     );

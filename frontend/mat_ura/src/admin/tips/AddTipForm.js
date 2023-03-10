@@ -5,33 +5,28 @@ import { addTip } from '../../api/TipService';
 
 function AddTipForm(){
 
-    const navigate = useNavigate();
-    const schema = `{
-        "title": "Utwórz wskazówkę",
-        "type": "object",
-        "required": [
-          "name",
-          "content"
-        ],
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Nazwa"
-          },
-          "content": {
-            "type": "string",
-            "title": "Zawartość"
-          }
-        }
-    }`;
+  const [inputs, setInputs] = useState({});
 
-    const schemaAsObject = JSON.parse(schema);
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInputs(values => ({...values, [name]: value}))
+  }
 
-    const onSubmit = ({formData}, e) => {addTip(formData); navigate("/admin/tips");};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addTip(inputs);
+  }
 
-    return(
-        <Form schema={schemaAsObject} onSubmit={onSubmit}/>
-    );
+  return(
+      <div className="form-list">
+          <form onSubmit={handleSubmit}>
+              name:<input type="text" name="name" onChange={handleChange} required/>
+              content:<input type="text" name="content" onChange={handleChange} required/>
+              <input type="submit" value="Upload"/>
+          </form>
+      </div>
+  );
 
 }
 
