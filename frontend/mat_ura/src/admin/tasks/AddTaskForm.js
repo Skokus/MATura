@@ -2,58 +2,52 @@ import React, { useState, useEffect, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { addTask } from '../../api/TaskService';
 import Form from 'react-jsonschema-form';
+import { addCategory } from '../../api/CategoryService';
 
 function AddTaskForm(){
 
-    const navigate = useNavigate();
-    const schema = `{
-        "title": "Utwórz zadanie",
-        "type": "object",
-        "required": [
-          "title"
-        ],
-        "properties": {
-          "question": {
-            "type": "string",
-            "title": "Task list title"
-          },
-          "tasks": {
-            "type": "array",
-            "title": "Tasks",
-            "items": {
-              "type": "object",
-              "required": [
-                "title"
-              ],
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "title": "Title",
-                  "description": "A sample title"
-                },
-                "details": {
-                  "type": "string",
-                  "title": "Task details",
-                  "description": "Enter the task details"
-                },
-                "done": {
-                  "type": "boolean",
-                  "title": "Done?",
-                  "default": false
-                }
-              }
-            }
-          }
-        }
-      }`;
+  const [inputs, setInputs] = useState({steps: []});
 
-    const schemaAsObject = JSON.parse(schema);
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInputs(values => ({...values, [name]: value}))
+  }
 
-    const onSubmit = ({formData}, e) => {addTask(formData); navigate("/admin/tasks");};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addCategory(inputs);
+  }
 
-    return(
-        <Form schema={schemaAsObject} onSubmit={onSubmit}/>
-    );
+  const handleArrayChange = (e, idx) => {
+    var steps = inputs.steps.slice();
+    steps[idx] = e.target.value;
+    setInputs(values => ({...values, steps: steps}));
+  }
+
+  const addStep = () => {
+    setInputs(values => ({...values, steps: [...inputs.steps, "lmao"]}));
+  }
+
+  const deleteStep = () => {
+    var steps = inputs.steps.slice();
+    steps.pop();
+    setInputs(values => ({...values, steps: steps}));
+  }
+
+  return(
+      <div className="form-list">
+          <form onSubmit={handleSubmit}>
+              name:<input type="text" name="name" onChange={handleChange} required/>
+              <input type="submit" value="Upload"/>
+              {inputs.steps.map((el, idx) => (
+                <input key={idx} type="text" name={"step" + idx} onChange={(event) => handleArrayChange(event, idx)} required/>
+              ))}
+          </form>
+          <button onClick={addStep}>Dodaj krok</button>
+          <button onClick={deleteStep}>Usuń krok</button>
+      </div>
+  );
 
 }
 

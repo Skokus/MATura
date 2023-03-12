@@ -1,0 +1,28 @@
+.formula{
+  margin: 16px 32px;
+  width: 60%;
+  min-width: 512px;
+  border: 2px solid rgb(0, 119, 255);
+}
+
+.formula-description{
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+  padding: 16px;
+}
+
+.formula-description-bg{
+  background-color: rgb(0, 119, 255);
+  margin: 0px;
+}
+
+.formula-content{
+  padding: 16px;
+}
+
+.formula-content-el{
+  margin: 8px 0;
+  font-weight: bold;
+  font-size: 20px;
+}
