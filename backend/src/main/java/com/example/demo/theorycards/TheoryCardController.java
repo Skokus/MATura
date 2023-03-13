@@ -60,7 +60,11 @@ public class TheoryCardController {
             tc.setDescription(theoryCardDTO.getDescription());
             tc.setTag(theoryCardDTO.getTag());
             tc.setCardsContent(theoryCardDTO.getCardsContent());
-            tc.setImage(new Binary(BsonBinarySubType.BINARY, theoryCardDTO.getImage().getBytes()));
+            if(theoryCardDTO.getImage() != null &&){
+                tc.setImage(new Binary(BsonBinarySubType.BINARY, theoryCardDTO.getImage().getBytes()));
+            } else {
+                tc.setImage(null);
+            }
             return tc;
         }catch(IOException e){
 

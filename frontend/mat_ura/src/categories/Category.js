@@ -16,8 +16,8 @@ function Category(props){
     return(
         <div className = "category" onClick={routeChange}>
             <div className="inline">
-                <div className="category-name">{props.name} ({perc}%)</div>
-                <div className="category-progress" style={{background: `linear-gradient(90deg, #00C700 ${perc}% , #E0E0E0 ${perc}%) right`}}></div>
+                <div className="category-name">{props.name}</div>
+                <div className="category-progress" style={{background: `linear-gradient(90deg, #00C700 ${perc}% , #787878 ${perc}%) right`}}>{perc}%</div>
             </div>
         </div>
     );

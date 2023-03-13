@@ -23,7 +23,8 @@ function AddTheoryCardForm(){
     formData.append("tag", inputs.tag);
     formData.append("description", inputs.description);
     formData.append("cardsContent", inputs.cardsContent);
-    formData.append("image", inputs.image);
+    if(inputs.image)
+      formData.append("image", inputs.image);
     addTheoryCard(formData);
   }
 

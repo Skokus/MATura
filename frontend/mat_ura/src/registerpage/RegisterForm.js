@@ -18,7 +18,7 @@ function RegisterForm(){
     async function logIn(e){
         e.preventDefault();
         await sendRegister(username, email, password);
-        navigate("/");
+        navigate("/login");
     }
 
     function checkMatchPassword(p, rp){
@@ -63,11 +63,11 @@ function RegisterForm(){
                 </div>
                 <div className="register-input-container">
                     <label className="register-label">Powtórz hasło</label>
-                    <input className="register-input" type="repassword" name="repassword" onChange={(e) => {setRepassword(e.target.value); checkMatchPassword(password, e.target.value)}} required />
+                    <input className="register-input" type="password" name="repassword" onChange={(e) => {setRepassword(e.target.value); checkMatchPassword(password, e.target.value)}} required />
                 </div>
                 {!isPasswordMatched && <p className="register-not-match-password">Hasła muszą być identyczne</p>}
                 <div className="register-button-container">
-                    <button className="register-button" type="register-button-submit">Zaloguj się</button>
+                    <button className="register-button" type="register-button-submit">Zarejestruj się</button>
                 </div>
             </form>
         </div>

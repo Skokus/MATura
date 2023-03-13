@@ -1,8 +1,10 @@
 .formula{
-  margin: 16px 32px;
+  margin: 24px 32px;
   width: 60%;
   min-width: 512px;
   border: 2px solid rgb(0, 119, 255);
+  border-bottom: none;
+  box-shadow: 0px 5px rgb(0, 84, 180);
 }
 
 .formula-description{
