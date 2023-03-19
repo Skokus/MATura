@@ -19,7 +19,7 @@ public class TaskController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Operation(summary = "Save task")
-    public ResponseEntity<Task> saveTask(@RequestBody Task t){
+    public ResponseEntity<Task> saveTask(@RequestBody TaskDTO t){
         return new ResponseEntity<>(taskService.saveTask(t), HttpStatus.CREATED);
     }
 
@@ -27,6 +27,12 @@ public class TaskController {
     @Operation(summary = "Get all tasks")
     public ResponseEntity<List<Task>> getAllTasks(){
         return new ResponseEntity<>(taskService.getAllTasks(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getList/id", method = RequestMethod.GET)
+    @Operation(summary = "Get all tasks ids")
+    public ResponseEntity<List<String>> getAllTasksIds(){
+        return new ResponseEntity<>(taskService.getAllTasksIds(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

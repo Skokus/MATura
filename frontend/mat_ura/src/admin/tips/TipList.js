@@ -23,6 +23,7 @@ function TipList(){
 
     return(
         <div className="form-list">
+            <div className="form-header">Wskazówki</div>
             <button className="form-button create-button" onClick={() => navigate("/admin/tips/new")}>Dodaj wskazówkę</button>
             <table>
                 <tr>

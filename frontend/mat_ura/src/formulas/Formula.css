@@ -12,6 +12,7 @@
   font-size: 24px;
   color: white;
   padding: 16px;
+  cursor: pointer;
 }
 
 .formula-description-bg{
@@ -27,4 +28,5 @@
   margin: 8px 0;
   font-weight: bold;
   font-size: 20px;
+  padding: 8px;
 }

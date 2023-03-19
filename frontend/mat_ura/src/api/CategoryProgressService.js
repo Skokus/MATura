@@ -1,4 +1,5 @@
 import urls from "./apiInfo.json"
+import { useNavigate } from "react-router-dom";
 
 const ctoken = JSON.parse(localStorage.getItem("token"));
 
@@ -29,9 +30,18 @@ export async function getCategoryProgress(token, categoryName){
 }
 
 export async function getUserProgress(token){
-    const res = await fetch(urls.urls.backendURL + "/userprogress/", getRequestOptions(token));
-    const progress = await res.json();
-    return progress;
+    return fetch(urls.urls.backendURL + "/userprogress/", getRequestOptions(token)).then((response) => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Something went wrong');
+      })
+      .then((responseJson) => {
+        return responseJson;
+      })
+      .catch((error) => {
+        console.log("lmao")
+    });
 }
 
 export async function patchTaskAsDone(token, categoryName, idx){

@@ -24,8 +24,7 @@ public class TheoryCardController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Operation(summary = "Save theory card")
     public ResponseEntity<TheoryCard> saveTheoryCard(@ModelAttribute TheoryCardDTO tcd){
-        TheoryCard tc = convertToEntity(tcd);
-        return new ResponseEntity<>(theoryCardService.saveTheoryCard(tc), HttpStatus.CREATED);
+        return new ResponseEntity<>(theoryCardService.saveTheoryCard(tcd), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -42,8 +41,7 @@ public class TheoryCardController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @Operation(summary = "Edit theorycard")
-    public ResponseEntity<TheoryCard> editTheoryCard(@PathVariable String id, @ModelAttribute TheoryCardDTO tcd){
-        TheoryCard tc = convertToEntity(tcd);
+    public ResponseEntity<TheoryCard> editTheoryCard(@PathVariable String id, @ModelAttribute TheoryCard tc){
         return new ResponseEntity<>(theoryCardService.editTheoryCard(tc, id), HttpStatus.OK);
     }
 
@@ -54,21 +52,4 @@ public class TheoryCardController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    private TheoryCard convertToEntity(TheoryCardDTO theoryCardDTO){
-        try{
-            TheoryCard tc = new TheoryCard();
-            tc.setDescription(theoryCardDTO.getDescription());
-            tc.setTag(theoryCardDTO.getTag());
-            tc.setCardsContent(theoryCardDTO.getCardsContent());
-            if(theoryCardDTO.getImage() != null &&){
-                tc.setImage(new Binary(BsonBinarySubType.BINARY, theoryCardDTO.getImage().getBytes()));
-            } else {
-                tc.setImage(null);
-            }
-            return tc;
-        }catch(IOException e){
-
-        }
-        return null;
-    }
 }

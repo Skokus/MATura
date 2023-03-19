@@ -4,9 +4,9 @@
     margin: 8px 16px;
     text-align: center;
     border-style: solid;
-    border-radius: 10px;
     border-width: 2px;
     border-color: rgb(0, 119, 255);
+    box-shadow: 0px 4px rgb(0, 119, 255);
 }
 
 .theorycards-header{
@@ -32,4 +32,9 @@
 
 .theorycards-content{
     padding: 16px;
+}
+
+.theorycards-image{
+    padding: 16px;
+    padding-top: 0px;
 }

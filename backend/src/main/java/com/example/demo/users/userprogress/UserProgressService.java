@@ -35,6 +35,7 @@ public class UserProgressService {
     public void markTaskAsDone(String userName, String id, String category){
         Optional<User> user = userRepository.findUserByUsername(userName);
         if(user.isEmpty()){
+            System.out.println("lmao");
             throw new UserNotFoundException("User: " + userName + "not found.");
         }
         user.get().getUserProgress().markTaskAsDone(id, category);

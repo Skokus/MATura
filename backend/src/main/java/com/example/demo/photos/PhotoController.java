@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 
 
 @RestController
@@ -19,11 +20,10 @@ public class PhotoController {
     private final PhotoService photoService;
 
     @PostMapping("")
-    public String addPhoto(@RequestParam("title") String title,
-                           @RequestParam("image") MultipartFile image, Model model)
+    public List<String> addPhoto(@RequestParam("images[]") MultipartFile[] images, Model model)
             throws IOException {
-        String id = photoService.addPhoto(title, image);
-        return "redirect:/photos/" + id;
+        List<String> ids = photoService.addPhotos(images);
+        return ids;
     }
 
     @GetMapping("/{id}")

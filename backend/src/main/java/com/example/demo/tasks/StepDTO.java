@@ -3,16 +3,14 @@ package com.example.demo.tasks;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.bson.types.Binary;
-
 import java.util.List;
 
 @Data
 @Getter @Setter
-public class Step {
+public class StepDTO {
     private String content;
     private String currentSolution;
     private List<String> abcAnswers;
-    private Binary image;
+    private String imageId;
     private String answer;
 }

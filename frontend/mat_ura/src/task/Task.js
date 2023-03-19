@@ -35,18 +35,22 @@ function Task(){
         const fetchData = async () => {
             var restask = await getTask(id);
             var cards = [];
-            for(const tcid of restask.theoryCards){
-                var card = await getTheoryCard(tcid);
-                cards.push(card);
+            if(restask.theoryCards){
+                for(const tcid of restask.theoryCards){
+                    var card = await getTheoryCard(tcid);
+                    cards.push(card);
+                }
+                setTheoryCards(cards);
             }
             var tips = [];
-            for(const tid of restask.tips){
-                var tip = await getTipById(tid);
-                tips.push(tip);
+            if(restask.tips){
+                for(const tid of restask.tips){
+                    var tip = await getTipById(tid);
+                    tips.push(tip);
+                }
+                setTips(tips);
             }
             setTask(restask);
-            setTheoryCards(cards);
-            setTips(tips);
             setStepCompletion(new Array(Object.keys(await restask.steps).length).fill("beingDone", 0, 1).fill("basic", 1));
             setIsLoading(false);
         }
@@ -83,9 +87,9 @@ function Task(){
                     ))) : console.log("haha")}
                 </div>
                 <div className="task-extras">
-                    <Solution currentsolution={task.steps[stepcounter].currentSolution}/>
-                    <TheoryCard theorycards={theorycards}/>
-                    <TipBox tips={tips}/>
+                    <Solution currentsolution={task.steps[stepcounter].currentSolution} image={task.steps[stepcounter].image}/>
+                    {theorycards.length > 0 && <TheoryCard theorycards={theorycards}/>}
+                    {tips.length > 0 && <TipBox tips={tips}/>}
                 </div>
             </div>
             <Modal isActive={popupActive}/>

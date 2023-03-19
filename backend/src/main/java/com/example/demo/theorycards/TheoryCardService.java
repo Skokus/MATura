@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TheoryCardService {
-    TheoryCard saveTheoryCard(TheoryCard tc);
+    TheoryCard saveTheoryCard(TheoryCardDTO tc);
     List<TheoryCard> getTheoryCards(String tag);
     TheoryCard getTheoryCardById(String id);
     void removeTheoryCard(String id);

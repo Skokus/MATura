@@ -17,7 +17,7 @@ function TheoryCard(props) {
             <div className="theorycards-header">Wzory</div>
             <button className="theorycards-button" onClick={changeCard}>Następny wzór</button>
             <div className="theorycards-content"><MathJax>{props.theorycards[cardNumber].cardsContent}</MathJax></div>
-            {props.theorycards[cardNumber].image && <Photo image={props.theorycards[cardNumber].image}/>}
+            {props.theorycards[cardNumber].image && <div className="theorycards-image"><Photo image={props.theorycards[cardNumber].image}/></div>}
         </div>
     );
 }

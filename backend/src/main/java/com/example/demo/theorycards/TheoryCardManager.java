@@ -1,5 +1,7 @@
 package com.example.demo.theorycards;
 
+import com.example.demo.photos.Photo;
+import com.example.demo.photos.PhotoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,11 +15,13 @@ import java.util.Optional;
 public class TheoryCardManager implements TheoryCardService{
 
     private final TheoryCardRepository theoryCardRepository;
+    private final PhotoService photoService;
 
-    public TheoryCard saveTheoryCard(TheoryCard tc) {
-        theoryCardRepository.save(tc);
+    public TheoryCard saveTheoryCard(TheoryCardDTO tc){
+        TheoryCard t = theoryCardDTOToTheoryCard(tc);
+        theoryCardRepository.save(t);
         log.info("Created theorycard {}.", tc.getDescription());
-        return tc;
+        return t;
     }
 
     public List<TheoryCard> getTheoryCards(String tag) {
@@ -46,6 +50,19 @@ public class TheoryCardManager implements TheoryCardService{
         t.setDescription(tc.getDescription());
         t.setImage(tc.getImage());
         theoryCardRepository.save(t);
+        return t;
+    }
+
+    private TheoryCard theoryCardDTOToTheoryCard(TheoryCardDTO tcd){
+        TheoryCard t = new TheoryCard();
+        if(tcd.getImageid() != null) {
+            Photo p = photoService.getPhoto(tcd.getImageid());
+            t.setImage(p.getImage());
+            photoService.removePhoto(p.getId());
+        }
+        t.setTag(tcd.getTag());
+        t.setDescription(tcd.getDescription());
+        t.setCardsContent(tcd.getCardsContent());
         return t;
     }
 

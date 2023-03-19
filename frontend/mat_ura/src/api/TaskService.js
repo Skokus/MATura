@@ -39,3 +39,9 @@ export async function getAllTasks(){
     const task = await res.json();
     return task;
 }
+
+export async function getAllTasksIds(){
+    const res = await fetch(urls.urls.backendURL + "/tasks/getList/id", getRequestOptions());
+    const task = await res.json();
+    return task;
+}

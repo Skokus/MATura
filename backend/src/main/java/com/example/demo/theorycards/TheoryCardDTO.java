@@ -17,5 +17,5 @@ public class TheoryCardDTO {
     private String tag;
     private String description;
     private String cardsContent;
-    private MultipartFile image;
+    private String imageid;
 }

@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import Form from 'react-jsonschema-form';
 import { addTip } from '../../api/TipService';
-
+import "../formstyle.css"
 function AddTipForm(){
 
   const [inputs, setInputs] = useState({});
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -13,17 +14,19 @@ function AddTipForm(){
     setInputs(values => ({...values, [name]: value}))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addTip(inputs);
+    await addTip(inputs);
+    navigate("/admin/tips");
   }
 
   return(
-      <div className="form-list">
+      <div className="form">
+          <div className="form-header">Dodaj wskazówkę</div>
           <form onSubmit={handleSubmit}>
-              name:<input type="text" name="name" onChange={handleChange} required/>
-              content:<input type="text" name="content" onChange={handleChange} required/>
-              <input type="submit" value="Upload"/>
+            <div><label for="name" className="form-input-label">Nazwa:</label><input className="form-input-text" type="text" name="name" onChange={handleChange} required/></div>
+            <div><label for="content" className="form-input-label">Zawartość:</label><textarea className="form-input-textarea" name="content" rows="4" cols="50" onChange={handleChange} required/></div>
+            <input className="form-input-submit" type="submit" value="Wyślij"/>
           </form>
       </div>
   );

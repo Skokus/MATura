@@ -4,9 +4,9 @@
     margin: 8px 16px;
     text-align: center;
     border-style: solid;
-    border-radius: 10px;
     border-width: 2px;
     border-color: rgb(87, 204, 87);
+    box-shadow: 0px 4px rgb(87, 204, 87);
 }
 
 .solution-header{
@@ -17,4 +17,9 @@
 
 .solution-content{
     padding: 16px;
+}
+
+.solution-image{
+    padding: 16px;
+    padding-top: 0px;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Category from './Category';
 import { getUserProgress } from '../api/CategoryProgressService';
+import { useNavigate } from 'react-router-dom';
 
 function Categories(){
 
@@ -9,12 +10,17 @@ function Categories(){
     const [token, setToken] = useState(
         JSON.parse(localStorage.getItem("token"))
     );
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData(){
-            var test = await getUserProgress(token);
-            setCategory(test);
-            setIsLoading(true);
+            try{
+                const test = await getUserProgress(token);
+                setCategory(test);
+                setIsLoading(true);
+            }catch(error){
+                navigate("/login");
+            }
         }
         fetchData();
     },[]);
