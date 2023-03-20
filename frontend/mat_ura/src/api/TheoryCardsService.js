@@ -27,9 +27,10 @@ function postRequestOptions(object){
         method: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
+            'Content-Type' : 'application/json',
             'Authorization': "Bearer " + ctoken
         },
-        body: object
+        body: JSON.stringify(object)
     }
 }
 

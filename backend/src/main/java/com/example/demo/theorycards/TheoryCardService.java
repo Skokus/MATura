@@ -8,5 +8,5 @@ public interface TheoryCardService {
     List<TheoryCard> getTheoryCards(String tag);
     TheoryCard getTheoryCardById(String id);
     void removeTheoryCard(String id);
-    TheoryCard editTheoryCard(TheoryCard tc, String id);
+    TheoryCard editTheoryCard(TheoryCardDTO tc, String id);
 }

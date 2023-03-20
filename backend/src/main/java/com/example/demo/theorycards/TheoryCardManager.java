@@ -39,16 +39,21 @@ public class TheoryCardManager implements TheoryCardService{
         theoryCardRepository.deleteById(id);
     }
 
-    public TheoryCard editTheoryCard(TheoryCard tc, String id) {
+    public TheoryCard editTheoryCard(TheoryCardDTO tcd, String id) {
         Optional<TheoryCard> card = theoryCardRepository.findById(id);
         if(card.isEmpty()){
 
         }
         TheoryCard t = card.get();
-        t.setTag(tc.getTag());
-        t.setCardsContent(tc.getCardsContent());
-        t.setDescription(tc.getDescription());
-        t.setImage(tc.getImage());
+        TheoryCard newt = theoryCardDTOToTheoryCard(tcd);
+        t.setTag(newt.getTag());
+        t.setCardsContent(newt.getCardsContent());
+        t.setDescription(newt.getDescription());
+        if(newt.getImage() != null){
+            t.setImage(newt.getImage());
+        } else {
+            t.setImage(t.getImage());
+        }
         theoryCardRepository.save(t);
         return t;
     }

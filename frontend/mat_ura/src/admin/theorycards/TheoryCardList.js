@@ -21,6 +21,12 @@ function TheoryCardList(){
         fetchData();
     },[]);
 
+    const onDeleteButtonClicked = async (id) => {
+        await deleteTheoryCard(id);
+        const copy = theorycards.filter(theorycard => theorycard.id != id);
+        setTheoryCards(copy);
+    }
+
     return(
         <div className="form-list">
             <button className="form-button create-button" onClick={() => navigate("/admin/theory-cards/new")}>Dodaj fiszkę</button>
@@ -38,7 +44,7 @@ function TheoryCardList(){
                     <td>{tc.description}</td>
                     <td><button className="form-button details-button" onClick={() => navigate("/admin/theory-cards/" + tc.id)}>Szczegóły</button></td>
                     <td><button className="form-button edit-button" onClick={() => navigate("/admin/theory-cards/" + tc.id + "/edit")}>Edytuj</button></td>
-                    <td><button className="form-button delete-button" onClick={() => deleteTheoryCard(tc.id)}>Usuń</button></td>
+                    <td><button className="form-button delete-button" onClick={() => onDeleteButtonClicked(tc.id)}>Usuń</button></td>
                 </tr>
             ))}
             </table>

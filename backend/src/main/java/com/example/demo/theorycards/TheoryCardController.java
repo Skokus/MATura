@@ -23,7 +23,7 @@ public class TheoryCardController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Operation(summary = "Save theory card")
-    public ResponseEntity<TheoryCard> saveTheoryCard(@ModelAttribute TheoryCardDTO tcd){
+    public ResponseEntity<TheoryCard> saveTheoryCard(@RequestBody TheoryCardDTO tcd){
         return new ResponseEntity<>(theoryCardService.saveTheoryCard(tcd), HttpStatus.CREATED);
     }
 
@@ -41,8 +41,8 @@ public class TheoryCardController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @Operation(summary = "Edit theorycard")
-    public ResponseEntity<TheoryCard> editTheoryCard(@PathVariable String id, @ModelAttribute TheoryCard tc){
-        return new ResponseEntity<>(theoryCardService.editTheoryCard(tc, id), HttpStatus.OK);
+    public ResponseEntity<TheoryCard> editTheoryCard(@PathVariable String id, @RequestBody TheoryCardDTO tcd){
+        return new ResponseEntity<>(theoryCardService.editTheoryCard(tcd, id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

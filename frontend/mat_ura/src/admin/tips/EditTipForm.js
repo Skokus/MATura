@@ -14,6 +14,7 @@ function EditTipForm(){
       async function fetchData(){
           var t = await getTipById(tipId);
           setTip(t);
+          setInputs(t);
           setIsLoading(true);
       }
       fetchData();
@@ -34,7 +35,7 @@ function EditTipForm(){
   return(
     <div>
       {isLoading && <div className="form">
-          <div className="form-header">Dodaj wskazówkę</div>
+          <div className="form-header">Edytuj wskazówkę</div>
           <form onSubmit={handleSubmit}>
               <label for="name" className="form-input-label">Nazwa:</label><input className="form-input-text" type="text" name="name" onChange={handleChange} defaultValue={tip.name} required/>
               <div><label for="content" className="form-input-label">Zawartość:</label><textarea className="form-input-textarea" name="content" rows="4" cols="50" defaultValue={tip.content} onChange={handleChange} required/></div>

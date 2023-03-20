@@ -27,6 +27,7 @@ function CategoryDetails(){
         <div>
             {isLoading && (<div>
                 {category.name}
+                <div><button type="button" className="form-button create-button" onClick={() => navigate(`/admin/categories/${categoryName}/addTask`)}>Dodaj zadanie</button></div>
                 <table>
                 <tr>
                     <th>Id zadania</th>
@@ -35,8 +36,8 @@ function CategoryDetails(){
                 {category.tasks.map((taskid, index) => (
                     <tr>
                         <td>{taskid}</td>
-                        <td><button className="form-button details-button">Pokaż zadanie</button></td>
-                        <td><button className="form-button delete-button" onClick={() => deleteTaskFromCategory(category.name, taskid)}>Usuń</button></td>
+                        <td><button type="button" className="form-button details-button">Pokaż zadanie</button></td>
+                        <td><button type="button" className="form-button delete-button" onClick={() => deleteTaskFromCategory(category.name, taskid)}>Usuń</button></td>
                     </tr>
                 ))}
                 </table>

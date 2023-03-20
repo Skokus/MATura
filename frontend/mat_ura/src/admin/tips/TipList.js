@@ -21,6 +21,12 @@ function TipList(){
         fetchData();
     },[]);
 
+    const onDeleteButtonClicked = async (id) => {
+        await deleteTip(id);
+        const copy = tips.filter(tip => tip.id != id);
+        setTips(copy);
+    }
+
     return(
         <div className="form-list">
             <div className="form-header">Wskazówki</div>
@@ -39,7 +45,7 @@ function TipList(){
                     <td>{t.name}</td>
                     <td>{t.content}</td>
                     <td><button className="form-button edit-button" onClick={() => navigate("/admin/tips/" + t.id + "/edit")}>Edytuj</button></td>
-                    <td><button className="form-button delete-button" onClick={() => deleteTip(t.id)}>Usuń</button></td>
+                    <td><button className="form-button delete-button" onClick={() => onDeleteButtonClicked(t.id)}>Usuń</button></td>
                 </tr>
             ))}
             </table>

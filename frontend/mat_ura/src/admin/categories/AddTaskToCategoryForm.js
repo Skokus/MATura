@@ -1,32 +1,35 @@
 import React, { useState, useEffect, useContext} from 'react';
-import {useParams } from "react-router-dom";
+import {useNavigate, useParams } from "react-router-dom";
 import Form from 'react-jsonschema-form';
 import { addTaskToCategory } from '../../api/CategoryService';
 
 function AddTaskToCategoryForm(){
 
-    const {categoryName} = useParams();
-    const schema = `{
-        "title": "Dodaj zadanie do kategorii",
-        "type": "object",
-        "required": [
-          "id"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id zadania"
-          }
-        }
-      }`;
+  const [inputs, setInputs] = useState({});
+  const {categoryName} = useParams();
+  const navigate = useNavigate();
 
-    const schemaAsObject = JSON.parse(schema);
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInputs(values => ({...values, [name]: value})); 
+  }
 
-    const onSubmit = ({formData}, e) => {addTaskToCategory(categoryName, formData);};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await addTaskToCategory(categoryName, inputs);
+    navigate(`/admin/categories/${categoryName}`);
+  }
 
-    return(
-        <Form schema={schemaAsObject} onSubmit={onSubmit}/>
-    );
+  return(
+    <div className="form-list">
+      <div className="form-header">Dodaj zadanie do kategorii: {categoryName}</div>
+      <form onSubmit={handleSubmit}>
+        <div><label for="id" className="form-input-label">Id zadania:</label><input className="form-input-text" type="text" name="id" onChange={handleChange} required/></div>
+        <input className="form-input-submit" type="submit" value="Dodaj"/>
+      </form>
+    </div>
+  );
 
 }
 
