@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Step from './step/Step'
 import AnswerInput from "./answerinput/AnswerInput";
 import {useParams} from "react-router-dom";
-import { getTask } from '../api/TaskService';
+import { getTask, getTaskOfDay } from '../api/TaskService';
 import { getTheoryCard } from '../api/TheoryCardsService';
 import { patchTaskAsDone } from '../api/CategoryProgressService';
 import { getPhoto } from '../api/PhotoService';
@@ -15,7 +15,7 @@ import TipBox from './tipbox/TipBox';
 import TheoryCard from './theorycard/TheoryCard';
 import { getTipById } from '../api/TipService';
 
-function Task(){
+function Task(props){
 
     const [task, setTask] = useState();
     const [stepcounter, setStepCounter] = useState(0);
@@ -33,7 +33,12 @@ function Task(){
 
     useEffect(() => {
         const fetchData = async () => {
-            var restask = await getTask(id);
+            var restask;
+            if(props.isDaily){
+                restask = await getTaskOfDay();
+            } else {
+                restask = await getTask(id);
+            }
             var cards = [];
             if(restask.theoryCards){
                 for(const tcid of restask.theoryCards){

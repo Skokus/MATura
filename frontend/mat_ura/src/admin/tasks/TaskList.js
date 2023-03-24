@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { getAllTasksIds } from '../../api/TaskService';
 import { useNavigate } from "react-router-dom";
-import "../../styles/forms.css"
+import "../liststyle.css"
 
 function TaskList(){
 
@@ -22,8 +22,8 @@ function TaskList(){
     },[]);
 
     return(
-        <div className="form-list">
-            <button className="form-button create-button" onClick={() => navigate("/admin/tasks/new")}>Dodaj zadanie</button>
+        <div className="list">
+            <button className="list-button create-button" onClick={() => navigate("/admin/tasks/new")}>Dodaj zadanie</button>
             <table>
                 <tr>
                     <th>Id</th>
@@ -33,8 +33,8 @@ function TaskList(){
             {isLoading && tasks.map((t) => (
                 <tr>
                     <td>{t}</td>
-                    <td><button className="form-button edit-button" onClick={() => navigate("/admin/tasks/" + t + "/edit")}>Edytuj</button></td>
-                    <td><button className="form-button delete-button" onClick={() => console.log("TODO")}>Usuń</button></td>
+                    <td><button className="list-button edit-button" onClick={() => navigate("/admin/tasks/" + t + "/edit")}>Edytuj</button></td>
+                    <td><button className="list-button delete-button" onClick={() => console.log("TODO")}>Usuń</button></td>
                 </tr>
             ))}
             </table>

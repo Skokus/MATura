@@ -1,7 +1,6 @@
 import "./step.css"
 import React, {useState} from 'react';
-import { IoCheckmark } from 'react-icons/io5';
-import { IoLockClosed} from 'react-icons/io5'
+import { IoCheckmark, IoLockClosed } from 'react-icons/io5';
 import { MathJax } from 'better-react-mathjax';
 import AnswerInput from "../answerinput/AnswerInput";
 

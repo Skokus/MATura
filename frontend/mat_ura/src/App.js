@@ -57,7 +57,8 @@ function App() {
             <Route path="/about" element={<AboutPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/register" element={<RegisterForm/>}/>
-            <Route path="/categories/:categoryName/:id" element={<Task/>}/>
+            <Route path="/categories/:categoryName/:id" element={<Task isDaily={false}/>}/>
+            <Route path="/dailyTask" element={<Task isDaily={true}/>}/>
             <Route path="/categories/:categoryName" element={<Tasklist/>}/>
             <Route path="/admin/tasks/add" element={<CreateTaskForm/>}/>
             <Route

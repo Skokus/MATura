@@ -1,0 +1,22 @@
+.categorylist-daily-button{
+  position:relative;
+  top: 32px;
+  left: 32px;
+  background-color: #00C700;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  font-size: 32px;
+  height: 64px;
+  width: 64px;
+  cursor: pointer;
+  box-shadow: 0px 5px #009e00;
+}
+
+.categorylist-daily-button:hover{
+  background-color: #00e700;
+  transition-property: background-color;
+  transition-duration: 0.3s;
+  transition-timing-function: linear;
+}

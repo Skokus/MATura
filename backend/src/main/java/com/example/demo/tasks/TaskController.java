@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TaskController {
     private final TaskService taskService;
+    private final DailyTaskScheduler taskScheduler;
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Operation(summary = "Save task")
@@ -39,6 +40,12 @@ public class TaskController {
     @Operation(summary = "Get task by id")
     public ResponseEntity<Task> getTaskById(@PathVariable String id){
         return new ResponseEntity<>(taskService.getTaskById(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/dailyTask", method = RequestMethod.GET)
+    @Operation(summary = "Get task by id")
+    public ResponseEntity<Task> getDailyTask(){
+        return new ResponseEntity<>(taskScheduler.getCurrentTask(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

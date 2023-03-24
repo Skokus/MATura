@@ -45,3 +45,9 @@ export async function getAllTasksIds(){
     const task = await res.json();
     return task;
 }
+
+export async function getTaskOfDay(){
+    const res = await fetch(urls.urls.backendURL + "/tasks/dailyTask", getRequestOptions());
+    const task = await res.json();
+    return task;
+}

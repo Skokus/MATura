@@ -7,7 +7,9 @@ import { postPhoto } from '../../api/PhotoService';
 
 function AddTaskForm(){
 
-  const [inputs, setInputs] = useState({steps: []});
+  const [inputs, setInputs] = useState({steps: [{abcAnswers:[]}]});
+  const [theoryCards, setTheoryCards] = useState([]);
+  const [tips, setTips] = useState([]);
   const [files, setFiles] = useState([]);
 
   const handleChange = (e) => {
@@ -28,6 +30,8 @@ function AddTaskForm(){
       steps[i].imageId = ids[i];
     }
     setInputs(values => ({...values, steps: steps}));
+    inputs.tips = tips;
+    inputs.theoryCards = theoryCards;
     addTask(inputs);
   }
 
@@ -45,12 +49,12 @@ function AddTaskForm(){
     }
   }
 
-  const addStep = () => {
-    setInputs(values => ({...values, steps: [...inputs.steps, {}]}));
+  const onAddStepClicked = () => {
+    setInputs(values => ({...values, steps: [...inputs.steps, {abcAnswers:[]}]}));
     setFiles(values => ([...values, null]));
   }
 
-  const deleteStep = () => {
+  const onDeleteStepClicked = () => {
     var steps = inputs.steps.slice();
     var f = files.slice();
     steps.pop();
@@ -59,11 +63,58 @@ function AddTaskForm(){
     setFiles(f);
   }
 
+  const handleTheoryCardChange = (e, idx) => {
+    var tcs = theoryCards.slice();
+    tcs[idx] = e.target.value;
+    setTheoryCards(tcs);
+  }
+
+  const onAddTheoryCardClicked = () => {
+    setTheoryCards(values => ([...values, ""]));
+  }
+
+  const onDeleteTheoryCardClicked = () => {
+    var tc = theoryCards.slice();
+    tc.pop();
+    setTheoryCards(tc);
+  }
+
+  const handleTipChange = (e, idx) => {
+    var ts = tips.slice();
+    ts[idx] = e.target.value;
+    setTips(ts);
+  }
+
+  const onAddTipClicked = () => {
+    setTips(values => ([...values, ""]));
+  }
+
+  const onDeleteTipClicked = () => {
+    var t = tips.slice();
+    t.pop();
+    setTips(t);
+  }
+
+  const handleABCAnswerChange = (e, idx, n) => {
+    inputs.steps[idx].abcAnswers[n] = e.target.value;
+  }
+
+  const onAddABCAnswerClicked = (idx) => {
+    const clone = structuredClone(inputs);
+    clone.steps[idx].abcAnswers.push("");
+    console.log(clone.steps[idx].abcAnswers);
+    setInputs(clone);
+  }
+
   return(
       <div className="form-list">
           <div>
-            <button type="button" onClick={addStep}>Dodaj krok</button>
-            <button type="button" onClick={deleteStep}>Usuń krok</button>
+            <button type="button" onClick={onAddStepClicked}>Dodaj krok</button>
+            <button type="button" onClick={onDeleteStepClicked}>Usuń krok</button>
+            <button type="button" onClick={onAddTheoryCardClicked}>Dodaj wzór</button>
+            <button type="button" onClick={onDeleteTheoryCardClicked}>Usuń wzór</button>
+            <button type="button" onClick={onAddTipClicked}>Dodaj wskazówkę</button>
+            <button type="button" onClick={onDeleteTipClicked}>Usuń wskazówkę</button>
           </div>
           <form onSubmit={handleSubmit}>
               question:<input type="text" name="question" onChange={handleChange} required/>
@@ -73,11 +124,23 @@ function AddTaskForm(){
                   <input type="text" name="currentSolution" onChange={(event) => handleArrayChange(event, idx)} required/>
                   <input type="text" name="answer" onChange={(event) => handleArrayChange(event, idx)} required/>
                   <input type="file" name="image" onChange={(event) => handleArrayChange(event, idx)}/>
+                  <div>
+                  {inputs.steps[idx].abcAnswers.map((el, n) => (
+                    <input type="text" name="theorycard" onChange={(event) => handleABCAnswerChange(event, idx, n)} required/>
+                  ))}
+                  </div>
+                  <button type="button" onClick={() => onAddABCAnswerClicked(idx)}>Dodaj zamkniętą odpowiedź</button>
                 </div>
               ))}
               <div>Id wzorów</div>
+              {theoryCards.map((el, idx) => (
+                <input type="text" name="theorycard" onChange={(event) => handleTheoryCardChange(event, idx)} required/>
+              ))}
               <div>Id wskazówek</div>
-              <input type="submit" value="Upload"/>
+              {tips.map((el, idx) => (
+                <input type="text" name="theorycard" onChange={(event) => handleTipChange(event, idx)} required/>
+              ))}
+              <div><input type="submit" value="Upload"/></div>
           </form>
       </div>
   );

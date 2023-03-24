@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { deleteTip, getTips } from '../../api/TipService';
 import { useNavigate } from "react-router-dom";
-import "../../styles/forms.css"
+import "../liststyle.css"
 
 function TipList(){
 
@@ -28,9 +28,9 @@ function TipList(){
     }
 
     return(
-        <div className="form-list">
-            <div className="form-header">Wskazówki</div>
-            <button className="form-button create-button" onClick={() => navigate("/admin/tips/new")}>Dodaj wskazówkę</button>
+        <div className="list">
+            <div className="list-header">Wskazówki</div>
+            <button className="list-button create-button" onClick={() => navigate("/admin/tips/new")}>Dodaj wskazówkę</button>
             <table>
                 <tr>
                     <th>Id</th>
@@ -44,8 +44,8 @@ function TipList(){
                     <td>{t.id}</td>
                     <td>{t.name}</td>
                     <td>{t.content}</td>
-                    <td><button className="form-button edit-button" onClick={() => navigate("/admin/tips/" + t.id + "/edit")}>Edytuj</button></td>
-                    <td><button className="form-button delete-button" onClick={() => onDeleteButtonClicked(t.id)}>Usuń</button></td>
+                    <td><button className="list-button edit-button" onClick={() => navigate("/admin/tips/" + t.id + "/edit")}>Edytuj</button></td>
+                    <td><button className="list-button delete-button" onClick={() => onDeleteButtonClicked(t.id)}>Usuń</button></td>
                 </tr>
             ))}
             </table>

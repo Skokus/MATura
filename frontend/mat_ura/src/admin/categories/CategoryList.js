@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { deleteCategory, getCategories } from '../../api/CategoryService';
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from '../../errormsg/ErrorMessage';
-import "../../styles/forms.css"
+import "../liststyle.css"
 function CategoryList(){
 
     const [categories, setCategory] = useState([]);
@@ -27,11 +27,11 @@ function CategoryList(){
     },[]);
 
     return(
-        <div className="form-list">
+        <div className="list">
             {isError && <ErrorMessage/>}
             {isLoading &&
             <div>
-            <button className="form-button create-button" onClick={() => navigate("/admin/categories/new")}>Dodaj kategorię</button>
+            <button className="list-button create-button" onClick={() => navigate("/admin/categories/new")}>Dodaj kategorię</button>
             <table>
                 <tr>
                     <th>Nazwa kategorii</th>
@@ -40,8 +40,8 @@ function CategoryList(){
             {categories.map((category) => (
                 <tr>
                     <td>{category.name}</td>
-                    <td><button className="form-button details-button" onClick={() => navigate("/admin/categories/" + category.name)}>Szczegóły</button></td>
-                    <td><button className="form-button delete-button" onClick={() => deleteCategory(category.id)}>Usuń</button></td>
+                    <td><button className="list-button details-button" onClick={() => navigate("/admin/categories/" + category.name)}>Szczegóły</button></td>
+                    <td><button className="list-button delete-button" onClick={() => deleteCategory(category.id)}>Usuń</button></td>
                 </tr>))}
             </table>
             </div>
