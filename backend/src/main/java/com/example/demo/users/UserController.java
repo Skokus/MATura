@@ -1,10 +1,7 @@
 package com.example.demo.users;
 
-import com.example.demo.users.exceptions.UserAlreadyExistsException;
-import com.example.demo.users.exceptions.UserNotFoundException;
 import com.example.demo.users.models.RestRegisterUserRequest;
 import com.example.demo.users.models.User;
-import com.example.demo.users.userprogress.UserProgress;
 import com.example.demo.utility.AuthGetter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -46,9 +43,14 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @Operation(summary = "Register user")
-    public ResponseEntity<Void> createUser(@RequestBody RestRegisterUserRequest request) {
-        userService.registerUser(request);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    public ResponseEntity<String> createUser(@RequestBody RestRegisterUserRequest request) {
+        String token = userService.registerUser(request);
+        return new ResponseEntity<String>(token, HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "confirm")
+    public String confirm(@RequestParam("token") String token) {
+        return userService.confirmToken(token);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
