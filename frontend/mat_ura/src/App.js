@@ -34,6 +34,11 @@ function App() {
     loader: { load: ["input/asciimath"] }
   };
 
+  const onSuccessfulLogin = (t) => {
+    localStorage.setItem("token", JSON.stringify(t));
+    setToken(t);
+  }
+
   const ProtectedRoute = ({
     isAllowed,
     redirectPath = '/landing',
@@ -55,7 +60,7 @@ function App() {
             <Route index element={<Categories/>}/>
             <Route path="/formulas" element={<FormulaList/>}/>
             <Route path="/about" element={<AboutPage/>}/>
-            <Route path="/login" element={<LoginPage/>}/>
+            <Route path="/login" element={<LoginPage onSuccessfulLogin={onSuccessfulLogin}/>}/>
             <Route path="/register" element={<RegisterForm/>}/>
             <Route path="/categories/:categoryName/:id" element={<Task isDaily={false}/>}/>
             <Route path="/dailyTask" element={<Task isDaily={true}/>}/>

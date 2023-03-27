@@ -17,7 +17,7 @@ function LoginPage(){
         var response = await sendLogin(username, password);
         if(response?.ok){
             const tokens = await response.json();
-            localStorage.setItem("token", JSON.stringify(tokens.access_token));
+            props.onSuccessfulLogin(tokens.access_token);
             var user = await getUserWithToken(tokens.access_token);
             localStorage.setItem("user", JSON.stringify(user));
             navigate("/");

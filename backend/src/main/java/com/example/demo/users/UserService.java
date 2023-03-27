@@ -41,7 +41,8 @@ public class UserService implements UserDetailsService {
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.get().getRole().name()));
-        return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), authorities);
+        User u = user.get();
+        return new org.springframework.security.core.userdetails.User(u.getUsername(), u.getPassword(), u.isEnabled(), u.isAccountNonExpired(), u.isCredentialsNonExpired(), u.isAccountNonLocked(), authorities);
     }
 
     public String registerUser(RestRegisterUserRequest r){
@@ -54,7 +55,8 @@ public class UserService implements UserDetailsService {
         RegisterToken registertoken = new RegisterToken(token, LocalDateTime.now(), LocalDateTime.now().plusMinutes(15), user);
         registerTokenService.saveRegisterToken(registertoken);
         userRepository.save(user);
-        String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
+        System.out.println(user.getEnabled());
+        String link = "http://localhost:8080/api/users/confirm?token=" + token;
         emailSender.send(r.getEmail(), emailSender.buildEmail(r.getUsername(), link));
         return token;
     }
@@ -91,8 +93,10 @@ public class UserService implements UserDetailsService {
         }
 
         registerTokenService.setConfirmedAt(token);
-        User u = confirmationToken.getUser();
+        User u = userRepository.findUserByUsername(confirmationToken.getUser().getUsername()).get();
         u.setEnabled(true);
+        userRepository.save(u);
+        System.out.println("jestem tutaj");
         return "confirmed";
     }
 
