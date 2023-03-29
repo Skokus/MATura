@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Form from 'react-jsonschema-form';
 import { addTip } from '../../api/TipService';
 import "../formstyle.css"
-function AddTipForm(){
+import { connect } from 'react-redux';
+
+function AddTipForm(props){
 
   const [inputs, setInputs] = useState({});
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ function AddTipForm(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addTip(inputs);
+    await addTip(props.token, inputs);
     navigate("/admin/tips");
   }
 
@@ -33,4 +35,11 @@ function AddTipForm(){
 
 }
 
-export default AddTipForm;
+const mapStateToProps = (state) => {
+  return{
+      userLogged: state.userLoggedIn,
+      token: state.token
+  }
+}
+
+export default connect(mapStateToProps, null) (AddTipForm);

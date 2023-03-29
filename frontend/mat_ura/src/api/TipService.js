@@ -1,71 +1,69 @@
 import urls from "./apiInfo.json"
 
-const ctoken = JSON.parse(localStorage.getItem("token"));
-
-function getRequestOptions(){
+function getRequestOptions(token){
     return {
         method: 'GET',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + ctoken
+            'Authorization': "Bearer " + token
         }
     }
 }
 
-function deleteRequestOptions(){
+function deleteRequestOptions(token){
     return {
         method: 'DELETE',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + ctoken
+            'Authorization': "Bearer " + token
         }
     }
 }
 
-function postRequestOptions(data){
+function postRequestOptions(token, data){
     return {
         method: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + ctoken,
+            'Authorization': "Bearer " + token,
             'Content-Type' : 'application/json'
         },
         body: JSON.stringify(data)
     }
 }
 
-function putRequestOptions(data){
+function putRequestOptions(token, data){
     return {
         method: 'PUT',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + ctoken,
+            'Authorization': "Bearer " + token,
             'Content-Type' : 'application/json'
         },
         body: JSON.stringify(data)
     }
 }
 
-export async function getTips(){
-    const res = await fetch(urls.urls.backendURL + "/tips/", getRequestOptions());
+export async function getTips(token){
+    const res = await fetch(urls.urls.backendURL + "/tips/", getRequestOptions(token));
     const tips = await res.json();
     return tips;
 }
 
-export async function getTipById(id){
-    const res = await fetch(urls.urls.backendURL + "/tips/" + id, getRequestOptions());
+export async function getTipById(token, id){
+    const res = await fetch(urls.urls.backendURL + "/tips/" + id, getRequestOptions(token));
     const tip = await res.json();
     return tip;
 }
 
-export async function addTip(object){
-    await fetch(urls.urls.backendURL + '/tips', postRequestOptions(object));
+export async function addTip(token, object){
+    await fetch(urls.urls.backendURL + '/tips', postRequestOptions(token, object));
 }
 
-export async function editTip(object, id){
-    await fetch(urls.urls.backendURL + '/tips/' + id, putRequestOptions(object));
+export async function editTip(token, object, id){
+    await fetch(urls.urls.backendURL + '/tips/' + id, putRequestOptions(token, object));
 }
 
-export async function deleteTip(id){
-    await fetch(urls.urls.backendURL + '/tips/' + id, deleteRequestOptions());
+export async function deleteTip(token, id){
+    await fetch(urls.urls.backendURL + '/tips/' + id, deleteRequestOptions(token));
 }

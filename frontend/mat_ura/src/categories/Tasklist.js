@@ -1,25 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useNavigate, useParams} from "react-router-dom";
-import {Link} from "react-router-dom";
-import { getNumberOfTasks } from '../api/CategoryService';
-import "./Tasklist.css"
-import {UserContext} from "../App.js"
 import { getCategoryProgress } from '../api/CategoryProgressService';
+import { connect } from 'react-redux';
+import "./Tasklist.css"
 
-function Tasklist(){
+function Tasklist(props){
 
     const {categoryName} = useParams();
     const [progress, setProgress] = useState();
-    const [taskKeys, setTaskKeys] = useState();
     const [isLoading, setIsLoading] = useState(false);
-    const [token, setToken] = useState(
-        JSON.parse(localStorage.getItem("token"))
-    );
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
-            var userprogress = await getCategoryProgress(token, categoryName);
+            var userprogress = await getCategoryProgress(props.token, categoryName);
             setProgress(Object.entries(userprogress.categoryAnswers));
             console.log(Object.entries(userprogress.categoryAnswers));
             setIsLoading(true);
@@ -38,4 +32,11 @@ function Tasklist(){
     );
 }
 
-export default Tasklist;
+const mapStateToProps = (state) => {
+    return{
+        userLogged: state.userLoggedIn,
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps, null) (Tasklist);

@@ -1,28 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { deleteTip, getTips } from '../../api/TipService';
 import { useNavigate } from "react-router-dom";
 import "../liststyle.css"
+import { connect } from 'react-redux';
 
-function TipList(){
+function TipList(props){
 
     const [tips, setTips] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [token, setToken] = useState(
-        JSON.parse(localStorage.getItem("token"))
-    );
     const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData(){
-            var c = await getTips();
+            const c = await getTips(props.token);
             setTips(c);
-            setIsLoading(true);
         }
         fetchData();
     },[]);
 
     const onDeleteButtonClicked = async (id) => {
-        await deleteTip(id);
+        await deleteTip(props.token, id);
         const copy = tips.filter(tip => tip.id != id);
         setTips(copy);
     }
@@ -39,7 +35,7 @@ function TipList(){
                     <th></th>
                     <th></th>
                 </tr>
-            {isLoading && tips.map((t) => (
+            {tips.map((t) => (
                 <tr>
                     <td>{t.id}</td>
                     <td>{t.name}</td>
@@ -54,4 +50,11 @@ function TipList(){
 
 }
 
-export default TipList;
+const mapStateToProps = (state) => {
+    return{
+        userLogged: state.userLoggedIn,
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps, null) (TipList);

@@ -3,18 +3,14 @@ import {Link, NavLink} from "react-router-dom";
 import "./MainNavbar.css"
 import {UserContext} from "./App.js"
 import { useNavigate } from "react-router-dom";
+import { connect } from 'react-redux';
 
-function MainNavbar(){
+function MainNavbar(props){
 
-    const [token, setToken] = useState(
-        JSON.parse(localStorage.getItem("token"))
-    );
     const navigate = useNavigate();
 
     function logOutUser(){
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        setToken("");
+        props.logOut();
         navigate("/login");
     }
 
@@ -26,7 +22,7 @@ function MainNavbar(){
             <NavLink className="mainNavbarLink navleft" to={"/admin/tasks"}>Zadania</NavLink>
             <NavLink className="mainNavbarLink navleft" to={"/admin/theory-cards"}>Fiszki</NavLink>
             <NavLink className="mainNavbarLink navleft" to={"/admin/tips"}>Wskazówki</NavLink>
-            {!token 
+            {!props.userLogged 
                 ? <NavLink className="mainNavbarLink navright" to={"/login"}>Zaloguj się</NavLink> 
                 : <button className="mainNavbarLink navright" onClick={logOutUser}>Wyloguj</button>
             }
@@ -34,4 +30,17 @@ function MainNavbar(){
     );
 }
 
-export default MainNavbar
+const mapDispatchToProps = (dispatch) => {
+    return{
+        logOut: () => { dispatch({type: 'LOG_OUT'})},
+    }
+}
+
+const mapStateToProps = (state) => {
+    return{
+        userLogged: state.userLoggedIn,
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (MainNavbar)

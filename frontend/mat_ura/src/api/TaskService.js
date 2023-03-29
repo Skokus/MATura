@@ -1,53 +1,51 @@
 import urls from "./apiInfo.json"
 
-const ctoken = JSON.parse(localStorage.getItem("token"));
-
-function getRequestOptions(){
+function getRequestOptions(token){
     return {
         method: 'GET',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + ctoken
+            'Authorization': "Bearer " + token
         }
     }
 }
 
-function postRequestOptions(data){
+function postRequestOptions(token, data){
     return {
         method: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + ctoken,
+            'Authorization': "Bearer " + token,
             'Content-Type' : 'application/json'
         },
         body: JSON.stringify(data)
     }
 }
 
-export async function addTask(object){
-    await fetch(urls.urls.backendURL + "/tasks/", postRequestOptions(object));
+export async function addTask(token, object){
+    await fetch(urls.urls.backendURL + "/tasks/", postRequestOptions(token, object));
 }
 
-export async function getTask(id){
-    const res = await fetch(urls.urls.backendURL + "/tasks/" + id, getRequestOptions());
+export async function getTask(token, id){
+    const res = await fetch(urls.urls.backendURL + "/tasks/" + id, getRequestOptions(token));
     const task = await res.json();
     return task;
 }
 
-export async function getAllTasks(){
-    const res = await fetch(urls.urls.backendURL + "/tasks/", getRequestOptions());
+export async function getAllTasks(token){
+    const res = await fetch(urls.urls.backendURL + "/tasks/", getRequestOptions(token));
     const task = await res.json();
     return task;
 }
 
-export async function getAllTasksIds(){
-    const res = await fetch(urls.urls.backendURL + "/tasks/getList/id", getRequestOptions());
+export async function getAllTasksIds(token){
+    const res = await fetch(urls.urls.backendURL + "/tasks/getList/id", getRequestOptions(token));
     const task = await res.json();
     return task;
 }
 
-export async function getTaskOfDay(){
-    const res = await fetch(urls.urls.backendURL + "/tasks/dailyTask", getRequestOptions());
+export async function getTaskOfDay(token){
+    const res = await fetch(urls.urls.backendURL + "/tasks/dailyTask", getRequestOptions(token));
     const task = await res.json();
     return task;
 }

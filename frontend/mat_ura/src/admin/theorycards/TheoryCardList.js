@@ -2,19 +2,17 @@ import React, { useState, useEffect, useContext } from 'react';
 import { deleteTheoryCard, getTheoryCards } from '../../api/TheoryCardsService';
 import { useNavigate } from "react-router-dom";
 import "../liststyle.css"
+import { connect } from 'react-redux';
 
-function TheoryCardList(){
+function TheoryCardList(props){
 
     const [theorycards, setTheoryCards] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [token, setToken] = useState(
-        JSON.parse(localStorage.getItem("token"))
-    );
     const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData(){
-            var c = await getTheoryCards();
+            var c = await getTheoryCards(props.token);
             setTheoryCards(c);
             setIsLoading(true);
         }
@@ -22,7 +20,7 @@ function TheoryCardList(){
     },[]);
 
     const onDeleteButtonClicked = async (id) => {
-        await deleteTheoryCard(id);
+        await deleteTheoryCard(props.token, id);
         const copy = theorycards.filter(theorycard => theorycard.id != id);
         setTheoryCards(copy);
     }
@@ -54,4 +52,11 @@ function TheoryCardList(){
 
 }
 
-export default TheoryCardList;
+const mapStateToProps = (state) => {
+    return{
+        userLogged: state.userLoggedIn,
+        token: state.token
+    }
+  }
+  
+export default connect(mapStateToProps, null) (TheoryCardList);

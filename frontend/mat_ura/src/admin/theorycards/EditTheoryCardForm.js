@@ -3,8 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import Form from 'react-jsonschema-form';
 import { editTheoryCard, getTheoryCard } from '../../api/TheoryCardsService';
 import { postPhoto } from '../../api/PhotoService';
+import { connect } from 'react-redux';
 
-function EditTheoryCardForm(){
+function EditTheoryCardForm(props){
 
   const navigate = useNavigate();
   const {theoryCardId} = useParams();
@@ -15,7 +16,7 @@ function EditTheoryCardForm(){
 
   useEffect(() => {
       async function fetchData(){
-          var t = await getTheoryCard(theoryCardId);
+          var t = await getTheoryCard(props.token, theoryCardId);
           setTheorycard(t);
           setInputs(t);
           setIsLoading(true);
@@ -38,10 +39,10 @@ function EditTheoryCardForm(){
     const fileData = new FormData();
     if(file){
       fileData.append("images[]", file);
-      const id = await postPhoto(fileData);
+      const id = await postPhoto(props.token, fileData);
       inputs.imageid = id[0];
     }
-    await editTheoryCard(inputs, theoryCardId);
+    await editTheoryCard(props.token, inputs, theoryCardId);
     navigate("/admin/theory-cards");
   }
 
@@ -62,4 +63,11 @@ function EditTheoryCardForm(){
   );
 }
 
-export default EditTheoryCardForm;
+const mapStateToProps = (state) => {
+  return{
+      userLogged: state.userLoggedIn,
+      token: state.token
+  }
+}
+
+export default connect(mapStateToProps, null) (EditTheoryCardForm);

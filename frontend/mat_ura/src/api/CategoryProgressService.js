@@ -1,24 +1,21 @@
 import urls from "./apiInfo.json"
-import { useNavigate } from "react-router-dom";
 
-const ctoken = JSON.parse(localStorage.getItem("token"));
-
-function getRequestOptions(){
+function getRequestOptions(token){
     return {
         method: 'GET',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + ctoken
+            'Authorization': "Bearer " + token
         }
     }
 }
 
-function patchRequestOptions(){
+function patchRequestOptions(token){
     return {
         method: 'PATCH',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + ctoken
+            'Authorization': "Bearer " + token
         }
     }
 }
@@ -40,7 +37,7 @@ export async function getUserProgress(token){
         return responseJson;
       })
       .catch((error) => {
-        console.log("lmao")
+        console.log("hihi")
     });
 }
 

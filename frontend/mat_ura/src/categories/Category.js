@@ -22,4 +22,5 @@ function Category(props){
         </div>
     );
 }
+
 export default Category;

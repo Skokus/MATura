@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext} from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { editTip, getTipById } from '../../api/TipService';
+import { connect } from 'react-redux';
 
-function EditTipForm(){
+function EditTipForm(props){
 
   const navigate = useNavigate();
   const {tipId} = useParams();
@@ -12,7 +13,7 @@ function EditTipForm(){
 
   useEffect(() => {
       async function fetchData(){
-          var t = await getTipById(tipId);
+          var t = await getTipById(props.token, tipId);
           setTip(t);
           setInputs(t);
           setIsLoading(true);
@@ -28,7 +29,7 @@ function EditTipForm(){
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await editTip(inputs, tipId);
+    await editTip(props.token, inputs, tipId);
     navigate("/admin/tips");
   }
 
@@ -47,4 +48,11 @@ function EditTipForm(){
     
 }
 
-export default EditTipForm;
+const mapStateToProps = (state) => {
+  return{
+      userLogged: state.userLoggedIn,
+      token: state.token
+  }
+}
+
+export default connect(mapStateToProps, null) (EditTipForm);

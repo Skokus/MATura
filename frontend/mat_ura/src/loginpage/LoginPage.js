@@ -4,7 +4,9 @@ import {UserContext} from "../App.js"
 import { useNavigate } from "react-router-dom";
 import "../styles/forms.css"
 import "./LoginPage.css"
-function LoginPage(){
+import { connect } from 'react-redux';
+
+function LoginPage(props){
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -17,11 +19,9 @@ function LoginPage(){
         var response = await sendLogin(username, password);
         if(response?.ok){
             const tokens = await response.json();
-            props.onSuccessfulLogin(tokens.access_token);
-            var user = await getUserWithToken(tokens.access_token);
-            localStorage.setItem("user", JSON.stringify(user));
+            props.setToken(tokens.access_token);
+            props.logIn();
             navigate("/");
-            window.location.reload(false);
         } else {
             setIsError(true);
         }
@@ -50,4 +50,11 @@ function LoginPage(){
 
 }
 
-export default LoginPage;
+const mapDispatchToProps = (dispatch) => {
+    return{
+        logIn: () => { dispatch({type: 'LOG_IN'})},
+        setToken: (token) => { dispatch({type: 'SET_TOKEN', token: token})},
+    }
+}
+
+export default connect(null, mapDispatchToProps) (LoginPage)

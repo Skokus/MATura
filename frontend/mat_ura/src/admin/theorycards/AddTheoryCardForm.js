@@ -4,8 +4,9 @@ import Form from 'react-jsonschema-form';
 import { addTheoryCard } from '../../api/TheoryCardsService';
 import { postPhoto } from '../../api/PhotoService';
 import "../formstyle.css"
+import { connect } from 'react-redux';
 
-function AddTheoryCardForm(){
+function AddTheoryCardForm(props){
 
   const [inputs, setInputs] = useState({});
   const [file, setFile] = useState(null);
@@ -26,10 +27,10 @@ function AddTheoryCardForm(){
     const fileData = new FormData();
     if(file){
       fileData.append("images[]", file);
-      const id = await postPhoto(fileData);
+      const id = await postPhoto(props.token, fileData);
       inputs.imageid = id[0];
     }
-    await addTheoryCard(inputs);
+    await addTheoryCard(props.token, inputs);
     navigate("/admin/theory-cards");
   }
 
@@ -48,4 +49,11 @@ function AddTheoryCardForm(){
 
 }
 
-export default AddTheoryCardForm;
+const mapStateToProps = (state) => {
+  return{
+      userLogged: state.userLoggedIn,
+      token: state.token
+  }
+}
+
+export default connect(mapStateToProps, null) (AddTheoryCardForm);

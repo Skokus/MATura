@@ -14,35 +14,31 @@ import Solution from './solution/Solution';
 import TipBox from './tipbox/TipBox';
 import TheoryCard from './theorycard/TheoryCard';
 import { getTipById } from '../api/TipService';
+import { connect } from 'react-redux';
 
 function Task(props){
 
     const [task, setTask] = useState();
     const [stepcounter, setStepCounter] = useState(0);
     const [stepCompletion, setStepCompletion] = useState([]);
-    const [tipNumber, setTipNumber] = useState(0);
     const [theorycards, setTheoryCards] = useState([]);
     const [tips, setTips] = useState([]);
-    const [theorycardsphotos, setTheoryCardsPhotos] = useState([]);
     const [popupActive, setPopupActive] = useState(false);
     const {categoryName, id} = useParams();
-    const [token, setToken] = useState(
-        JSON.parse(localStorage.getItem("token"))
-    );
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             var restask;
             if(props.isDaily){
-                restask = await getTaskOfDay();
+                restask = await getTaskOfDay(props.token);
             } else {
-                restask = await getTask(id);
+                restask = await getTask(props.token, id);
             }
             var cards = [];
             if(restask.theoryCards){
                 for(const tcid of restask.theoryCards){
-                    var card = await getTheoryCard(tcid);
+                    var card = await getTheoryCard(props.token, tcid);
                     cards.push(card);
                 }
                 setTheoryCards(cards);
@@ -50,7 +46,7 @@ function Task(props){
             var tips = [];
             if(restask.tips){
                 for(const tid of restask.tips){
-                    var tip = await getTipById(tid);
+                    var tip = await getTipById(props.token, tid);
                     tips.push(tip);
                 }
                 setTips(tips);
@@ -71,7 +67,7 @@ function Task(props){
             setStepCompletion(completioncopy);
             if(sc+1 == task.steps.length){
                 setPopupActive(true);
-                patchTaskAsDone(token, categoryName, id);
+                patchTaskAsDone(props.token, categoryName, id);
             } else {
                 setStepCounter(sc+1);
             }
@@ -103,4 +99,13 @@ function Task(props){
     );
 }
 
-export default Task;
+const mapStateToProps = (state, ownProps) => {
+    const { isDaily } = ownProps;
+    return{
+        isDaily,
+        userLogged: state.userLoggedIn,
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps, null) (Task);

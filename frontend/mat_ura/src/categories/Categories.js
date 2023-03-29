@@ -4,20 +4,18 @@ import { getUserProgress } from '../api/CategoryProgressService';
 import { useNavigate } from 'react-router-dom';
 import { AiTwotoneCalendar } from 'react-icons/ai';
 import "./Categories.css"
+import { connect } from 'react-redux';
 
-function Categories(){
+function Categories(props){
 
     const [categories, setCategory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [token, setToken] = useState(
-        JSON.parse(localStorage.getItem("token"))
-    );
     const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData(){
             try{
-                const test = await getUserProgress(token);
+                const test = await getUserProgress(props.token);
                 setCategory(test);
                 setIsLoading(true);
             }catch(error){
@@ -38,4 +36,11 @@ function Categories(){
 
 }
 
-export default Categories;
+const mapStateToProps = (state) => {
+    return{
+        userLogged: state.userLoggedIn,
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps, null) (Categories)

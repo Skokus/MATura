@@ -2,19 +2,17 @@ import React, { useState, useEffect, useContext } from 'react';
 import { getAllTasksIds } from '../../api/TaskService';
 import { useNavigate } from "react-router-dom";
 import "../liststyle.css"
+import { connect } from 'react-redux';
 
-function TaskList(){
+function TaskList(props){
 
     const [tasks, setTasks] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [token, setToken] = useState(
-        JSON.parse(localStorage.getItem("token"))
-    );
     const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData(){
-            var c = await getAllTasksIds();
+            var c = await getAllTasksIds(props.token);
             setTasks(c);
             setIsLoading(true);
         }
@@ -43,4 +41,11 @@ function TaskList(){
 
 }
 
-export default TaskList;
+const mapStateToProps = (state) => {
+    return{
+        userLogged: state.userLoggedIn,
+        token: state.token
+    }
+  }
+  
+export default connect(mapStateToProps, null) (TaskList);

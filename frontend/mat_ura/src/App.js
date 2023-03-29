@@ -24,20 +24,15 @@ import EditTipForm from './admin/tips/EditTipForm';
 import TaskList from './admin/tasks/TaskList';
 import AddTaskForm from './admin/tasks/AddTaskForm';
 import FormulaList from './formulas/FormulaList';
+import {connect} from "react-redux";
 export const UserContext = React.createContext();
 
 function App() {
 
-  const [token, setToken] = useState("");
   const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")));
   const config = {
     loader: { load: ["input/asciimath"] }
   };
-
-  const onSuccessfulLogin = (t) => {
-    localStorage.setItem("token", JSON.stringify(t));
-    setToken(t);
-  }
 
   const ProtectedRoute = ({
     isAllowed,
@@ -60,7 +55,7 @@ function App() {
             <Route index element={<Categories/>}/>
             <Route path="/formulas" element={<FormulaList/>}/>
             <Route path="/about" element={<AboutPage/>}/>
-            <Route path="/login" element={<LoginPage onSuccessfulLogin={onSuccessfulLogin}/>}/>
+            <Route path="/login" element={<LoginPage/>}/>
             <Route path="/register" element={<RegisterForm/>}/>
             <Route path="/categories/:categoryName/:id" element={<Task isDaily={false}/>}/>
             <Route path="/dailyTask" element={<Task isDaily={true}/>}/>
@@ -99,4 +94,11 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return{
+      userLogged: state.userLoggedIn,
+      token: state.token
+  }
+}
+
+export default connect(mapStateToProps, null) (App)
