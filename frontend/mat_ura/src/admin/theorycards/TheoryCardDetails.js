@@ -26,9 +26,9 @@ function TheoryCardDetails(props){
         <div>
             {isLoading && (<div className="details">
                 <div className="details-header">Szczegóły fiszki: {theorycard.id}</div>
-                <div className="details-param">Opis: <div className="details-param-value">{theorycard.description}</div></div>
-                <div className="details-param">Tag: <div className="details-param-value">{theorycard.tag}</div></div>
-                <div className="details-param">Treść:  <div className="details-param-value"><MathJax>{theorycard.cardsContent}</MathJax></div></div>
+                <div className="details-param">Opis: </div><div className="details-param-value">{theorycard.description}</div>
+                <div className="details-param">Tag: </div><div className="details-param-value">{theorycard.tag}</div>
+                <div className="details-param">Treść: </div><div className="details-param-value"><MathJax>{theorycard.cardsContent}</MathJax></div>
                 {theorycard.image && <Photo image={theorycard.image}/>}
             </div>)}
         </div>

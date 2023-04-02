@@ -1,20 +1,38 @@
-import React, { useState } from 'react';
-import { addTask } from '../../api/TaskService';
+import React, { useEffect, useState } from 'react';
+import { addTask, getTask } from '../../api/TaskService';
 import { postPhoto } from '../../api/PhotoService';
 import "../formstyle.css"
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function AddTaskForm(){
+function EditTaskForm(props){
 
+  const [task, setTask] = useState();
+  const {taskId} = useParams();
   const [inputs, setInputs] = useState({steps: [{abcAnswers:[]}]});
   const [theoryCards, setTheoryCards] = useState([]);
   const [tips, setTips] = useState([]);
   const [files, setFiles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setInputs(values => ({...values, [name]: value}))
   }
+
+  useEffect(() => {
+    async function fetchData(){
+        console.log(props.token);
+        var t = await getTask(props.token, taskId);
+        setTask(t);
+        setInputs(t);
+        setTips(t.tips);
+        setTheoryCards(t.theoryCards);
+        setIsLoading(true);
+    }
+    fetchData();
+  },[]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,6 +124,7 @@ function AddTaskForm(){
 
   return(
       <div className="form">
+          {isLoading && <div>
           <div>
             <button type="button" className="form-util-button form-add-button" onClick={onAddStepClicked}>Dodaj krok</button>
             <button type="button" onClick={onDeleteStepClicked}>Usuń krok</button>
@@ -124,7 +143,7 @@ function AddTaskForm(){
                   <label for="answer" className="form-input-label">Odpowiedź:</label><input type="text" className="form-input-text" name="answer" onChange={(event) => handleArrayChange(event, idx)} required/>
                   <label for="abcAnswers" className="form-input-label">Odpowiedzi testowe:</label>
                   <div>
-                  {inputs.steps[idx].abcAnswers.map((el, n) => (
+                  {inputs.steps[idx].abcAnswers && inputs.steps[idx].abcAnswers.map((el, n) => (
                     <input type="text" className="form-input-text" name="theorycard" onChange={(event) => handleABCAnswerChange(event, idx, n)} required/>
                   ))}
                   </div>
@@ -143,9 +162,17 @@ function AddTaskForm(){
               </table>
               <div><input type="submit" className="form-input-submit" value="Wyślij"/></div>
           </form>
+          </div>}
       </div>
   );
 
 }
 
-export default AddTaskForm;
+const mapStateToProps = (state) => {
+  return{
+      userLogged: state.userLoggedIn,
+      token: state.token
+  }
+}
+
+export default connect(mapStateToProps, null) (EditTaskForm);

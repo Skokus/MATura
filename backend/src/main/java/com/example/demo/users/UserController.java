@@ -25,7 +25,7 @@ public class UserController {
     private final HttpServletRequest request;
 
     @RequestMapping(value = "/checkUserStatus/{username}", method = RequestMethod.GET)
-    @Operation(summary = "Check if user exists")
+    @Operation(summary = "Check if user with userName exists")
     public ResponseEntity<Boolean> checkIfExists(@PathVariable String username) {
         try{
             userService.getUserByUsername(username);

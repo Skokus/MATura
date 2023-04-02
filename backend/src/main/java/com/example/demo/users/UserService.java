@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService {
         registerTokenService.saveRegisterToken(registertoken);
         userRepository.save(user);
         System.out.println(user.getEnabled());
-        String link = "http://localhost:8080/api/users/confirm?token=" + token;
+        String link = "http://localhost:3000/confirm/" + token;
         emailSender.send(r.getEmail(), emailSender.buildEmail(r.getUsername(), link));
         return token;
     }

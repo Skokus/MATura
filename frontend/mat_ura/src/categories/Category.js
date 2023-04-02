@@ -1,7 +1,6 @@
 import React from 'react';
 import "./Category.css"
-import {Link} from "react-router-dom";
-import icon from "./iconplaceholder.png";
+
 import { useNavigate, useLocation } from "react-router-dom";
 
 function Category(props){    

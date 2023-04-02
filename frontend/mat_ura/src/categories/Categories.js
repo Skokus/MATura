@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AiTwotoneCalendar } from 'react-icons/ai';
 import "./Categories.css"
 import { connect } from 'react-redux';
+import Unauthorized from '../Unauthorized';
 
 function Categories(props){
 
@@ -14,12 +15,12 @@ function Categories(props){
 
     useEffect(() => {
         async function fetchData(){
-            try{
+            if(props.userLogged && props.user.role === "ROLE_USER"){
                 const test = await getUserProgress(props.token);
                 setCategory(test);
                 setIsLoading(true);
-            }catch(error){
-                navigate("/login");
+            } else {
+                navigate("login");
             }
         }
         fetchData();
@@ -27,10 +28,14 @@ function Categories(props){
     
     return(
         <div className="categorylist">
-            <button type="button" onClick={() => navigate("/dailyTask")} className="categorylist-daily-button" title="Zadanie dnia"><AiTwotoneCalendar/></button>
-            {isLoading && categories.userProgress.map((category) => (
-                <Category name={category.name} completion={(category.numberOfDoneTasks/category.numberOfTasks)*100} numberOfTasks={category.numberOfTasks}/>
-            ))}
+            {props.userLogged && props.user.role === "ROLE_USER" ?
+                    <div>
+                        <button type="button" onClick={() => navigate("/dailyTask")} className="categorylist-daily-button" title="Zadanie dnia"><AiTwotoneCalendar/></button>
+                        {isLoading && categories.userProgress.map((category) => (
+                            <Category name={category.name} completion={(category.numberOfDoneTasks/category.numberOfTasks)*100} numberOfTasks={category.numberOfTasks}/>
+                        ))}
+                    </div>
+            :<Unauthorized/>}
         </div>
     );
 
@@ -39,7 +44,8 @@ function Categories(props){
 const mapStateToProps = (state) => {
     return{
         userLogged: state.userLoggedIn,
-        token: state.token
+        token: state.token,
+        user: state.user,
     }
 }
 

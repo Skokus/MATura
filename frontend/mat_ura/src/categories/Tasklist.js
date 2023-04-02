@@ -9,13 +9,14 @@ function Tasklist(props){
     const {categoryName} = useParams();
     const [progress, setProgress] = useState();
     const [isLoading, setIsLoading] = useState(false);
+    const [perc, setPerc] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             var userprogress = await getCategoryProgress(props.token, categoryName);
             setProgress(Object.entries(userprogress.categoryAnswers));
-            console.log(Object.entries(userprogress.categoryAnswers));
+            setPerc(userprogress.numberOfDoneTasks ? (Math.round((userprogress.numberOfDoneTasks/userprogress.numberOfTasks)*100)) : 0);
             setIsLoading(true);
         }
         fetchData();
@@ -23,7 +24,8 @@ function Tasklist(props){
 
     return(
         <div className="tasklist">
-            {isLoading && <div><div className="tasklist-header">{categoryName}</div><br></br>
+            {isLoading && <div><div className="tasklist-header">{categoryName}</div>
+            <div className="tasklist-progressbar" style={{background: `linear-gradient(90deg, #00C700 ${perc}% , #787878 ${perc}%) right`}}>{perc}%</div>
             <div className="tasklist-tasks">
                 {progress.map(([key, value], index) => (<button id={"tasklink-" + categoryName + "-" + key} className={value == true ? "text-link task-done" : "text-link task-notdone"} onClick={() => navigate("/categories/" + categoryName + "/" + key)}>{index + 1}</button>))}</div>
             </div>

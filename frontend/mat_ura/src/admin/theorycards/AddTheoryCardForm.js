@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState} from 'react';
 import { useNavigate } from "react-router-dom";
-import Form from 'react-jsonschema-form';
 import { addTheoryCard } from '../../api/TheoryCardsService';
 import { postPhoto } from '../../api/PhotoService';
 import "../formstyle.css"

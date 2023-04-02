@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState} from 'react';
 import { sendLogin, getUserWithToken } from '../api/UserService';
-import {UserContext} from "../App.js"
 import { useNavigate } from "react-router-dom";
 import "../styles/forms.css"
 import "./LoginPage.css"
@@ -19,7 +18,9 @@ function LoginPage(props){
         var response = await sendLogin(username, password);
         if(response?.ok){
             const tokens = await response.json();
+            const user = await getUserWithToken(tokens.access_token);
             props.setToken(tokens.access_token);
+            props.setUser(user);
             props.logIn();
             navigate("/");
         } else {
@@ -54,6 +55,7 @@ const mapDispatchToProps = (dispatch) => {
     return{
         logIn: () => { dispatch({type: 'LOG_IN'})},
         setToken: (token) => { dispatch({type: 'SET_TOKEN', token: token})},
+        setUser: (user) => {dispatch({type: 'SET_USER', user: user})},
     }
 }
 

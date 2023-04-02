@@ -1,0 +1,5 @@
+{
+  "user" : "ROLE_USER",
+  "teacher" : "ROLE_TEACHER",
+  "admin" : "ROLE_ADMIN"
+}

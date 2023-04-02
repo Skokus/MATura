@@ -21,6 +21,7 @@ function TaskList(props){
 
     return(
         <div className="list">
+            <div className="list-header">Zadania</div>
             <button className="list-button create-button" onClick={() => navigate("/admin/tasks/new")}>Dodaj zadanie</button>
             <table>
                 <tr>
@@ -31,6 +32,7 @@ function TaskList(props){
             {isLoading && tasks.map((t) => (
                 <tr>
                     <td>{t}</td>
+                    <td><button className="list-button details-button" onClick={() => navigate("/admin/tasks/" + t)}>Szczegóły</button></td>
                     <td><button className="list-button edit-button" onClick={() => navigate("/admin/tasks/" + t + "/edit")}>Edytuj</button></td>
                     <td><button className="list-button delete-button" onClick={() => console.log("TODO")}>Usuń</button></td>
                 </tr>

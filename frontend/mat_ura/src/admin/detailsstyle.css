@@ -10,7 +10,8 @@
 
 .details-param{
   font-size: 20px;
-  padding-bottom: 16px;
+  padding-top: 16px;
+  font-weight: bold;
 }
 
 .details-param-value{

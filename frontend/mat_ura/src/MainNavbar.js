@@ -16,12 +16,20 @@ function MainNavbar(props){
 
     return(
         <div id="navbar" className="mainNavbarWhole">
-            <NavLink className="mainNavbarLink navleft" to={"/"}>Strona Główna</NavLink>
-            <NavLink className="mainNavbarLink navleft" to={"/formulas"}>Wzory</NavLink>
-            <NavLink className="mainNavbarLink navleft" to={"/admin/categories"}>Kategorie</NavLink>
-            <NavLink className="mainNavbarLink navleft" to={"/admin/tasks"}>Zadania</NavLink>
-            <NavLink className="mainNavbarLink navleft" to={"/admin/theory-cards"}>Fiszki</NavLink>
-            <NavLink className="mainNavbarLink navleft" to={"/admin/tips"}>Wskazówki</NavLink>
+            {props.userLogged && props.user.role === "ROLE_USER" &&
+                <div>
+                    <NavLink className="mainNavbarLink navleft" to={"/"}>Strona Główna</NavLink>
+                    <NavLink className="mainNavbarLink navleft" to={"/formulas"}>Wzory</NavLink>
+                </div>
+            }
+            {props.userLogged && props.user.role === "ROLE_USER" &&
+                <div>
+                    <NavLink className="mainNavbarLink navleft" to={"/admin/categories"}>Kategorie</NavLink>
+                    <NavLink className="mainNavbarLink navleft" to={"/admin/tasks"}>Zadania</NavLink>
+                    <NavLink className="mainNavbarLink navleft" to={"/admin/theory-cards"}>Fiszki</NavLink>
+                    <NavLink className="mainNavbarLink navleft" to={"/admin/tips"}>Wskazówki</NavLink>
+                </div>
+            }
             {!props.userLogged 
                 ? <NavLink className="mainNavbarLink navright" to={"/login"}>Zaloguj się</NavLink> 
                 : <button className="mainNavbarLink navright" onClick={logOutUser}>Wyloguj</button>
@@ -39,7 +47,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return{
         userLogged: state.userLoggedIn,
-        token: state.token
+        token: state.token,
+        user: state.user
     }
 }
 

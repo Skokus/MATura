@@ -25,6 +25,9 @@ import TaskList from './admin/tasks/TaskList';
 import AddTaskForm from './admin/tasks/AddTaskForm';
 import FormulaList from './formulas/FormulaList';
 import {connect} from "react-redux";
+import TaskDetails from './admin/tasks/TaskDetails';
+import RegisterConfirm from './RegisterConfirm';
+import EditTaskForm from './admin/tasks/EditTaskForm';
 export const UserContext = React.createContext();
 
 function App() {
@@ -57,23 +60,11 @@ function App() {
             <Route path="/about" element={<AboutPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/register" element={<RegisterForm/>}/>
+            <Route path="/confirm/:registerToken" element={<RegisterConfirm/>}/>
             <Route path="/categories/:categoryName/:id" element={<Task isDaily={false}/>}/>
             <Route path="/dailyTask" element={<Task isDaily={true}/>}/>
             <Route path="/categories/:categoryName" element={<Tasklist/>}/>
             <Route path="/admin/tasks/add" element={<CreateTaskForm/>}/>
-            <Route
-              path="analytics"
-              element={
-                <ProtectedRoute
-                  redirectPath="/home"
-                  isAllowed={
-                    !!user
-                  }
-                >
-                  <CategoryList/>
-                </ProtectedRoute>
-              }
-            />
             <Route path="/admin/categories" element={<CategoryList/>}/>
             <Route path="/admin/categories/new" element={<AddCategoryForm/>}/>
             <Route path="/admin/categories/:categoryName" element={<CategoryDetails/>}/>
@@ -87,6 +78,8 @@ function App() {
             <Route path="/admin/tips/:tipId/edit" element={<EditTipForm/>}/>
             <Route path="/admin/tasks" element={<TaskList/>}/>
             <Route path="/admin/tasks/new" element={<AddTaskForm/>}/>
+            <Route path="/admin/tasks/:taskId" element={<TaskDetails/>}/>
+            <Route path="/admin/tasks/:taskId/edit" element={<EditTaskForm/>}/>
           </Routes>
         </div>
       </div>

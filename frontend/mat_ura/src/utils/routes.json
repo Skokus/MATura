@@ -1,0 +1,10 @@
+{
+  "basicUrls": {
+    "login" : "/login",
+    "register" : "/register",
+    "errorPage" : "/error"
+  },
+  "userUrls" : {
+    "theoryCards" : "/formulas"
+  }
+}

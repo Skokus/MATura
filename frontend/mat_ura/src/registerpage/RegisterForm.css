@@ -24,6 +24,11 @@
   margin: 32px;
 }
 
+.register-not-match-password{
+  font-weight: bold;
+  color: red;
+}
+
 .register-header{
   font-size: 30px;
   font-weight: bold;

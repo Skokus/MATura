@@ -1,7 +1,5 @@
 import urls from "./apiInfo.json";
 
-const ctoken = JSON.parse(localStorage.getItem("token"));
-
 function postRequestOptions(data){
     return {
         method: 'POST',
@@ -17,7 +15,7 @@ function getRequestOptionsWithToken(token){
         method: 'GET',
         headers: {
             'Access-Control-Allow-Origin': '*',
-            'Authorization': "Bearer " + ctoken
+            'Authorization': "Bearer " + token
         }
     }
 }
@@ -52,4 +50,10 @@ export async function checkUsername(username){
     const res = await fetch(urls.urls.backendURL + "/user/checkUserStatus/" + username, getRequestOptions());
     const isReal = await res.json();
     return isReal;
+}
+
+export async function confirmNewAccount(token){
+    const res = await fetch(urls.urls.backendURL + "/user/confirm?token=" + token, getRequestOptions());
+    const r = await res.json();
+    return r;
 }
