@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import { checkUsername, sendRegister } from '../api/UserService';
 import { useNavigate } from "react-router-dom";
 import "./RegisterForm.css"
-import UsernameStatus from './UsernameStatus';
+import UserStatus from './UserStatus';
 
 function RegisterForm(){
 
@@ -12,6 +12,7 @@ function RegisterForm(){
     const [repassword, setRepassword] = useState("");
     const [isPasswordMatched, setIsPasswordMatched] = useState(false);
     const [isUsernameTaken, setIsUsernameTaken] = useState(false);
+    const [isEmailTaken, setIsEmailTaken] = useState(false);
 
     const navigate = useNavigate();
 
@@ -35,12 +36,27 @@ function RegisterForm(){
             setIsUsernameTaken("loading");
             const t = await checkUsername(u);
             if(t){
-                setIsUsernameTaken("usernameTaken");
+                setIsUsernameTaken("userTaken");
             } else {
-                setIsUsernameTaken("usernameFree");
+                setIsUsernameTaken("userFree");
             }
         } else {
             setIsUsernameTaken("empty");
+        }
+    }
+
+    async function onChangeEmail(u){
+        if(u){
+            setEmail(u);
+            setIsEmailTaken("loading");
+            const t = await checkUsername(u);
+            if(t){
+                setIsEmailTaken("userTaken");
+            } else {
+                setIsEmailTaken("userFree");
+            }
+        } else {
+            setIsEmailTaken("empty");
         }
     }
 
@@ -52,11 +68,12 @@ function RegisterForm(){
                     <label className="register-label">Login</label>
                     <input className="register-input" name="username" onChange={(e) => onChangeUsername(e.target.value)} required />
                 </div>
-                <UsernameStatus status={isUsernameTaken}/>
+                <UserStatus status={isUsernameTaken}/>
                 <div className="register-input-container">
                     <label className="register-label">Adres email</label>
-                    <input className="register-input" name="email" onChange={(e) => setEmail(e.target.value)} required />
+                    <input className="register-input" name="email" onChange={(e) => onChangeEmail(e.target.value)} required />
                 </div>
+                <UserStatus status={isEmailTaken}/>
                 <div className="register-input-container">
                     <label className="register-label">Hasło</label>
                     <input className="register-input" type="password" name="password" onChange={(e) => {setPassword(e.target.value); checkMatchPassword(repassword, e.target.value)}} required />

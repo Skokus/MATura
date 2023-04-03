@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { addTask } from '../../api/TaskService';
 import { postPhoto } from '../../api/PhotoService';
 import "../formstyle.css"
+import { connect } from 'react-redux';
 
-function AddTaskForm(){
+function AddTaskForm(props){
 
   const [inputs, setInputs] = useState({steps: [{abcAnswers:[]}]});
   const [theoryCards, setTheoryCards] = useState([]);
@@ -23,14 +24,14 @@ function AddTaskForm(){
     for(const el of files){
       fileData.append("images[]", el);
     }
-    const ids = await postPhoto(fileData);
+    const ids = await postPhoto(props.token, fileData);
     for(let i = 0; i < ids.length; i++){
       steps[i].imageId = ids[i];
     }
     setInputs(values => ({...values, steps: steps}));
     inputs.tips = tips;
     inputs.theoryCards = theoryCards;
-    addTask(inputs);
+    addTask(props.token, inputs);
   }
 
   const handleArrayChange = (e, idx) => {
@@ -148,4 +149,12 @@ function AddTaskForm(){
 
 }
 
-export default AddTaskForm;
+const mapStateToProps = (state) => {
+  return{
+      userLogged: state.userLoggedIn,
+      token: state.token
+  }
+}
+
+
+export default connect(mapStateToProps, null) (AddTaskForm);

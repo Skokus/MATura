@@ -6,6 +6,7 @@ import com.example.demo.users.exceptions.UserAlreadyExistsException;
 import com.example.demo.users.models.RestRegisterUserRequest;
 import com.example.demo.users.models.Role;
 import com.example.demo.users.models.User;
+import com.example.demo.users.models.UserInfo;
 import com.example.demo.users.tokens.RegisterToken;
 import com.example.demo.users.tokens.RegisterTokenService;
 import lombok.RequiredArgsConstructor;
@@ -69,6 +70,14 @@ public class UserService implements UserDetailsService {
 
     public User getUserByUsername(String username){
         Optional<User> user = userRepository.findUserByUsername(username);
+        if(user.isEmpty()){
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user.get();
+    }
+
+    public User getUserByEmail(String email){
+        Optional<User> user = userRepository.findUserByEmail(email);
         if(user.isEmpty()){
             throw new UsernameNotFoundException("User not found");
         }

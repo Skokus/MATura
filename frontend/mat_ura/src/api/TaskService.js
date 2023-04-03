@@ -22,6 +22,16 @@ function postRequestOptions(token, data){
     }
 }
 
+function deleteRequestOptions(token){
+    return {
+        method: 'DELETE',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': "Bearer " + token
+        }
+    }
+}
+
 export async function addTask(token, object){
     await fetch(urls.urls.backendURL + "/tasks/", postRequestOptions(token, object));
 }
@@ -48,4 +58,8 @@ export async function getTaskOfDay(token){
     const res = await fetch(urls.urls.backendURL + "/tasks/dailyTask", getRequestOptions(token));
     const task = await res.json();
     return task;
+}
+
+export async function deleteTask(token, id){
+    await fetch(urls.urls.backendURL + '/tasks/' + id, deleteRequestOptions(token));
 }

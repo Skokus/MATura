@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { getAllTasksIds } from '../../api/TaskService';
+import { deleteTask, getAllTasksIds } from '../../api/TaskService';
 import { useNavigate } from "react-router-dom";
 import "../liststyle.css"
 import { connect } from 'react-redux';
@@ -19,6 +19,12 @@ function TaskList(props){
         fetchData();
     },[]);
 
+    const onDeleteButtonClicked = async (id) => {
+        await deleteTask(props.token, id);
+        const copy = tasks.filter(task => task != id);
+        setTasks(copy);
+    }
+
     return(
         <div className="list">
             <div className="list-header">Zadania</div>
@@ -34,7 +40,7 @@ function TaskList(props){
                     <td>{t}</td>
                     <td><button className="list-button details-button" onClick={() => navigate("/admin/tasks/" + t)}>Szczegóły</button></td>
                     <td><button className="list-button edit-button" onClick={() => navigate("/admin/tasks/" + t + "/edit")}>Edytuj</button></td>
-                    <td><button className="list-button delete-button" onClick={() => console.log("TODO")}>Usuń</button></td>
+                    <td><button className="list-button delete-button" onClick={() => onDeleteButtonClicked(t)}>Usuń</button></td>
                 </tr>
             ))}
             </table>

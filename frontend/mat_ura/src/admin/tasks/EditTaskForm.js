@@ -117,8 +117,10 @@ function EditTaskForm(props){
 
   const onAddABCAnswerClicked = (idx) => {
     const clone = structuredClone(inputs);
+    if(clone.steps[idx].abcAnswers === null){
+      clone.steps[idx].abcAnswers = [];
+    }
     clone.steps[idx].abcAnswers.push("");
-    console.log(clone.steps[idx].abcAnswers);
     setInputs(clone);
   }
 
@@ -134,17 +136,17 @@ function EditTaskForm(props){
             <button type="button" onClick={onDeleteTipClicked}>Usuń wskazówkę</button>
           </div>
           <form onSubmit={handleSubmit}>
-              <label for="question" className="form-input-label">Pytanie:</label><input type="text" className="form-input-text" name="question" onChange={handleChange} required/>
+              <label for="question" className="form-input-label">Pytanie:</label><input type="text" className="form-input-text" name="question" onChange={handleChange} defaultValue={task.question} required/>
               {inputs.steps.map((el, idx) => (
                 <div>
-                  <label for="content" className="form-input-label">Treść:</label><input type="text" className="form-input-text" name="content" onChange={(event) => handleArrayChange(event, idx)} required/>
-                  <label for="currentSolution" className="form-input-label">Obecny stan rozwiązania:</label><input type="text" className="form-input-text" name="currentSolution" onChange={(event) => handleArrayChange(event, idx)} required/>
+                  <label for="content" className="form-input-label">Treść:</label><input type="text" className="form-input-text" name="content" onChange={(event) => handleArrayChange(event, idx)} defaultValue={task.steps[idx].content} required/>
+                  <label for="currentSolution" className="form-input-label">Obecny stan rozwiązania:</label><input type="text" className="form-input-text" name="currentSolution" onChange={(event) => handleArrayChange(event, idx)} defaultValue={task.steps[idx].currentSolution} required/>
                   <label for="image" className="form-input-label">Obecny stan rozwiązania (Zdjęcie)</label><input type="file" className="form-input-file" name="image" onChange={(event) => handleArrayChange(event, idx)}/>
-                  <label for="answer" className="form-input-label">Odpowiedź:</label><input type="text" className="form-input-text" name="answer" onChange={(event) => handleArrayChange(event, idx)} required/>
+                  <label for="answer" className="form-input-label">Odpowiedź:</label><input type="text" className="form-input-text" name="answer" onChange={(event) => handleArrayChange(event, idx)} defaultValue={task.steps[idx].answer} required/>
                   <label for="abcAnswers" className="form-input-label">Odpowiedzi testowe:</label>
                   <div>
                   {inputs.steps[idx].abcAnswers && inputs.steps[idx].abcAnswers.map((el, n) => (
-                    <input type="text" className="form-input-text" name="theorycard" onChange={(event) => handleABCAnswerChange(event, idx, n)} required/>
+                    <input type="text" className="form-input-text" name="abcAnswers" onChange={(event) => handleABCAnswerChange(event, idx, n)} defaultValue={el} required/>
                   ))}
                   </div>
                   <button type="button" onClick={() => onAddABCAnswerClicked(idx)}>Dodaj zamkniętą odpowiedź</button>
@@ -152,12 +154,12 @@ function EditTaskForm(props){
               ))}
               <div>Id wzorów</div>
               {theoryCards.map((el, idx) => (
-                <input type="text" name="theorycard" className="form-input-text" onChange={(event) => handleTheoryCardChange(event, idx)} required/>
+                <input type="text" name="theorycard" className="form-input-text" onChange={(event) => handleTheoryCardChange(event, idx)} defaultValue={el} required/>
               ))}
               <div>Id wskazówek</div>
               <table>
               {tips.map((el, idx) => (
-                <input type="text" name="theorycard" className="form-input-text" onChange={(event) => handleTipChange(event, idx)} required/>
+                <input type="text" name="tips" className="form-input-text" onChange={(event) => handleTipChange(event, idx)} defaultValue={el} required/>
               ))}
               </table>
               <div><input type="submit" className="form-input-submit" value="Wyślij"/></div>

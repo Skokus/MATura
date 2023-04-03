@@ -47,7 +47,7 @@ export async function getUserWithToken(token){
 }
 
 export async function checkUsername(username){
-    const res = await fetch(urls.urls.backendURL + "/user/checkUserStatus/" + username, getRequestOptions());
+    const res = await fetch(urls.urls.backendURL + "/user/checkUserStatus?username=" + username, getRequestOptions());
     const isReal = await res.json();
     return isReal;
 }

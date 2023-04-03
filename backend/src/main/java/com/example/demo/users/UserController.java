@@ -2,6 +2,7 @@ package com.example.demo.users;
 
 import com.example.demo.users.models.RestRegisterUserRequest;
 import com.example.demo.users.models.User;
+import com.example.demo.users.models.UserInfo;
 import com.example.demo.utility.AuthGetter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,11 +25,17 @@ public class UserController {
 
     private final HttpServletRequest request;
 
-    @RequestMapping(value = "/checkUserStatus/{username}", method = RequestMethod.GET)
+    @RequestMapping(value = "/checkUserStatus", method = RequestMethod.GET)
     @Operation(summary = "Check if user with userName exists")
-    public ResponseEntity<Boolean> checkIfExists(@PathVariable String username) {
+    public ResponseEntity<Boolean> checkIfExists(@RequestParam(required = false) String username, @RequestParam(required = false) String email) {
         try{
-            userService.getUserByUsername(username);
+            if(username != null) {
+                userService.getUserByUsername(username);
+            } else if (email != null) {
+                userService.getUserByEmail(email);
+            } else {
+                return new ResponseEntity<>(false, HttpStatus.OK);
+            }
             return new ResponseEntity<>(true, HttpStatus.OK);
         }catch(UsernameNotFoundException e) {
             return new ResponseEntity<>(false, HttpStatus.OK);
@@ -87,4 +94,15 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    private UserInfo getUserInfo(User u){
+        UserInfo uf = new UserInfo();
+        uf.setId(u.getId());
+        uf.setUsername(u.getUsername());
+        uf.setEmail(u.getEmail());
+        uf.setRole(u.getRole());
+        uf.setUserProgress(u.getUserProgress());
+        return uf;
+    }
+
 }
