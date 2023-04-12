@@ -1,6 +1,6 @@
 package com.example.demo.users.models;
 
-import com.example.demo.category.models.Category;
+import com.example.demo.domain.category.models.Category;
 import com.example.demo.users.userprogress.UserProgress;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -37,6 +37,13 @@ public class User implements UserDetails {
         this.password = password;
         this.role = role;
         this.userProgress = new UserProgress(categoryList);
+    }
+
+    public User(String email, String username, String password, Role role){
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     @Override

@@ -1,60 +1,61 @@
 import urls from "./apiInfo.json"
 
-const ctoken = JSON.parse(localStorage.getItem("token"));
-
-function getRequestOptions(){
+function getRequestOptions(token){
     return {
         method: 'GET',
         headers: {
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': "Bearer " + token
         }
     }
 }
 
-function deleteRequestOptions(){
+function deleteRequestOptions(token){
     return {
         method: 'DELETE',
         headers: {
-            'Access-Control-Allow-Origin': '*'
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': "Bearer " + token
         }
     }
 }
 
-function postRequestOptions(object){
+function postRequestOptions(token, object){
     return {
         method: 'POST',
         headers: {
             'Access-Control-Allow-Origin': '*',
+            'Authorization': "Bearer " + token,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(object)
     }
 }
 
-export async function getCategory(categoryName){
-    const res = await fetch(urls.urls.backendURL + '/categories/' + categoryName, getRequestOptions());
+export async function getCategory(token, categoryName){
+    const res = await fetch(urls.urls.backendURL + '/categories/' + categoryName, getRequestOptions(token));
     const category = await res.json();
     return category;
 }
 
-export async function getCategories(){
-    const res = await fetch(urls.urls.backendURL + '/categories', getRequestOptions());
+export async function getCategories(token){
+    const res = await fetch(urls.urls.backendURL + '/categories', getRequestOptions(token));
     const categories = await res.json();
     return categories;
 }
 
-export async function addCategory(object){
-    await fetch(urls.urls.backendURL + '/categories', postRequestOptions(object));
+export async function addCategory(token, object){
+    await fetch(urls.urls.backendURL + '/categories', postRequestOptions(token, object));
 }
 
-export async function addTaskToCategory(categoryName, object){
-    await fetch(urls.urls.backendURL + '/categories/' + categoryName + '/' + object.id, postRequestOptions(object));
+export async function addTaskToCategory(token, categoryName, object){
+    await fetch(urls.urls.backendURL + '/categories/' + categoryName + '/' + object.id, postRequestOptions(token, object));
 }
 
-export async function deleteCategory(id){
-    await fetch(urls.urls.backendURL + '/categories/' + id, deleteRequestOptions());
+export async function deleteCategory(token, id){
+    await fetch(urls.urls.backendURL + '/categories/' + id, deleteRequestOptions(token));
 }
 
-export async function deleteTaskFromCategory(categoryName, id){
-    await fetch(urls.urls.backendURL + '/categories/' + categoryName + '/' + id, deleteRequestOptions());
+export async function deleteTaskFromCategory(token, categoryName, id){
+    await fetch(urls.urls.backendURL + '/categories/' + categoryName + '/' + id, deleteRequestOptions(token));
 }

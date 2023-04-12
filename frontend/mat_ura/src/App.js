@@ -28,24 +28,15 @@ import {connect} from "react-redux";
 import TaskDetails from './admin/tasks/TaskDetails';
 import RegisterConfirm from './RegisterConfirm';
 import EditTaskForm from './admin/tasks/EditTaskForm';
+import EmailSentInfo from './registerpage/EmailSentInfo';
+import UserList from './admin/users/UserList';
+import AddUserForm from './admin/users/AddUserForm';
 export const UserContext = React.createContext();
 
 function App() {
 
-  const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")));
   const config = {
     loader: { load: ["input/asciimath"] }
-  };
-
-  const ProtectedRoute = ({
-    isAllowed,
-    redirectPath = '/landing',
-    children,
-  }) => {
-    if (!isAllowed) {
-      return <Navigate to={redirectPath} replace />;
-    }
-    return children ? children : <Outlet />;
   };
 
   return (
@@ -60,6 +51,7 @@ function App() {
             <Route path="/about" element={<AboutPage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/register" element={<RegisterForm/>}/>
+            <Route path="/emailSent" element={<EmailSentInfo/>}/>
             <Route path="/confirm/:registerToken" element={<RegisterConfirm/>}/>
             <Route path="/categories/:categoryName/:id" element={<Task isDaily={false}/>}/>
             <Route path="/dailyTask" element={<Task isDaily={true}/>}/>
@@ -80,6 +72,8 @@ function App() {
             <Route path="/admin/tasks/new" element={<AddTaskForm/>}/>
             <Route path="/admin/tasks/:taskId" element={<TaskDetails/>}/>
             <Route path="/admin/tasks/:taskId/edit" element={<EditTaskForm/>}/>
+            <Route path="/admin/users" element={<UserList/>}/>
+            <Route path="/admin/users/new" element={<AddUserForm/>}/>
           </Routes>
         </div>
       </div>

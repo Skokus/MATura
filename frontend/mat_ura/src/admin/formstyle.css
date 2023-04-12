@@ -1,5 +1,5 @@
 .form{
-  margin: 16px;
+  margin: 32px;
 }
 
 .form-header{
@@ -39,4 +39,23 @@
   text-align: center;
   box-sizing: border-box;
   border: none;
+}
+
+.form-util-button{
+  border: none;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 8px;
+}
+
+.form-add-button{
+  color: white;
+  background-color: #00c700;
+}
+
+.form-delete-button{
+  color: white;
+  background-color: red;
 }

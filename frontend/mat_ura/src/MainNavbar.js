@@ -28,6 +28,7 @@ function MainNavbar(props){
                     <NavLink className="mainNavbarLink navleft" to={"/admin/tasks"}>Zadania</NavLink>
                     <NavLink className="mainNavbarLink navleft" to={"/admin/theory-cards"}>Fiszki</NavLink>
                     <NavLink className="mainNavbarLink navleft" to={"/admin/tips"}>Wskazówki</NavLink>
+                    <NavLink className="mainNavbarLink navleft" to={"/admin/users"}>Konta</NavLink>
                 </div>
             }
             {!props.userLogged 

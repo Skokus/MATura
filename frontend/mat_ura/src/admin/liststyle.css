@@ -2,6 +2,10 @@
   padding: 32px;
 }
 
+th, td{
+  padding: 4px 8px;
+}
+
 .list-header{
   font-weight: bold;
   font-size: 24px;
@@ -36,3 +40,4 @@
   background-color: #00c700;
   margin-bottom: 8px;
 }
+

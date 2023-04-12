@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { checkUsername, sendRegister } from '../api/UserService';
+import { checkEmail, checkUsername, sendRegister } from '../api/UserService';
 import { useNavigate } from "react-router-dom";
 import "./RegisterForm.css"
 import UserStatus from './UserStatus';
@@ -19,7 +19,7 @@ function RegisterForm(){
     async function logIn(e){
         e.preventDefault();
         await sendRegister(username, email, password);
-        navigate("/login");
+        navigate("/emailSent");
     }
 
     function checkMatchPassword(p, rp){
@@ -49,7 +49,7 @@ function RegisterForm(){
         if(u){
             setEmail(u);
             setIsEmailTaken("loading");
-            const t = await checkUsername(u);
+            const t = await checkEmail(u);
             if(t){
                 setIsEmailTaken("userTaken");
             } else {
@@ -68,12 +68,12 @@ function RegisterForm(){
                     <label className="register-label">Login</label>
                     <input className="register-input" name="username" onChange={(e) => onChangeUsername(e.target.value)} required />
                 </div>
-                <UserStatus status={isUsernameTaken}/>
+                <UserStatus status={isUsernameTaken} name="Login"/>
                 <div className="register-input-container">
                     <label className="register-label">Adres email</label>
                     <input className="register-input" name="email" onChange={(e) => onChangeEmail(e.target.value)} required />
                 </div>
-                <UserStatus status={isEmailTaken}/>
+                <UserStatus status={isEmailTaken} name="Email"/>
                 <div className="register-input-container">
                     <label className="register-label">Hasło</label>
                     <input className="register-input" type="password" name="password" onChange={(e) => {setPassword(e.target.value); checkMatchPassword(repassword, e.target.value)}} required />

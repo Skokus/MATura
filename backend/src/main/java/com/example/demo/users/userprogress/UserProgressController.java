@@ -1,6 +1,6 @@
 package com.example.demo.users.userprogress;
 
-import com.example.demo.utility.AuthGetter;
+import com.example.demo.security.AuthGetter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

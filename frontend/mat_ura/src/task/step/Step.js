@@ -33,7 +33,7 @@ function Step(props) {
       {determineStepContent()}
       {props.completion === "beingDone" && 
         <form onSubmit={checkAnswer}>
-          {!props.step.abcAnswers && <input className="step-form-input-text" type="text" onChange={handleChange}></input>}
+          {(!props.step.abcAnswers || props.step.abcAnswers.length === 0) && <input className="step-form-input-text" type="text" onChange={handleChange}></input>}
           {props.step.abcAnswers && props.step.abcAnswers.map((ans,index) => (<label className="step-form-radio-label"><input className="step-form-radio" name={"step" + props.idx} type="radio" value={ans} onChange={handleChange}></input><MathJax>{ans}</MathJax></label>))}
           <br></br>
           <button className="step-form-button">Sprawdź</button>

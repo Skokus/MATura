@@ -57,6 +57,6 @@ const mapStateToProps = (state) => {
         userLogged: state.userLoggedIn,
         token: state.token
     }
-  }
+}
   
 export default connect(mapStateToProps, null) (TheoryCardList);

@@ -107,18 +107,20 @@ function AddTaskForm(props){
 
   return(
       <div className="form">
+          <div className="form-header">Dodaj zadanie</div>
           <div>
             <button type="button" className="form-util-button form-add-button" onClick={onAddStepClicked}>Dodaj krok</button>
-            <button type="button" onClick={onDeleteStepClicked}>Usuń krok</button>
-            <button type="button" onClick={onAddTheoryCardClicked}>Dodaj wzór</button>
-            <button type="button" onClick={onDeleteTheoryCardClicked}>Usuń wzór</button>
-            <button type="button" onClick={onAddTipClicked}>Dodaj wskazówkę</button>
-            <button type="button" onClick={onDeleteTipClicked}>Usuń wskazówkę</button>
+            <button type="button" className="form-util-button form-delete-button" onClick={onDeleteStepClicked}>Usuń krok</button>
+            <button type="button" className="form-util-button form-add-button" onClick={onAddTheoryCardClicked}>Dodaj wzór</button>
+            <button type="button" className="form-util-button form-delete-button" onClick={onDeleteTheoryCardClicked}>Usuń wzór</button>
+            <button type="button" className="form-util-button form-add-button" onClick={onAddTipClicked}>Dodaj wskazówkę</button>
+            <button type="button" className="form-util-button form-delete-button" onClick={onDeleteTipClicked}>Usuń wskazówkę</button>
           </div>
           <form onSubmit={handleSubmit}>
               <label for="question" className="form-input-label">Pytanie:</label><input type="text" className="form-input-text" name="question" onChange={handleChange} required/>
               {inputs.steps.map((el, idx) => (
                 <div>
+                  <label for="question" className="form-input-label">Krok {idx+1}</label>
                   <label for="content" className="form-input-label">Treść:</label><input type="text" className="form-input-text" name="content" onChange={(event) => handleArrayChange(event, idx)} required/>
                   <label for="currentSolution" className="form-input-label">Obecny stan rozwiązania:</label><input type="text" className="form-input-text" name="currentSolution" onChange={(event) => handleArrayChange(event, idx)} required/>
                   <label for="image" className="form-input-label">Obecny stan rozwiązania (Zdjęcie)</label><input type="file" className="form-input-file" name="image" onChange={(event) => handleArrayChange(event, idx)}/>
@@ -129,7 +131,7 @@ function AddTaskForm(props){
                     <input type="text" className="form-input-text" name="theorycard" onChange={(event) => handleABCAnswerChange(event, idx, n)} required/>
                   ))}
                   </div>
-                  <button type="button" onClick={() => onAddABCAnswerClicked(idx)}>Dodaj zamkniętą odpowiedź</button>
+                  <button type="button" className="form-util-button form-add-button" onClick={() => onAddABCAnswerClicked(idx)}>Dodaj zamkniętą odpowiedź</button>
                 </div>
               ))}
               <div>Id wzorów</div>

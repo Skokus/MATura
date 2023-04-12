@@ -1,14 +1,14 @@
 package com.example.demo.users;
 
-import com.example.demo.category.CategoryRepository;
+import com.example.demo.domain.category.CategoryRepository;
 import com.example.demo.users.email.EmailSender;
 import com.example.demo.users.exceptions.UserAlreadyExistsException;
 import com.example.demo.users.models.RestRegisterUserRequest;
 import com.example.demo.users.models.Role;
 import com.example.demo.users.models.User;
-import com.example.demo.users.models.UserInfo;
 import com.example.demo.users.tokens.RegisterToken;
 import com.example.demo.users.tokens.RegisterTokenService;
+import com.example.demo.users.userprogress.UserProgress;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -65,6 +65,8 @@ public class UserService implements UserDetailsService {
     public User saveUser(User u){
         log.info("Saving new user {} to the database", u.getUsername());
         u.setPassword(passwordEncoder.encode(u.getPassword()));
+        u.setUserProgress(new UserProgress(categoryRepository.findAll()));
+        u.setEnabled(true);
         return userRepository.save(u);
     }
 

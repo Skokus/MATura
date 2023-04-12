@@ -3,7 +3,7 @@ package com.example.demo.users;
 import com.example.demo.users.models.RestRegisterUserRequest;
 import com.example.demo.users.models.User;
 import com.example.demo.users.models.UserInfo;
-import com.example.demo.utility.AuthGetter;
+import com.example.demo.security.AuthGetter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

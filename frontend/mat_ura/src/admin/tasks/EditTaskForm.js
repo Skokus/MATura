@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { addTask, getTask } from '../../api/TaskService';
+import { editTask, getTask } from '../../api/TaskService';
 import { postPhoto } from '../../api/PhotoService';
 import "../formstyle.css"
 import { useParams } from 'react-router-dom';
@@ -41,14 +41,14 @@ function EditTaskForm(props){
     for(const el of files){
       fileData.append("images[]", el);
     }
-    const ids = await postPhoto(fileData);
+    const ids = await postPhoto(props.token, fileData, taskId);
     for(let i = 0; i < ids.length; i++){
       steps[i].imageId = ids[i];
     }
     setInputs(values => ({...values, steps: steps}));
     inputs.tips = tips;
     inputs.theoryCards = theoryCards;
-    addTask(inputs);
+    editTask(props.token, inputs);
   }
 
   const handleArrayChange = (e, idx) => {
@@ -126,19 +126,21 @@ function EditTaskForm(props){
 
   return(
       <div className="form">
+          <div className="form-header">Edytuj zadanie</div>
           {isLoading && <div>
           <div>
             <button type="button" className="form-util-button form-add-button" onClick={onAddStepClicked}>Dodaj krok</button>
-            <button type="button" onClick={onDeleteStepClicked}>Usuń krok</button>
-            <button type="button" onClick={onAddTheoryCardClicked}>Dodaj wzór</button>
-            <button type="button" onClick={onDeleteTheoryCardClicked}>Usuń wzór</button>
-            <button type="button" onClick={onAddTipClicked}>Dodaj wskazówkę</button>
-            <button type="button" onClick={onDeleteTipClicked}>Usuń wskazówkę</button>
+            <button type="button" className="form-util-button form-delete-button" onClick={onDeleteStepClicked}>Usuń krok</button>
+            <button type="button" className="form-util-button form-add-button" onClick={onAddTheoryCardClicked}>Dodaj wzór</button>
+            <button type="button" className="form-util-button form-delete-button" onClick={onDeleteTheoryCardClicked}>Usuń wzór</button>
+            <button type="button" className="form-util-button form-add-button" onClick={onAddTipClicked}>Dodaj wskazówkę</button>
+            <button type="button" className="form-util-button form-delete-button" onClick={onDeleteTipClicked}>Usuń wskazówkę</button>
           </div>
           <form onSubmit={handleSubmit}>
               <label for="question" className="form-input-label">Pytanie:</label><input type="text" className="form-input-text" name="question" onChange={handleChange} defaultValue={task.question} required/>
               {inputs.steps.map((el, idx) => (
                 <div>
+                  <label for="question" className="form-input-label">Krok {idx+1}</label>
                   <label for="content" className="form-input-label">Treść:</label><input type="text" className="form-input-text" name="content" onChange={(event) => handleArrayChange(event, idx)} defaultValue={task.steps[idx].content} required/>
                   <label for="currentSolution" className="form-input-label">Obecny stan rozwiązania:</label><input type="text" className="form-input-text" name="currentSolution" onChange={(event) => handleArrayChange(event, idx)} defaultValue={task.steps[idx].currentSolution} required/>
                   <label for="image" className="form-input-label">Obecny stan rozwiązania (Zdjęcie)</label><input type="file" className="form-input-file" name="image" onChange={(event) => handleArrayChange(event, idx)}/>
@@ -149,7 +151,7 @@ function EditTaskForm(props){
                     <input type="text" className="form-input-text" name="abcAnswers" onChange={(event) => handleABCAnswerChange(event, idx, n)} defaultValue={el} required/>
                   ))}
                   </div>
-                  <button type="button" onClick={() => onAddABCAnswerClicked(idx)}>Dodaj zamkniętą odpowiedź</button>
+                  <button type="button" className="form-util-button form-add-button" onClick={() => onAddABCAnswerClicked(idx)}>Dodaj zamkniętą odpowiedź</button>
                 </div>
               ))}
               <div>Id wzorów</div>

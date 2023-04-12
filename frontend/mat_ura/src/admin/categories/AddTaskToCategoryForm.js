@@ -2,8 +2,9 @@ import React, { useState, useEffect, useContext} from 'react';
 import {useNavigate, useParams } from "react-router-dom";
 import Form from 'react-jsonschema-form';
 import { addTaskToCategory } from '../../api/CategoryService';
+import { connect } from 'react-redux';
 
-function AddTaskToCategoryForm(){
+function AddTaskToCategoryForm(props){
 
   const [inputs, setInputs] = useState({});
   const {categoryName} = useParams();
@@ -17,12 +18,12 @@ function AddTaskToCategoryForm(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addTaskToCategory(categoryName, inputs);
+    await addTaskToCategory(props.token, categoryName, inputs);
     navigate(`/admin/categories/${categoryName}`);
   }
 
   return(
-    <div className="form-list">
+    <div className="form">
       <div className="form-header">Dodaj zadanie do kategorii: {categoryName}</div>
       <form onSubmit={handleSubmit}>
         <div><label for="id" className="form-input-label">Id zadania:</label><input className="form-input-text" type="text" name="id" onChange={handleChange} required/></div>
@@ -33,4 +34,11 @@ function AddTaskToCategoryForm(){
 
 }
 
-export default AddTaskToCategoryForm;
+const mapStateToProps = (state) => {
+  return{
+      userLogged: state.userLoggedIn,
+      token: state.token
+  }
+}
+
+export default connect(mapStateToProps, null) (AddTaskToCategoryForm);

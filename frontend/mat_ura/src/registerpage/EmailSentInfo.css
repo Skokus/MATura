@@ -1,0 +1,16 @@
+.emailsent{
+  text-align: center;
+  margin: auto;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.emailsent-header{
+  font-size: 24px;
+  padding: 8px;
+}
+
+.emailsent-content{
+  font-size: 20px;
+  padding: 8px;
+}
