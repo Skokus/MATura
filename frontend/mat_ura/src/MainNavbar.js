@@ -22,13 +22,18 @@ function MainNavbar(props){
                     <NavLink className="mainNavbarLink navleft" to={"/formulas"}>Wzory</NavLink>
                 </div>
             }
-            {props.userLogged && props.user.role === "ROLE_USER" &&
+            {props.userLogged && (props.user.role === "ROLE_TEACHER" || props.user.role ==="ROLE_ADMIN") &&
                 <div>
                     <NavLink className="mainNavbarLink navleft" to={"/admin/categories"}>Kategorie</NavLink>
                     <NavLink className="mainNavbarLink navleft" to={"/admin/tasks"}>Zadania</NavLink>
                     <NavLink className="mainNavbarLink navleft" to={"/admin/theory-cards"}>Fiszki</NavLink>
                     <NavLink className="mainNavbarLink navleft" to={"/admin/tips"}>Wskazówki</NavLink>
-                    <NavLink className="mainNavbarLink navleft" to={"/admin/users"}>Konta</NavLink>
+                    
+                </div>
+            }
+            {props.userLogged && props.user.role ==="ROLE_ADMIN" &&
+                <div>
+                    <NavLink className="mainNavbarLink navleft" to={"/admin/users"}>Konta</NavLink>   
                 </div>
             }
             {!props.userLogged 

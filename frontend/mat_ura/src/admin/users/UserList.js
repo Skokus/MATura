@@ -3,7 +3,7 @@ import { deleteTip, getTips } from '../../api/TipService';
 import { useNavigate } from "react-router-dom";
 import "../liststyle.css"
 import { connect } from 'react-redux';
-import { getUsers } from '../../api/UserService';
+import { deleteUser, getUsers } from '../../api/UserService';
 
 function UserList(props){
 
@@ -20,7 +20,9 @@ function UserList(props){
     },[]);
 
     const onDeleteButtonClicked = async (id) => {
-        
+        await deleteUser(props.token, id);
+        const copy = users.filter(u => u.id != id);
+        setUsers(copy);
     }
 
     return(
@@ -31,6 +33,7 @@ function UserList(props){
                 <tr>
                     <th>Id</th>
                     <th>Login</th>
+                    <th>Email</th>
                     <th>Rola</th>
                     <th></th>
                 </tr>
@@ -38,6 +41,7 @@ function UserList(props){
                 <tr>
                     <td>{t.id}</td>
                     <td>{t.username}</td>
+                    <td>{t.email}</td>
                     <td>{t.role}</td>
                     <td><button className="list-button delete-button" onClick={() => onDeleteButtonClicked(t.id)}>Usuń</button></td>
                 </tr>

@@ -95,6 +95,13 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @Operation(summary = "Delete user")
+    public ResponseEntity removeTip(@PathVariable String id){
+        userService.removeUser(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
     private UserInfo getUserInfo(User u){
         UserInfo uf = new UserInfo();
         uf.setId(u.getId());

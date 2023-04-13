@@ -85,6 +85,9 @@ public class UserService implements UserDetailsService {
         }
         return user.get();
     }
+    public void removeUser(String id) {
+        userRepository.deleteById(id);
+    }
 
     @Transactional
     public String confirmToken(String token) {

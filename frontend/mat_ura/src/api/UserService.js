@@ -41,6 +41,16 @@ function getRequestOptions(){
     }
 }
 
+function deleteRequestOptions(token){
+    return {
+        method: 'DELETE',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': "Bearer " + token
+        }
+    }
+}
+
 export async function sendLogin(username, password){
     let data = {username: username, password: password};
     const res = await fetch(urls.urls.loginURL, postRequestOptions(data));
@@ -84,4 +94,8 @@ export async function confirmNewAccount(token){
     const res = await fetch(urls.urls.backendURL + "/user/confirm?token=" + token, getRequestOptions());
     const r = await res.json();
     return r;
+}
+
+export async function deleteUser(token, id){
+    await fetch(urls.urls.backendURL + '/user/' + id, deleteRequestOptions(token));
 }

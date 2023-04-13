@@ -25,12 +25,16 @@ function AddUserForm(props){
 
   return(
       <div className="form">
-          <div className="form-header">Dodaj wskazówkę</div>
+          <div className="form-header">Stwórz nowe konto</div>
           <form onSubmit={handleSubmit}>
             <div><label for="username" className="form-input-label">Login:</label><input className="form-input-text" type="text" name="username" onChange={handleChange} required/></div>
             <div><label for="password" className="form-input-label">Hasło:</label><input className="form-input-text" type="text" name="password" onChange={handleChange} required/></div>
             <div><label for="password" className="form-input-label">Email:</label><input className="form-input-text" type="text" name="email" onChange={handleChange} required/></div>
-            <div><label for="role" className="form-input-label">Rola:</label><input className="form-input-text" type="text" name="role" onChange={handleChange} required/></div>
+            <div><label for="role" className="form-input-label">Rola:</label></div>
+            <div><select className="form-input-select" name="role" onChange={handleChange}>
+              <option value="ROLE_ADMIN">Admin</option>
+              <option value="ROLE_TEACHER">Nauczyciel</option>
+            </select></div>
             <input className="form-input-submit" type="submit" value="Wyślij"/>
           </form>
       </div>

@@ -24,6 +24,11 @@
   resize: none;
 }
 
+.form-input-select{
+  margin: 8px 0px;
+  padding: 8px;
+}
+
 .form-input-label{
   margin: 0;
 }
