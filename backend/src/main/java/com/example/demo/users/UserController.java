@@ -13,7 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Tag(name = "UserController")
@@ -52,12 +54,19 @@ public class UserController {
     @Operation(summary = "Register user")
     public ResponseEntity<String> createUser(@RequestBody RestRegisterUserRequest request) {
         String token = userService.registerUser(request);
-        return new ResponseEntity<String>(token, HttpStatus.CREATED);
+        return new ResponseEntity<>(token, HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "confirm")
-    public String confirm(@RequestParam("token") String token) {
-        return userService.confirmToken(token);
+    @GetMapping(path = "/confirm")
+    public ResponseEntity<Map<String, String>> confirm(@RequestParam("token") String token) {
+        String s;
+        try{
+            s = userService.confirmToken(token);
+        } catch (IllegalStateException e) {
+            s = "error";
+        }
+        Map<String, String> r = Collections.singletonMap("state", s);
+        return new ResponseEntity<>(r, HttpStatus.OK);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)

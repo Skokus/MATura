@@ -110,7 +110,6 @@ public class UserService implements UserDetailsService {
         User u = userRepository.findUserByUsername(confirmationToken.getUser().getUsername()).get();
         u.setEnabled(true);
         userRepository.save(u);
-        System.out.println("jestem tutaj");
         return "confirmed";
     }
 
